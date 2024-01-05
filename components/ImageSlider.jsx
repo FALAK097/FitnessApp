@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import {
@@ -31,6 +31,7 @@ const ItemCard = ({ item, index }, parallaxProps) => {
       <ParallaxImage
         source={item}
         containerStyle={{ borderRadius: 30, flex: 1 }}
+        className="rounded-b-[30px]"
         style={{ resizeMode: 'contain' }}
         parallaxFactor={1}
         {...parallaxProps}
