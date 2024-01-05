@@ -1,5 +1,3 @@
-import { View, Text } from 'react-native';
-import React from 'react';
 import { Stack } from 'expo-router';
 
 export default function _layout() {
@@ -7,7 +5,13 @@ export default function _layout() {
     <Stack
       screenOptions={{
         headerShown: false,
-      }}
-    />
+      }}>
+      <Stack.Screen
+        name="exercises"
+        options={{
+          presentation: 'fullScreenModal',
+        }}
+      />
+    </Stack>
   );
 }

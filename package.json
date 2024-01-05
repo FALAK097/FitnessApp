@@ -15,6 +15,8 @@
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@react-navigation/native": "^6.0.2",
+    "axios": "^1.6.4",
+    "deprecated-react-native-prop-types": "^5.0.0",
     "expo": "~49.0.18",
     "expo-font": "~11.4.0",
     "expo-linear-gradient": "~12.3.0",
