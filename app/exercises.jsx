@@ -16,7 +16,7 @@ export default function Exercises() {
   const router = useRouter();
   const [exercises, setExercises] = useState([]);
   const { params: item } = useLocalSearchParams();
-  console.log('Item:', item);
+  // console.log('Item:', item);
 
   useEffect(() => {
     if (item) {
