@@ -15,21 +15,30 @@ import ExerciseList from '../components/ExerciseList';
 export default function Exercises() {
   const router = useRouter();
   const [exercises, setExercises] = useState([]);
-  const item = useLocalSearchParams();
-  //   console.log(item);
+  const { params: item } = useLocalSearchParams();
+  console.log('Item:', item);
 
   useEffect(() => {
-    if (item) getExercises(item.name);
+    if (item) {
+      getExercises(item.name);
+    }
   }, [item]);
 
   const getExercises = async (bodyPart) => {
     try {
+      // console.log('Request payload:', bodyPart);
+
+      // console.log('bodyPart value before API call:', bodyPart);
+
       let data = await fetchExercisesByBodypart(bodyPart);
-      //   console.log(data);
+      // console.log('Received data:', data);
       setExercises(data);
     } catch (error) {
-      console.error('Error during API request:', error.message);
-      console.log(error.response.data);
+      console.error('Error during API request:', error);
+
+      if (error.response) {
+        console.log('Response data:', error.response.data);
+      }
     }
   };
 

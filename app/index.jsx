@@ -1,3 +1,4 @@
+// app/index.jsx
 import { View, Text, Image } from 'react-native';
 import React from 'react';
 import {
@@ -8,10 +9,8 @@ import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated, { FadeIn, FadeInDown, FadeOut } from 'react-native-reanimated';
-import { useRouter } from 'expo-router';
 
-export default function Index() {
-  const router = useRouter();
+export default function Index({ navigation }) {
   return (
     <View className="flex-1 flex justify-end">
       <Image
@@ -41,7 +40,7 @@ export default function Index() {
         </Animated.View>
         <Animated.View entering={FadeInDown.delay(200).springify()}>
           <TouchableOpacity
-            onPress={() => router.push('home')}
+            onPress={() => navigation.navigate('SignIn')}
             style={{ height: hp(7), width: wp(80) }}
             className="bg-rose-500 rounded-full flex items-center justify-center mx-auto border-[2px] border-neutral-200">
             <Text

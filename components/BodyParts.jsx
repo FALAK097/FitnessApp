@@ -9,6 +9,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 
 import { bodyParts } from '../constants';
 import { useRouter } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 
 export default function BodyParts() {
   const router = useRouter();
@@ -36,13 +37,18 @@ export default function BodyParts() {
 }
 
 const BodyPartCard = ({ router, item, index }) => {
+  const navigation = useNavigation();
   return (
     <Animated.View
       entering={FadeInDown.duration(400)
         .delay(index * 200)
         .springify()}>
       <TouchableOpacity
-        onPress={() => router.push({ pathname: '/exercises', params: item })}
+        onPress={() => {
+          // console.log('Navigating to Exercises with item:', item);
+          // router.push({ pathname: 'Exercises', params: item });
+          navigation.navigate('Exercises', { params: item });
+        }}
         style={{ width: wp(44), height: wp(52) }}
         className="flex justify-end p-4 mb-4">
         <Image

@@ -28,28 +28,47 @@ export default function ExerciseList({ data }) {
 }
 
 const ExerciseCard = ({ item, router, index }) => {
-  return (
-    <Animated.View
-      entering={FadeInDown.duration(400)
-        .delay(index * 200)
-        .springify()}>
-      <TouchableOpacity
-        onPress={() =>
-          router.push({ pathname: '/exerciseDetails', params: item })
-        }
-        className="flex py-3 space-y-2">
-        <View className="bg-neutral-200 shadow rounded-[25px]">
-          <Image
-            source={{ uri: item.gifUrl }}
-            contentFit="cover"
-            style={{ width: wp(44), height: wp(52) }}
-            className="rounded-[25px]"
-          />
-        </View>
+  const animatedStyle = FadeInDown.duration(400)
+    .delay(index * 200)
+    .springify();
 
+  const navigateToExerciseDetails = () => {
+    console.log('Before navigation');
+    if (item && router && router.push) {
+      console.log('Navigating to ExerciseDetails');
+      router.push('ExerciseDetails', { item });
+    }
+  };
+
+  return (
+    <Animated.View style={animatedStyle}>
+      <TouchableOpacity
+        onPress={navigateToExerciseDetails}
+        style={{ flex: 1, paddingVertical: hp(3), marginBottom: hp(2) }}>
+        <View
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            shadowColor: 'black',
+            borderRadius: 25,
+            overflow: 'hidden',
+            elevation: 5,
+          }}>
+          {item?.gifUrl && (
+            <Image
+              source={{ uri: item.gifUrl }}
+              contentFit="cover"
+              style={{ width: wp(44), height: wp(52), borderRadius: 25 }}
+            />
+          )}
+        </View>
         <Text
-          style={{ fontSize: hp(1.7) }}
-          className="font-semibold text-neutral-700 ml-1 tracking-wide">
+          style={{
+            fontSize: hp(1.7),
+            fontWeight: 'bold',
+            color: 'black',
+            marginLeft: wp(2),
+            marginTop: hp(1),
+          }}>
           {item?.name?.length > 20 ? item.name.slice(0, 20) + '...' : item.name}
         </Text>
       </TouchableOpacity>
