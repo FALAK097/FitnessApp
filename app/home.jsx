@@ -11,7 +11,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImageSlider from '../components/ImageSlider';
 import BodyParts from '../components/BodyParts';
 
-export default function home() {
+export default function Home() {
   return (
     <SafeAreaView className="flex-1 bg-white flex space-y-5" edges={['top']}>
       <StatusBar style="dark" />

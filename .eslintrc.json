@@ -1,0 +1,14 @@
+{
+    "extends": [
+      "universe/native",
+      "universe/react"
+    ],
+    "rules": {
+      "react/forbid-prop-types": ["error", { "forbid": ["any", "array", "object"] }]
+    },
+    "include": [
+        "**/*.js",
+        "**/*.jsx"
+      ]
+  }
+  
