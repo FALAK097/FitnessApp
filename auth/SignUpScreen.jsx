@@ -15,8 +15,8 @@ import { useNavigation } from '@react-navigation/native';
 import { FIREBASE_APP } from '../FirebaseConfig';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 
-export default function SignUpScreen() {
-  const navigation = useNavigation();
+export default function SignUpScreen({ navigation }) {
+  // const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -31,10 +31,10 @@ export default function SignUpScreen() {
         password
       );
       console.log(response);
-      alert('Check your Email!');
-      // if (response.user) {
-      //   navigation.navigate('Home');
-      // }
+      // alert('Check your Email!');
+      if (response.user) {
+        navigation.navigate('Home');
+      }
     } catch (error) {
       console.log(error);
       alert('SignIn failed: ' + error.message);

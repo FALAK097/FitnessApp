@@ -11,12 +11,10 @@ import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
 import { FIREBASE_APP } from '../FirebaseConfig';
 import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
 
-export default function SignInScreen() {
-  const navigation = useNavigation();
+export default function SignInScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -64,7 +62,7 @@ export default function SignInScreen() {
             <Text className="text-gray-700 ml-4">Email Address</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-              placeholder="email"
+              placeholder="john@gmail.com"
               autoCapitalize="none"
               keyboardType="email-address"
               value={email}
@@ -74,7 +72,7 @@ export default function SignInScreen() {
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
               secureTextEntry={true}
-              placeholder="password"
+              placeholder="john123"
               autoCapitalize="none"
               value={password}
               onChangeText={(text) => setPassword(text)}

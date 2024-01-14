@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LogBox } from 'react-native';
+import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
+import { FIREBASE_APP } from '../FirebaseConfig';
 
 import SignInScreen from '../auth/SignInScreen';
 import SignUpScreen from '../auth/SignUpScreen';
@@ -41,14 +43,21 @@ function InsideLayout() {
 }
 
 export const AppNavigation = () => {
+  const { user, setUser } = (useState < User) | (null > null);
+  const auth = getAuth(FIREBASE_APP);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Index"
         screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Index" component={Index} />
-        <Stack.Screen name="SignIn" component={SignInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen
           name="Exercises"
@@ -64,6 +73,14 @@ export const AppNavigation = () => {
             presentation: 'modal',
           }}
         />
+        {user ? (
+          <Stack.Screen name="InsideLayout" component={InsideLayout} />
+        ) : (
+          <>
+            <Stack.Screen name="SignIn" component={SignInScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
