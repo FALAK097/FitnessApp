@@ -49,7 +49,7 @@ export default function SignUpScreen() {
           />
           <TouchableOpacity
             className="py-3 bg-yellow-400 rounded-xl"
-            onPress={navigation.navigate('Home')}>
+            onPress={() => navigation.navigate('Home')}>
             <Text className="text-xl font-bold text-center text-gray-700">
               Sign Up
             </Text>
