@@ -2,11 +2,11 @@ import { RAPID_API_KEY } from '@env';
 // console.log(RAPID_API_KEY);
 export const rapidApiKey = RAPID_API_KEY;
 export const sliderImages = [
-  require('../assets/images/slide1.png'),
-  require('../assets/images/slide3.png'),
-  require('../assets/images/slide2.png'),
-  require('../assets/images/slide4.png'),
-  require('../assets/images/slide5.png'),
+  require('../assets/images/back.png'),
+  require('../assets/images/chest.png'),
+  require('../assets/images/neck.png'),
+  require('../assets/images/shoulders.png'),
+  require('../assets/images/waist.png'),
 ];
 
 export const bodyParts = [

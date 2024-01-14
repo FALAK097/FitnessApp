@@ -1,4 +1,3 @@
-// app/index.jsx
 import { View, Text, Image } from 'react-native';
 import React from 'react';
 import {
@@ -8,7 +7,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Animated, { FadeIn, FadeInDown, FadeOut } from 'react-native-reanimated';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
 export default function Index({ navigation }) {
   return (
