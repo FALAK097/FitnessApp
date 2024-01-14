@@ -5,15 +5,43 @@ import {
   Image,
   TextInput,
   KeyboardAvoidingView,
+  ActivityIndicator,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignUpScreen() {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const auth = FIREBASE_AUTH;
+
+  const signUp = async () => {
+    setLoading(true);
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(response);
+      alert('Check your Email!');
+      // if (response.user) {
+      //   navigation.navigate('Home');
+      // }
+    } catch (error) {
+      console.log(error);
+      alert('SignIn failed: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <View className="flex-1 bg-white" style={{ backgroundColor: '#877dfa' }}>
       <SafeAreaView className="flex ">
@@ -40,32 +68,40 @@ export default function SignUpScreen() {
             <Text className="text-gray-700 ml-4">Full Name</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-              placeholder="text"
+              placeholder="name"
               value="john doe"
               autoCapitalize="none"
             />
             <Text className="text-gray-700 ml-4">Email Address</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-              placeholder="email"
-              value="john@gmail.com"
+              placeholder="john@gmail.com"
               autoCapitalize="none"
+              keyboardType="email-address"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
             />
             <Text className="text-gray-700 ml-4">Password</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-5"
               secureTextEntry={true}
-              placeholder="password"
-              value="test12345"
+              placeholder="john123"
               autoCapitalize="none"
+              value={password}
+              onChangeText={(text) => setPassword(text)}
             />
-            <TouchableOpacity
-              className="py-3 bg-yellow-400 rounded-xl"
-              onPress={() => navigation.navigate('Home')}>
-              <Text className="text-xl font-bold text-center text-gray-600">
-                Sign Up
-              </Text>
-            </TouchableOpacity>
+            {loading ? (
+              <ActivityIndicator size="large" color="#0000ff" />
+            ) : (
+              <TouchableOpacity
+                className="py-3 bg-yellow-400 rounded-xl mt-3"
+                onPress={signUp}>
+                {/* onPress={() => navigation.navigate('Home')}> */}
+                <Text className="text-xl font-bold text-center text-gray-600">
+                  Sign Up
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
           <Text className="text-xl text-gray-700 font-bold text-center py-5">
             Or

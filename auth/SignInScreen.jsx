@@ -5,15 +5,39 @@ import {
   Image,
   TextInput,
   KeyboardAvoidingView,
+  ActivityIndicator,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignInScreen() {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const auth = FIREBASE_AUTH;
+
+  const signIn = async () => {
+    setLoading(true);
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log(response);
+      // if (response.user) {
+      //   navigation.navigate('Home');
+      // }
+    } catch (error) {
+      console.log(error);
+      alert('SignIn failed: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <View className="flex-1 bg-white" style={{ backgroundColor: '#877dfa' }}>
       <SafeAreaView className="flex ">
@@ -41,27 +65,35 @@ export default function SignInScreen() {
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
               placeholder="email"
-              value="john@gmail.com"
               autoCapitalize="none"
+              keyboardType="email-address"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
             />
             <Text className="text-gray-700 ml-4">Password</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
               secureTextEntry={true}
               placeholder="password"
-              value="test12345"
               autoCapitalize="none"
+              value={password}
+              onChangeText={(text) => setPassword(text)}
             />
             <TouchableOpacity className="flex items-end">
               <Text className="text-gray-700 mb-5">Forgot Password?</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              className="py-3 bg-yellow-400 rounded-xl"
-              onPress={() => navigation.navigate('Home')}>
-              <Text className="text-xl font-bold text-center text-gray-600">
-                Login
-              </Text>
-            </TouchableOpacity>
+            {loading ? (
+              <ActivityIndicator size="large" color="#0000ff" />
+            ) : (
+              <TouchableOpacity
+                className="py-3 bg-yellow-400 rounded-xl"
+                onPress={signIn}>
+                {/* onPress={() => navigation.navigate('Home')}> */}
+                <Text className="text-xl font-bold text-center text-gray-600">
+                  Login
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
           <Text className="text-xl text-gray-700 font-bold text-center py-5">
             Or
