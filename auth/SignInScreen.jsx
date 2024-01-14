@@ -27,9 +27,9 @@ export default function SignInScreen() {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
-      // if (response.user) {
-      //   navigation.navigate('Home');
-      // }
+      if (response.user) {
+        navigation.navigate('Home');
+      }
     } catch (error) {
       console.log(error);
       alert('SignIn failed: ' + error.message);
