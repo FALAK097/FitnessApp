@@ -6,13 +6,12 @@ import {
 } from 'react-native-responsive-screen';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-
-import { bodyParts } from '../constants';
-import { useRouter } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
 
+import { bodyParts } from '../constants';
+
 export default function BodyParts() {
-  const router = useRouter();
+  const navigation = useNavigation();
   return (
     <View className="mx-4">
       <Text
@@ -29,15 +28,14 @@ export default function BodyParts() {
         contentContainerStyle={{ paddingBottom: 50, paddingTop: 20 }}
         columnWrapperStyle={{ justifyContent: 'space-between' }}
         renderItem={({ item, index }) => (
-          <BodyPartCard router={router} index={index} item={item} />
+          <BodyPartCard navigation={navigation} index={index} item={item} />
         )}
       />
     </View>
   );
 }
 
-const BodyPartCard = ({ router, item, index }) => {
-  const navigation = useNavigation();
+const BodyPartCard = ({ navigation, item, index }) => {
   return (
     <Animated.View
       entering={FadeInDown.duration(400)

@@ -1,15 +1,16 @@
 import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Image } from 'expo-image';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
-import { Image } from 'expo-image';
-import Animated, { FadeInDown } from 'react-native-reanimated';
 
 export default function ExerciseList({ data }) {
-  const router = useNavigation();
+  const navigation = useNavigation();
+
   return (
     <View>
       <FlatList
@@ -20,23 +21,23 @@ export default function ExerciseList({ data }) {
         contentContainerStyle={{ paddingBottom: 60, paddingTop: 20 }}
         columnWrapperStyle={{ justifyContent: 'space-between' }}
         renderItem={({ item, index }) => (
-          <ExerciseCard router={router} index={index} item={item} />
+          <ExerciseCard navigation={navigation} index={index} item={item} />
         )}
       />
     </View>
   );
 }
 
-const ExerciseCard = ({ item, router, index }) => {
+const ExerciseCard = ({ item, navigation, index }) => {
   const animatedStyle = FadeInDown.duration(400)
     .delay(index * 200)
     .springify();
 
   const navigateToExerciseDetails = () => {
     console.log('Before navigation');
-    if (item && router && router.push) {
+    if (item && navigation) {
       console.log('Navigating to ExerciseDetails');
-      router.push('ExerciseDetails', { item });
+      navigation.navigate('ExerciseDetails', { item });
     }
   };
 
@@ -56,7 +57,6 @@ const ExerciseCard = ({ item, router, index }) => {
           {item?.gifUrl && (
             <Image
               source={{ uri: item.gifUrl }}
-              contentFit="cover"
               style={{ width: wp(44), height: wp(52), borderRadius: 25 }}
             />
           )}
