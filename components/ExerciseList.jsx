@@ -4,12 +4,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { useRouter } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import { Image } from 'expo-image';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 export default function ExerciseList({ data }) {
-  const router = useRouter();
+  const router = useNavigation();
   return (
     <View>
       <FlatList

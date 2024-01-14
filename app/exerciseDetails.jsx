@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import React from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useState, useEffect } from 'react';
+import { useLocalSearchParams } from 'expo-router';
 import { Image } from 'expo-image';
 import {
   widthPercentageToDP as wp,
@@ -8,13 +8,28 @@ import {
 } from 'react-native-responsive-screen';
 import Anticons from 'react-native-vector-icons/AntDesign';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ExerciseDetails() {
   const item = useLocalSearchParams();
   console.log('ExerciseDetails Item:', item);
-  const router = useRouter();
+  const navigation = useNavigation();
+  const [loading, setLoading] = useState(true);
 
-  //   console.log(item);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+  if (loading) {
+    return (
+      <View className="flex flex-1 justify-center items-center">
+        <Text className="font-bold text-2xl">Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <View className="flex flex-1">
       <View className="shadow-md bg-neutral-200 rounded-b-[40px]">
@@ -26,7 +41,7 @@ export default function ExerciseDetails() {
         />
       </View>
       <TouchableOpacity
-        onPress={() => router.back()}
+        onPress={navigation.goBack}
         className="mx-2 absolute rounded-full mt-12 right-3">
         <Anticons name="closecircle" size={hp(4.5)} color="#f43f5e" />
       </TouchableOpacity>
@@ -40,7 +55,7 @@ export default function ExerciseDetails() {
           entering={FadeInDown.duration(300).springify()}
           style={{ fontSize: hp(3.5) }}
           className="font-semibold text-neutral-800 tracking-wide">
-          {item.name}
+          {item && item.name}
         </Animated.Text>
         <Animated.Text
           entering={FadeInDown.delay(100).duration(300).springify()}
