@@ -10,8 +10,8 @@ import SignUpScreen from '../auth/SignUpScreen';
 import Index from '../app/index';
 import Home from '../app/home';
 import Exercises from '../app/exercises';
-import ExerciseDetails from '../app/ExerciseDetails';
-
+import ExerciseDetails from '../app/exerciseDetails';
+import MachineDetection from '../app/machineDetection';
 const Stack = createStackNavigator();
 
 LogBox.ignoreLogs(['Warning: Failed prop type']);
@@ -72,6 +72,10 @@ export const AppNavigation = () => {
           options={{
             presentation: 'modal',
           }}
+        />
+        <Stack.Screen
+          name="MachineDetection"
+          component={MachineDetection}
         />
         {user ? (
           <Stack.Screen name="InsideLayout" component={InsideLayout} />
