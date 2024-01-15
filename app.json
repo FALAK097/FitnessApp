@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "FitHub",
-    "slug": "fit-hub",
+    "slug": "fitnessapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -41,8 +41,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "309c5145-d50e-43d6-80b4-2982bc8aa041"
+        "projectId": "5ea73b7b-ca2e-41db-810a-a6198b5e0f13"
       }
-    }
+    },
+    "owner": "faisal898313"
   }
 }
