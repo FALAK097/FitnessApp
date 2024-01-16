@@ -74,7 +74,7 @@ export default function App() {
   return userInfo ? (
     <AppNavigation />
   ) : (
-    <SignInScreen promptAsync={promptAsync} />
+    <SignInScreen promptAsync={promptAsync} navigation={AppNavigation} />
   );
 }
 
