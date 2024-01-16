@@ -10,7 +10,8 @@ import SignUpScreen from '../auth/SignUpScreen';
 import Index from '../app/index';
 import Home from '../app/home';
 import Exercises from '../app/exercises';
-import ExerciseDetails from '../app/ExerciseDetails';
+import ExerciseDetails from '../app/exerciseDetails';
+import Profile from '../app/profile';
 
 const Stack = createStackNavigator();
 
@@ -23,7 +24,9 @@ function InsideLayout() {
     <InsideStack.Navigator
       initialRouteName="Home"
       screenOptions={{ headerShown: false }}>
-      <InsideStack.Screen name="Home" component={Home} />
+      <InsideStack.Screen 
+        name="Home" 
+        component={Home} />
       <InsideStack.Screen
         name="Exercises"
         component={Exercises}
@@ -73,6 +76,13 @@ export const AppNavigation = () => {
             presentation: 'modal',
           }}
         />
+        <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          presentation: 'modal',
+        }}
+      />
         {user ? (
           <Stack.Screen name="InsideLayout" component={InsideLayout} />
         ) : (
