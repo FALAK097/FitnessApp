@@ -26,9 +26,7 @@ export default function SignInScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const auth = getAuth(FIREBASE_APP);
   const [request, response, promptAsync] = Google.useAuthRequest({
-    // androidClientId: process.env.EXPO_PUBLIC_ANDROID_CLIENT_ID,
-    androidClientId:
-      '1003419012793-o3slqt8l6hgqnjefdoc1q7cqlur1poan.apps.googleusercontent.com',
+    androidClientId: process.env.EXPO_PUBLIC_ANDROID_CLIENT_ID,
   });
 
   const signIn = async () => {
