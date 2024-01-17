@@ -77,7 +77,7 @@ export default function ExerciseDetails() {
           entering={FadeInDown.delay(300).duration(300).springify()}
           style={{ fontSize: hp(2) }}
           className=" text-neutral-700 tracking-wide">
-          Target{' '}
+          Target{''}
           <Text className="font-bold text-neutral-800">{item?.target}</Text>
         </Animated.Text>
 
