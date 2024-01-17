@@ -21,7 +21,9 @@ const AppNavigation = () => {
 
   return (
     <NavigationContainer>
+
       {user ? <AppStack /> : <AuthStack />}
+
     </NavigationContainer>
   );
 };

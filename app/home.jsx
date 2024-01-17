@@ -7,7 +7,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import ImageSlider from '../components/ImageSlider';
 import BodyParts from '../components/BodyParts';
@@ -16,6 +16,9 @@ import Profile  from './profile';
 
 export default function Home() {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const username = route.params?.username || 'Guest';
 
   const handleAvatarClick = () => {
     navigation.navigate('Profile');
@@ -34,7 +37,7 @@ export default function Home() {
           <Text
             style={{ fontSize: hp(4.5) }}
             className="font-bold tracking-wide text-rose-500">
-            WORKOUT
+            WORKOUT, {username}!
           </Text>
         </View>
 
@@ -49,7 +52,9 @@ export default function Home() {
           <View
             className="bg-neutral-200 rounded-full flex justify-center items-center border-[3px] border-neutral-300"
             style={{ height: hp(6.5), width: hp(6.5) }}>
-            <Ionicons name="notifications" size={hp(3)} color="gray" />
+            <Ionicons name="notifications" size={hp(3)} color="gray" 
+              onPress={()=>navigation.navigate('MachineDetection')}
+            />
           </View>
         </View>
       </View>
