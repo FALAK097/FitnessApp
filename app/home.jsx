@@ -12,6 +12,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import ImageSlider from '../components/ImageSlider';
 import BodyParts from '../components/BodyParts';
 
+import Profile  from './profile';
+
 export default function Home() {
   const navigation = useNavigation();
   const route = useRoute();
