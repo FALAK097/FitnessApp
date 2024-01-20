@@ -10,7 +10,9 @@ import SignUpScreen from '../auth/SignUpScreen';
 import Index from '../app/index';
 import Home from '../app/home';
 import Exercises from '../app/exercises';
-import ExerciseDetails from '../app/ExerciseDetails';
+import ExerciseDetails from '../app/exerciseDetails';
+import MachineDetection from '../app/machineDetection';
+import Profile from '../app/profile'
 
 const Stack = createStackNavigator();
 
@@ -69,6 +71,20 @@ export const AppNavigation = () => {
         <Stack.Screen
           name="ExerciseDetails"
           component={ExerciseDetails}
+          options={{
+            presentation: 'modal',
+          }}
+        />
+        <Stack.Screen
+          name="MachineDetection"
+          component={MachineDetection}
+          options={{
+            presentation: 'modal',
+          }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
           options={{
             presentation: 'modal',
           }}
