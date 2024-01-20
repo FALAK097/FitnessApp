@@ -36,7 +36,6 @@ export default function MachineDetectInstruction() {
 
 
 const styles = StyleSheet.create({
-
     buttonStyle: {
     paddingVertical: 10,
     backgroundColor: 'purple',

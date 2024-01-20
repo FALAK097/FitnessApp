@@ -12,6 +12,7 @@ export default function MachineDetection() {
   const [classificationResult, setClassificationResult] = useState(null);
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
   const [isImageSelected, setIsImageSelected] = useState(false);
+
   const { theme } = useTheme();
 
   const handleBackPress = () => {
@@ -131,7 +132,7 @@ export default function MachineDetection() {
   };
 
   return (
-    
+
 <View style={[styles.container,{
   backgroundColor: theme.mainBackgroundColor
 }]}>
@@ -145,6 +146,7 @@ export default function MachineDetection() {
     <Image source={{ uri: image }} style={styles.image} />
     <View style={styles.buttonContainer}>
     <View style={styles.horizontalButtons}>
+
         <TouchableOpacity onPress={pickImage} style={[styles.buttonStyle,{
           backgroundColor: theme.backgroundColor
         }]}>
@@ -224,6 +226,7 @@ export default function MachineDetection() {
                         <Card title="Beginner Level" containerStyle={[styles.cardContainer,{
                           backgroundColor: theme.backgroundColor
                         }]}>
+
                           <Text style={styles.cardText}>Reps: {getMachineDetails(classificationResult).beginner.reps}</Text>
                           <Text style={styles.cardText}>Sets: {getMachineDetails(classificationResult).beginner.sets}</Text>
                           <Text style={styles.cardText}>Weight: {getMachineDetails(classificationResult).beginner.weight}</Text>

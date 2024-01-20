@@ -12,13 +12,22 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FIREBASE_APP } from '../FirebaseConfig';
-import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+  GoogleAuthProvider,
+  signInWithCredential,
+} from 'firebase/auth';
+import * as Google from 'expo-auth-session/providers/google';
 
 export default function SignInScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const auth = getAuth(FIREBASE_APP);
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId: process.env.EXPO_PUBLIC_ANDROID_CLIENT_ID,
+  });
 
   const signIn = async () => {
     setLoading(true);
@@ -34,6 +43,10 @@ export default function SignInScreen({ navigation }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoogleSignIn = async () => {
+    promptAsync();
   };
 
   return (
@@ -97,7 +110,9 @@ export default function SignInScreen({ navigation }) {
             Or
           </Text>
           <View className="flex-row justify-center space-x-12">
-            <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
+            <TouchableOpacity
+              className="p-2 bg-gray-100 rounded-2xl"
+              onPress={handleGoogleSignIn}>
               <Image
                 source={require('../assets/images/google.png')}
                 className="w-10 h-10"

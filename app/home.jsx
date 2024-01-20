@@ -14,10 +14,12 @@ import BodyParts from '../components/BodyParts';
 import { useTheme } from '../components/ThemeContext';
 
 
+import Profile  from './profile';
+
 export default function Home() {
   const navigation = useNavigation();
   const route = useRoute();
-
+  
   const username = route.params?.username || 'Guest';
   const {theme} = useTheme();
   const handleAvatarClick = () => {

@@ -18,6 +18,7 @@ import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 export default function SignUpScreen({ navigation }) {
   // const navigation = useNavigation();
   const [email, setEmail] = useState('');
+  const [name,setName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const auth = getAuth(FIREBASE_APP);
@@ -33,7 +34,7 @@ export default function SignUpScreen({ navigation }) {
       console.log(response);
       // alert('Check your Email!');
       if (response.user) {
-        navigation.navigate('Home');
+        navigation.navigate('Home',{ username: name });
       }
     } catch (error) {
       console.log(error);
@@ -69,7 +70,8 @@ export default function SignUpScreen({ navigation }) {
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
               placeholder="name"
-              value="john doe"
+              value={name}
+              onChangeText={(text) => setName(text)}
               autoCapitalize="none"
             />
             <Text className="text-gray-700 ml-4">Email Address</Text>
