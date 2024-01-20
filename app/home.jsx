@@ -11,26 +11,32 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import ImageSlider from '../components/ImageSlider';
 import BodyParts from '../components/BodyParts';
+import { useTheme } from '../components/ThemeContext';
+
 
 import Profile  from './profile';
 
 export default function Home() {
   const navigation = useNavigation();
   const route = useRoute();
-
+  
   const username = route.params?.username || 'Guest';
-
+  const {theme} = useTheme();
   const handleAvatarClick = () => {
     navigation.navigate('Profile');
   };
+
+  const machineDetection = () => {
+    navigation.navigate('MachineDetection');
+  };
   return (
-    <SafeAreaView className="flex-1 bg-white flex space-y-5" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-white flex space-y-5" edges={['top']} style={{backgroundColor: theme.mainBackgroundColor}}>
       <StatusBar style="dark" />
 
       <View className="flex-row justify-between items-center mx-5">
         <View className="space-y-2">
           <Text
-            style={{ fontSize: hp(4.5) }}
+            style={{ fontSize: hp(4.5) , color: theme.textColor}}
             className="font-bold tracking-wide text-neutral-700">
             READY TO
           </Text>
@@ -53,7 +59,7 @@ export default function Home() {
             className="bg-neutral-200 rounded-full flex justify-center items-center border-[3px] border-neutral-300"
             style={{ height: hp(6.5), width: hp(6.5) }}>
             <Ionicons name="notifications" size={hp(3)} color="gray" 
-              onPress={()=>navigation.navigate('MachineDetection')}
+              onPress={machineDetection}
             />
           </View>
         </View>

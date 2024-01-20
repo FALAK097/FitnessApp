@@ -1,14 +1,32 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Card } from 'react-native-elements';
-
+import { useTheme } from './ThemeContext';
 
 export default function MachineDetectInstruction() {
+  const { theme } = useTheme();
+
   return (
     <View >
-        <Card title="Beginner Level" containerStyle={styles.instructionCardContainer}>
-          <Text style={{fontSize: 13,fontWeight:'500'}}>Step 1: Select image from media by clicking "PICK AN IMAGE" button</Text>
-          <Text style={{fontSize: 13,fontWeight:'500'}}>Step 2: Upload image to server by clicking "DETECT MACHINE" button</Text>
+        <Card title="Beginner Level" containerStyle={[styles.instructionCardContainer,{
+          backgroundColor: theme.backgroundColor
+        }]}>
+          <Text style={{fontSize: 13,fontWeight:'500'}}>Step 1: Select image from media by clicking 
+          <TouchableOpacity  style={[styles.buttonStyle,{
+          backgroundColor: theme.backgroundColor
+        }]}>
+           <Text style={[styles.buttonTitleStyle,{
+            color: theme.textColor
+           }]}> PICK AN IMAGE </Text>
+        </TouchableOpacity> </Text>
+          <Text style={{fontSize: 13,fontWeight:'500'}}>Step 2: Upload image to server by clicking 
+          <TouchableOpacity  style={[styles.buttonStyle,{
+          backgroundColor: theme.backgroundColor
+        }]}>
+           <Text style={[styles.buttonTitleStyle,{
+            color: theme.textColor
+           }]}> DETECT MACHINE </Text>
+        </TouchableOpacity></Text>
           <Text style={{fontSize: 13,fontWeight:'500'}}>Step 3: Follow the instruction provided on machine</Text>
   
         </Card>
@@ -18,7 +36,22 @@ export default function MachineDetectInstruction() {
 
 
 const styles = StyleSheet.create({
-
+    buttonStyle: {
+    paddingVertical: 10,
+    backgroundColor: 'purple',
+    borderRadius: 7.5,
+    borderBottomColor: 'black',
+    borderColor: 'grey',
+    borderBottomWidth: 3,
+    elevation: 11,
+    
+   
+    },
+    buttonTitleStyle: {
+      color: 'white',
+      fontWeight: '600',
+      
+    },
     instructionCardContainer: {
       width: '100%',
       margin: 5,

@@ -12,11 +12,15 @@ import { ScrollView } from 'react-native-virtualized-view';
 import { fetchExercisesByBodypart } from '../api/exerciseDB';
 import ExerciseList from '../components/ExerciseList';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from "../components/ThemeContext";
+
 
 export default function Exercises() {
   const navigation = useNavigation();
   const [exercises, setExercises] = useState([]);
   const { params: item } = useLocalSearchParams();
+  const { theme } = useTheme();
+
   // console.log('Item:', item);
 
   useEffect(() => {
@@ -44,7 +48,7 @@ export default function Exercises() {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: theme.mainBackgroundColor}}>
       <StatusBar style="light" />
       <Image
         source={item?.image}
@@ -61,9 +65,9 @@ export default function Exercises() {
       {/* exercies */}
       <View className="mx-4 space-y-3 mt-4">
         <Text
-          style={{ fontSize: hp(3) }}
+          style={{ fontSize: hp(3), color: theme.textColor }}
           className="font-semibold text-neutral-700">
-          {item.name} Exercises
+          {item.name} exercises
         </Text>
         <View className="mb-10">
           <ExerciseList data={exercises} />

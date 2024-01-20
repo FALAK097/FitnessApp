@@ -1,81 +1,112 @@
 import React from "react";
-import { View, Text , StyleSheet,Image} from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import DarkModeSwitch from "../components/DarkModeSwitch";
+import { useTheme } from "../components/ThemeContext";
 
 export default function Profile() {
-  return(
-    <View style={styles.mainContainer}>
-      <View style={styles.profileImage}>
+  const { theme } = useTheme();
+
+  return (
+    <View style={[styles.mainContainer, {backgroundColor: theme.mainBackgroundColor,}]}>
+      <View style={styles.profileContainer}>
+        <TouchableOpacity style={styles.avatarContainer}>
+          <Image
+            style={styles.profileImage}
+            source={require('../assets/images/avatar.png')}
+          />
+        </TouchableOpacity>
         <TouchableOpacity>
-          <Image style={styles.profileImageStyle} source={require('../assets/images/avatar.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity>
-          <Text>Tap to change avatar</Text>
-          </TouchableOpacity>
+          <Text style={styles.changeAvatarText}>Tap to change avatar</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.card}>
-        <View style={styles.Container}>
-        <TouchableOpacity>
-          <Text style={styles.Text}>Profile 👤</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.Container}>
-        <TouchableOpacity>
-          <Text style={styles.Text}>Settings ⚙️</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.Container}>
-          <TouchableOpacity>
-          <Text style={styles.Text}>Help ❓</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.Container}>
-          <TouchableOpacity>
-          <Text style={styles.Text}>Logout ❌</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={[styles.button, { 
+            backgroundColor: theme.backgroundColor 
+            }]}>
+          <Text style={[styles.buttonText,{
+            color: theme.textColor
+          }]}>Profile 👤</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
+        <Text style={[styles.buttonText,{
+            color: theme.textColor
+          }]}>Theme 🌓</Text>
+          <DarkModeSwitch />
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
+        <Text style={[styles.buttonText,{
+            color: theme.textColor
+          }]}>Help ❓</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.logoutButton}>
+          <Text style={styles.buttonText}>Logout ❌</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainer:{
-    flex:1,
-    paddingTop:40
+  mainContainer: {
+    flex: 1,
+    paddingTop: 40,
+    alignItems: 'center',
   },
-  profileImage:{
-    alignItems:'center',
-    justifyContent:'center',
-    marginBottom:10
+  profileContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  profileImageStyle:{
-    height:200,
-    width:200,
-    borderRadius:100
+  avatarContainer: {
+    borderRadius: 100,
+    overflow: 'hidden',
+    marginBottom: 10,
   },
-  card:{
-    flex:1,
-    justifyContent:'space-between',
-    paddingBottom:40
+  profileImage: {
+    height: 200,
+    width: 200,
   },
-  Text:{
-    fontSize:20,
-    fontWeight:'bold'
+  changeAvatarText: {
+    fontSize: 14,
+    color: '#777',
   },
-  Container:{
-    backgroundColor: 'white', 
-        borderRadius: 15, 
-        shadowColor: 'black', 
-        padding:20,
-        shadowOffset: { 
-            width: 0, 
-            height: 4, 
-        }, 
-        shadowOpacity: 0.3, 
-        shadowRadius: 6, 
-        elevation: 14, 
-        height:120,
-    justifyContent: 'center'
-  }
+  card: {
+    width: '94%',
+    alignItems: 'center',
+  },
+  button: {
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+    padding: 15,
+    marginBottom: 10,
+    width: '100%',
+    alignItems: 'flex-start',
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  logoutButton: {
+    marginTop: 'auto', // Pushes the button to the bottom
+    marginBottom: 20,
+    backgroundColor: 'brown',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+    padding: 15,
+    width: '94%',
+    alignItems: 'center',
+  },
 });

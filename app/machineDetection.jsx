@@ -5,13 +5,15 @@ import Modal from 'react-native-modal';
 import { Card } from 'react-native-elements';
 import MachineDetectionTitle from '../components/machineDetectionTitle';
 import MachineDetectInstruction from '../components/MachineDetectInstruction';
-//import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useTheme } from "../components/ThemeContext";
 
 export default function MachineDetection() {
   const [image, setImage] = useState(null);
   const [classificationResult, setClassificationResult] = useState(null);
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
   const [isImageSelected, setIsImageSelected] = useState(false);
+
+  const { theme } = useTheme();
 
   const handleBackPress = () => {
     if (bottomSheetVisible) {
@@ -130,8 +132,10 @@ export default function MachineDetection() {
   };
 
   return (
-    
-<View style={styles.container}>
+
+<View style={[styles.container,{
+  backgroundColor: theme.mainBackgroundColor
+}]}>
   
 {/* <Text style={{fontSize:30,fontWeight: '500', color: 'grey'}}>Machine Detection</Text>
 <Text style={{fontSize:14,fontWeight: '500', color: 'grey'}}>Powered by FitHub</Text>  */}
@@ -142,12 +146,22 @@ export default function MachineDetection() {
     <Image source={{ uri: image }} style={styles.image} />
     <View style={styles.buttonContainer}>
     <View style={styles.horizontalButtons}>
-        <TouchableOpacity onPress={pickImage} style={styles.buttonStyle}>
-           <Text style={styles.buttonTitleStyle}> PICK AN IMAGE </Text>
+
+        <TouchableOpacity onPress={pickImage} style={[styles.buttonStyle,{
+          backgroundColor: theme.backgroundColor
+        }]}>
+           <Text style={[styles.buttonTitleStyle,{
+            color: theme.textColor
+           }]}> PICK AN IMAGE </Text>
         </TouchableOpacity>
           {isImageSelected && (
-        <TouchableOpacity onPress={detectMachine} style={styles.buttonStyle}>
-           <Text style={styles.buttonTitleStyle}> DETECT MACHINE </Text>
+        <TouchableOpacity onPress={detectMachine} style={[styles.buttonStyle,{
+          backgroundColor: theme.backgroundColor
+
+        }]}>
+           <Text style={[styles.buttonTitleStyle,{
+            color: theme.textColor
+           }]}> DETECT MACHINE </Text>
         </TouchableOpacity>
   )}
     </View>
@@ -161,45 +175,78 @@ export default function MachineDetection() {
         onBackdropPress={() => setBottomSheetVisible(false)} // Close on outside click
         onRequestClose={handleBackPress} // Handle back button press on Android
       >
-      <View style={styles.modalContent}>
+      <View style={[styles.modalContent,{
+        backgroundColor: theme.mainBackgroundColor
+      }]}>
           {classificationResult && (
             <>
-              <Text style={styles.result}>Machine Detected: {classificationResult}</Text>
+              <Text style={[styles.result,{
+                        color: theme.textColor
+                      }]}>Machine Detected: {classificationResult}</Text>
               {classificationResult && (
                 <View>
-                  <Text style={styles.machineInfoTitle}>Machine Information:</Text>
+                  <Text style={[styles.machineInfoTitle,{
+                        color: theme.textColor
+                      }]}>Machine Information:</Text>
                   {getMachineDetails(classificationResult) && (
                     <>
-                      <Text style={styles.machineInfoLabel}>Name:</Text>
-                      <Text style={styles.machineInfoText}>{getMachineDetails(classificationResult).name}</Text>
-                      <Text style={styles.machineInfoLabel}>Difficulty:</Text>
-                      <Text style={styles.machineInfoText}>{getMachineDetails(classificationResult).difficulty}</Text>
-                      <Text style={styles.machineInfoLabel}>Description:</Text>
-                      <Text style={styles.machineInfoText}>{getMachineDetails(classificationResult).description}</Text>
-                      <Text style={styles.machineInfoLabel}>Instructions:</Text>
-                      <Text style={styles.machineInfoText}>{getMachineDetails(classificationResult).instructions}</Text>
-                      <Text style={styles.machineInfoLabel}>Target Muscles:</Text>
-                      <Text style={styles.machineInfoText}>{getMachineDetails(classificationResult).targetMuscles}</Text>
+                      <Text style={[styles.machineInfoLabel,{
+                        color: theme.textColor
+                      }]}>Name:</Text>
+                      <Text style={[styles.machineInfoText,{
+                        color: theme.textColor
+                      }]}>{getMachineDetails(classificationResult).name}</Text>
+                      <Text style={[styles.machineInfoLabel,{
+                        color: theme.textColor
+                      }]}>Difficulty:</Text>
+                      <Text style={[styles.machineInfoText,{
+                        color: theme.textColor
+                      }]}>{getMachineDetails(classificationResult).difficulty}</Text>
+                      <Text style={[styles.machineInfoLabel,{
+                        color: theme.textColor
+                      }]}>Description:</Text>
+                      <Text style={[styles.machineInfoText,{
+                        color: theme.textColor
+                      }]}>{getMachineDetails(classificationResult).description}</Text>
+                      <Text style={[styles.machineInfoLabel,{
+                        color: theme.textColor
+                      }]}>Instructions:</Text>
+                      <Text style={[styles.machineInfoText,{
+                        color: theme.textColor
+                      }]}>{getMachineDetails(classificationResult).instructions}</Text>
+                      <Text style={[styles.machineInfoLabel,{
+                        color: theme.textColor
+                      }]}>Target Muscles:</Text>
+                      <Text style={[styles.machineInfoText,{
+                        color: theme.textColor
+                      }]}>{getMachineDetails(classificationResult).targetMuscles}</Text>
 
                       {/* Cards for Beginner, Intermediate, and Expert Levels */}
                       <View style={styles.levelContainer}>
-                        <Card title="Beginner Level" containerStyle={styles.cardContainer}>
+                        <Card title="Beginner Level" containerStyle={[styles.cardContainer,{
+                          backgroundColor: theme.backgroundColor
+                        }]}>
+
                           <Text style={styles.cardText}>Reps: {getMachineDetails(classificationResult).beginner.reps}</Text>
                           <Text style={styles.cardText}>Sets: {getMachineDetails(classificationResult).beginner.sets}</Text>
                           <Text style={styles.cardText}>Weight: {getMachineDetails(classificationResult).beginner.weight}</Text>
                           <Text style={styles.machineInfoLabel}>Novice</Text>
                         </Card>
-                        <Card title="Intermediate Level" containerStyle={styles.cardContainer}>
+                        <Card title="Intermediate Level" containerStyle={[styles.cardContainer,{
+                          backgroundColor: theme.backgroundColor
+                        }]}>
                           <Text style={styles.cardText}>Reps: {getMachineDetails(classificationResult).intermediate.reps}</Text>
                           <Text style={styles.cardText}>Sets: {getMachineDetails(classificationResult).intermediate.sets}</Text>
                           <Text style={styles.cardText}>Weight: {getMachineDetails(classificationResult).intermediate.weight}</Text>
                           <Text style={styles.machineInfoLabel}>Medium</Text>
                         </Card>
-                        <Card title="Expert Level" containerStyle={styles.cardContainer}>
-                          <Text style={styles.cardText}>Reps: {getMachineDetails(classificationResult).expert.reps}</Text>
-                          <Text style={styles.cardText}>Sets: {getMachineDetails(classificationResult).expert.sets}</Text>
-                          <Text style={styles.cardText}>Weight: {getMachineDetails(classificationResult).expert.weight}</Text>
-                          <Text style={styles.machineInfoLabel}>Expert</Text>
+                        <Card title="Intermediate Level" containerStyle={[styles.cardContainer,{
+                          backgroundColor: theme.backgroundColor
+                        }]}>
+                        <Text style={styles.cardText}>Reps: {getMachineDetails(classificationResult).expert.reps}</Text>
+                        <Text style={styles.cardText}>Sets: {getMachineDetails(classificationResult).expert.sets}</Text>
+                        <Text style={styles.cardText}>Weight: {getMachineDetails(classificationResult).expert.weight}</Text>
+                        <Text style={styles.machineInfoLabel}>Expert</Text>
                         </Card>
                       </View>
 
