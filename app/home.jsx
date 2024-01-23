@@ -56,7 +56,7 @@ export default function Home() {
           <View
             className="bg-neutral-200 rounded-full flex justify-center items-center border-[3px] border-neutral-300"
             style={{ height: hp(6.5), width: hp(6.5) }}>
-            <Ionicons name="notifications" size={hp(3)} color="gray" 
+            <Ionicons name="camera" size={hp(3)} color="gray" 
               onPress={machineDetection}
             />
           </View>
