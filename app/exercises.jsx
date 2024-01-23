@@ -51,7 +51,7 @@ export default function Exercises() {
     <ScrollView style={{backgroundColor: theme.mainBackgroundColor}}>
       <StatusBar style="light" />
       <Image
-        source={item.image}
+        source={item?.image}
         style={{ width: wp(100), height: hp(45) }}
         className="rounded-b-[40px]"
       />
