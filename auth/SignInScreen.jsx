@@ -12,28 +12,51 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FIREBASE_APP } from '../FirebaseConfig';
+import { useTheme } from '../components/ThemeContext';
 import {
   signInWithEmailAndPassword,
   getAuth,
-  GoogleAuthProvider,
-  signInWithCredential,
+  // GoogleAuthProvider,
+  // signInWithCredential,
 } from 'firebase/auth';
-import * as Google from 'expo-auth-session/providers/google';
+// import * as Google from 'expo-auth-session/providers/google';
 
 export default function SignInScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const auth = getAuth(FIREBASE_APP);
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId: process.env.EXPO_PUBLIC_ANDROID_CLIENT_ID,
-  });
+  const { theme } = useTheme();
+
+  // const [request, response, promptAsync] = Google.useAuthRequest({
+  //   androidClientId: process.env.EXPO_PUBLIC_ANDROID_CLIENT_ID,
+  // });
+
+  const validateEmail = (email) => {
+    // Basic email validation
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePassword = (password) => {
+    // Example: Password must be at least 6 characters
+    return password.length >= 6;
+  };
 
   const signIn = async () => {
+    if (!validateEmail(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      alert('Password must be at least 6 characters long.');
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response);
+      // console.log(response);
       if (response.user) {
         navigation.navigate('Home');
       }
@@ -68,11 +91,19 @@ export default function SignInScreen({ navigation }) {
         </View>
       </SafeAreaView>
       <View
-        style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
+        style={{
+          borderTopLeftRadius: 50,
+          borderTopRightRadius: 50,
+          backgroundColor: theme.mainBackgroundColor,
+        }}
         className="flex-1 bg-white px-8 pt-8">
         <KeyboardAvoidingView behavior="padding">
           <View className="form space-y-2">
-            <Text className="text-gray-700 ml-4">Email Address</Text>
+            <Text
+              style={{ color: theme.textColor }}
+              className="text-gray-700 ml-4">
+              Email Address
+            </Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
               placeholder="john@gmail.com"
@@ -81,7 +112,11 @@ export default function SignInScreen({ navigation }) {
               value={email}
               onChangeText={(text) => setEmail(text)}
             />
-            <Text className="text-gray-700 ml-4">Password</Text>
+            <Text
+              style={{ color: theme.textColor }}
+              className="text-gray-700 ml-4">
+              Password
+            </Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
               secureTextEntry={true}
@@ -91,7 +126,11 @@ export default function SignInScreen({ navigation }) {
               onChangeText={(text) => setPassword(text)}
             />
             <TouchableOpacity className="flex items-end">
-              <Text className="text-gray-700 mb-5">Forgot Password?</Text>
+              <Text
+                style={{ color: theme.textColor }}
+                className="text-gray-700 mb-5">
+                Forgot Password?
+              </Text>
             </TouchableOpacity>
             {loading ? (
               <ActivityIndicator size="large" color="#0000ff" />
@@ -99,14 +138,15 @@ export default function SignInScreen({ navigation }) {
               <TouchableOpacity
                 className="py-3 bg-yellow-400 rounded-xl"
                 onPress={signIn}>
-                {/* onPress={() => navigation.navigate('Home')}> */}
-                <Text className="text-xl font-bold text-center text-gray-600">
+                <Text
+                  style={{ color: theme.textColor }}
+                  className="text-xl font-bold text-center text-gray-700">
                   Login
                 </Text>
               </TouchableOpacity>
             )}
           </View>
-          <Text className="text-xl text-gray-700 font-bold text-center py-5">
+          {/* <Text className="text-xl text-gray-700 font-bold text-center py-5">
             Or
           </Text>
           <View className="flex-row justify-center space-x-12">
@@ -114,25 +154,27 @@ export default function SignInScreen({ navigation }) {
               className="p-2 bg-gray-100 rounded-2xl"
               onPress={handleGoogleSignIn}>
               <Image
-                source={require('../assets/images/google.png')}
+                source={require('../assets/icons/google.png')}
                 className="w-10 h-10"
               />
             </TouchableOpacity>
             <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
               <Image
-                source={require('../assets/images/apple.png')}
+                source={require('../assets/icons/apple.png')}
                 className="w-10 h-10"
               />
             </TouchableOpacity>
             <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
               <Image
-                source={require('../assets/images/facebook.png')}
+                source={require('../assets/icons/facebook.png')}
                 className="w-10 h-10"
               />
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View className="flex-row justify-center mt-7">
-            <Text className="text-gray-500 font-semibold">
+            <Text
+              style={{ color: theme.textColor }}
+              className="text-gray-500 font-semibold">
               Don't have an account?
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>

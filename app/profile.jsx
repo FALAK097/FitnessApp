@@ -1,13 +1,38 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import DarkModeSwitch from "../components/DarkModeSwitch";
-import { useTheme } from "../components/ThemeContext";
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import DarkModeSwitch from '../components/DarkModeSwitch';
+import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../components/ThemeContext';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default function Profile() {
+  const navigation = useNavigation();
   const { theme } = useTheme();
 
   return (
-    <View style={[styles.mainContainer, {backgroundColor: theme.mainBackgroundColor,}]}>
+    <ScrollView
+      style={[
+        styles.container,
+        { backgroundColor: theme.mainBackgroundColor },
+      ]}>
+      <TouchableOpacity
+        onPress={navigation.goBack}
+        className="bg-rose-500 mx-0 pr-1 rounded-full flex justify-center items-center absolute"
+        style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(1) }}>
+        <Ionicons name="caret-back-outline" size={hp(4)} color="white" />
+      </TouchableOpacity>
+
       <View style={styles.profileContainer}>
         <TouchableOpacity style={styles.avatarContainer}>
           <Image
@@ -19,94 +44,101 @@ export default function Profile() {
           <Text style={styles.changeAvatarText}>Tap to change avatar</Text>
         </TouchableOpacity>
       </View>
+
       <View style={styles.card}>
-        <TouchableOpacity style={[styles.button, { 
-            backgroundColor: theme.backgroundColor 
-            }]}>
-          <Text style={[styles.buttonText,{
-            color: theme.textColor
-          }]}>Profile 👤</Text>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
+          <Text style={[styles.buttonText, { color: theme.textColor }]}>
+            View Profile 👤
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
-        <Text style={[styles.buttonText,{
-            color: theme.textColor
-          }]}>Theme 🌓</Text>
+
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
+          <Text style={[styles.buttonText, { color: theme.textColor }]}>
+            Switch Theme 🌓
+          </Text>
           <DarkModeSwitch />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
-        <Text style={[styles.buttonText,{
-            color: theme.textColor
-          }]}>Help ❓</Text>
+
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
+          <Text style={[styles.buttonText, { color: theme.textColor }]}>
+            Help ❓
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.logoutButton}>
+
+        <TouchableOpacity className="bg-rose-400" style={styles.logoutButton}>
           <Text style={styles.buttonText}>Logout ❌</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  container: {
     flex: 1,
-    paddingTop: 40,
-    alignItems: 'center',
+    paddingTop: hp(10), // Adjusted for better visibility
+    paddingHorizontal: wp(4), // Added horizontal padding
   },
   profileContainer: {
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: hp(3), // Increased margin
   },
   avatarContainer: {
     borderRadius: 100,
     overflow: 'hidden',
-    marginBottom: 10,
+    marginBottom: hp(2), // Increased margin
   },
   profileImage: {
-    height: 200,
-    width: 200,
+    height: hp(20), // Responsive height
+    width: hp(20), // Responsive width
   },
   changeAvatarText: {
-    fontSize: 14,
+    fontSize: hp(1.5), // Responsive font size
     color: '#777',
   },
   card: {
-    width: '94%',
+    width: '100%',
     alignItems: 'center',
+    marginTop: hp(3), // Increased top margin
   },
   button: {
-    borderRadius: 20,
+    borderRadius: hp(2), // Responsive border radius
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: hp(0.4), // Responsive shadow offset
     },
     shadowOpacity: 0.3,
-    shadowRadius: 6,
+    shadowRadius: hp(0.6), // Responsive shadow radius
     elevation: 5,
-    padding: 15,
-    marginBottom: 10,
+    paddingVertical: hp(2), // Responsive padding
+    paddingHorizontal: wp(3), // Responsive padding
+    marginBottom: hp(2), // Increased margin
     width: '100%',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: hp(2.5), // Responsive font size
     fontWeight: 'bold',
   },
   logoutButton: {
     marginTop: 'auto', // Pushes the button to the bottom
-    marginBottom: 20,
-    backgroundColor: 'brown',
-    borderRadius: 20,
+    marginBottom: hp(2), // Increased margin
+    borderRadius: hp(2), // Responsive border radius
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: hp(0.4), // Responsive shadow offset
     },
     shadowOpacity: 0.3,
-    shadowRadius: 6,
+    shadowRadius: hp(0.6), // Responsive shadow radius
     elevation: 5,
-    padding: 15,
-    width: '94%',
+    paddingVertical: hp(2), // Responsive padding
+    paddingHorizontal: wp(3), // Responsive padding
+    width: '100%',
     alignItems: 'center',
   },
 });

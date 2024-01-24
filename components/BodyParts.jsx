@@ -9,13 +9,16 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 
 import { bodyParts } from '../constants';
+import { useTheme } from './ThemeContext';
 
 export default function BodyParts() {
   const navigation = useNavigation();
+  const { theme } = useTheme();
+
   return (
     <View className="mx-4">
       <Text
-        style={{ fontSize: hp(3) }}
+        style={{ fontSize: hp(3), color: theme.textColor }}
         className="font-semibold text-neutral-700">
         Exercises
       </Text>
@@ -69,7 +72,7 @@ const BodyPartCard = ({ navigation, item, index }) => {
         <Text
           style={{ fontSize: hp(2.3) }}
           className="text-white font-semibold tracking-wide text-center">
-          {item?.name}
+          {item?.name.charAt(0).toUpperCase() + item?.name.slice(1)}
         </Text>
       </TouchableOpacity>
     </Animated.View>

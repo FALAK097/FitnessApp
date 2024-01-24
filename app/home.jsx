@@ -6,48 +6,50 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Octicons from 'react-native-vector-icons/Octicons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import ImageSlider from '../components/ImageSlider';
 import BodyParts from '../components/BodyParts';
 import { useTheme } from '../components/ThemeContext';
 
-
-import Profile  from './profile';
-
 export default function Home() {
   const navigation = useNavigation();
   const route = useRoute();
-  
-  const username = route.params?.username || 'Guest';
-  const {theme} = useTheme();
+  const { theme } = useTheme();
+
+  // const username = route.params?.username || 'Guest';
+
   const handleAvatarClick = () => {
     navigation.navigate('Profile');
   };
 
-  const machineDetection = () => {
+  const detectMachine = () => {
     navigation.navigate('MachineDetection');
   };
   return (
-    <SafeAreaView className="flex-1 bg-white flex space-y-5" edges={['top']} style={{backgroundColor: theme.mainBackgroundColor}}>
+    <SafeAreaView
+      className="flex-1 bg-white flex space-y-5"
+      edges={['top']}
+      style={{ backgroundColor: theme.mainBackgroundColor }}>
       <StatusBar style="dark" />
 
       <View className="flex-row justify-between items-center mx-5">
         <View className="space-y-2">
           <Text
-            style={{ fontSize: hp(4.5) , color: theme.textColor}}
+            style={{ fontSize: hp(4.5), color: theme.textColor }}
             className="font-bold tracking-wide text-neutral-700">
-            READY TO
+            Ready To
           </Text>
           <Text
             style={{ fontSize: hp(4.5) }}
             className="font-bold tracking-wide text-rose-500">
-            WORKOUT, {username}!
+            Workout!
+            {/* WORKOUT, {username}! */}
           </Text>
         </View>
 
-        <View className="flex justify-center items-center space-y-2">
+        <View className="flex-row justify-center items-center space-x-4">
           <TouchableOpacity onPress={handleAvatarClick}>
             <Image
               source={require('../assets/images/avatar.png')}
@@ -57,9 +59,12 @@ export default function Home() {
           </TouchableOpacity>
           <View
             className="bg-neutral-200 rounded-full flex justify-center items-center border-[3px] border-neutral-300"
-            style={{ height: hp(6.5), width: hp(6.5) }}>
-            <Ionicons name="notifications" size={hp(3)} color="gray" 
-              onPress={machineDetection}
+            style={{ height: hp(5.5), width: hp(6) }}>
+            <Octicons
+              name="device-camera"
+              size={hp(4)}
+              color="gray"
+              onPress={detectMachine}
             />
           </View>
         </View>

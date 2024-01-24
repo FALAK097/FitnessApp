@@ -4,17 +4,7 @@ import { AppStack, AuthStack } from './stackNavigation';
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_APP } from '../FirebaseConfig';
-
-import SignInScreen from '../auth/SignInScreen';
-import SignUpScreen from '../auth/SignUpScreen';
-import Index from '../app/index';
-import Home from '../app/home';
-import Exercises from '../app/exercises';
-import ExerciseDetails from '../app/exerciseDetails';
-import MachineDetection from '../app/machineDetection';
-import Profile from '../app/profile'
-
-const Stack = createStackNavigator();
+import { TabNavigation } from './tabNavigation';
 
 LogBox.ignoreLogs(['Warning: Failed prop type']);
 
@@ -27,53 +17,13 @@ const AppNavigation = () => {
       setUser(user);
     });
 
-    return () => unsubscribe(); // Cleanup on unmount
+    return () => unsubscribe();
   }, []);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Index"
-        screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Index" component={Index} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen
-          name="Exercises"
-          component={Exercises}
-          options={{
-            presentation: 'fullScreenModal',
-          }}
-        />
-        <Stack.Screen
-          name="ExerciseDetails"
-          component={ExerciseDetails}
-          options={{
-            presentation: 'modal',
-          }}
-        />
-        <Stack.Screen
-          name="MachineDetection"
-          component={MachineDetection}
-          options={{
-            presentation: 'modal',
-          }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            presentation: 'modal',
-          }}
-        />
-        {user ? (
-          <Stack.Screen name="InsideLayout" component={InsideLayout} />
-        ) : (
-          <>
-            <Stack.Screen name="SignIn" component={SignInScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
-          </>
-        )}
-      </Stack.Navigator>
+      {user ? <AppStack /> : <AuthStack />}
+      {/* <TabNavigation/> */}
     </NavigationContainer>
   );
 };

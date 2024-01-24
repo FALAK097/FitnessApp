@@ -12,8 +12,7 @@ import { ScrollView } from 'react-native-virtualized-view';
 import { fetchExercisesByBodypart } from '../api/exerciseDB';
 import ExerciseList from '../components/ExerciseList';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from "../components/ThemeContext";
-
+import { useTheme } from '../components/ThemeContext';
 
 export default function Exercises() {
   const navigation = useNavigation();
@@ -48,8 +47,8 @@ export default function Exercises() {
   };
 
   return (
-    <ScrollView style={{backgroundColor: theme.mainBackgroundColor}}>
-      <StatusBar style="light" />
+    <ScrollView style={{ backgroundColor: theme.mainBackgroundColor }}>
+      <StatusBar style="auto" />
       <Image
         source={item?.image}
         style={{ width: wp(100), height: hp(45) }}
@@ -67,7 +66,7 @@ export default function Exercises() {
         <Text
           style={{ fontSize: hp(3), color: theme.textColor }}
           className="font-semibold text-neutral-700">
-          {item.name} exercises
+          {item?.name.charAt(0).toUpperCase() + item?.name.slice(1)} Exercises
         </Text>
         <View className="mb-10">
           <ExerciseList data={exercises} />

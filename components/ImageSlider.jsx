@@ -30,6 +30,7 @@ const ItemCard = ({ item, index }, parallaxProps) => {
     <View style={{ width: wp(100) - 70, height: hp(25) }}>
       <ParallaxImage
         source={item}
+        key={index}
         containerStyle={{ borderRadius: 30, flex: 1 }}
         className="rounded-b-[30px]"
         style={{ resizeMode: 'contain' }}
