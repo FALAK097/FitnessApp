@@ -7,9 +7,11 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { useTheme } from './ThemeContext';
 
 export default function ExerciseList({ data }) {
   const navigation = useNavigation();
+  const { theme } = useTheme();
 
   return (
     <View>
@@ -21,22 +23,27 @@ export default function ExerciseList({ data }) {
         contentContainerStyle={{ paddingBottom: 60, paddingTop: 20 }}
         columnWrapperStyle={{ justifyContent: 'space-between' }}
         renderItem={({ item, index }) => (
-          <ExerciseCard navigation={navigation} index={index} item={item} />
+          <ExerciseCard
+            navigation={navigation}
+            index={index}
+            item={item}
+            theme={theme}
+          />
         )}
       />
     </View>
   );
 }
 
-const ExerciseCard = ({ item, navigation, index }) => {
+const ExerciseCard = ({ item, navigation, index, theme }) => {
   const animatedStyle = FadeInDown.duration(400)
     .delay(index * 200)
     .springify();
 
   const navigateToExerciseDetails = () => {
-    console.log('Before navigation');
+    // console.log('Before navigation');
     if (item && navigation) {
-      console.log('Navigating to ExerciseDetails');
+      // console.log('Navigating to ExerciseDetails');
       navigation.navigate('ExerciseDetails', { item });
     }
   };
@@ -65,11 +72,25 @@ const ExerciseCard = ({ item, navigation, index }) => {
           style={{
             fontSize: hp(1.7),
             fontWeight: 'bold',
-            color: 'black',
+            color: theme.textColor,
             marginLeft: wp(2),
             marginTop: hp(1),
           }}>
-          {item?.name?.length > 20 ? item.name.slice(0, 20) + '...' : item.name}
+          {item?.name
+            ? item.name
+                .split(' ')
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ').length > 20
+              ? item.name
+                  .split(' ')
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')
+                  .slice(0, 20) + '...'
+              : item.name
+                  .split(' ')
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')
+            : ''}
         </Text>
       </TouchableOpacity>
     </Animated.View>

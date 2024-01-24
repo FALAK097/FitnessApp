@@ -5,7 +5,6 @@ export default function App() {
   return (
     <ThemeProvider>
       <AppNavigation />
-
     </ThemeProvider>
   );
 }

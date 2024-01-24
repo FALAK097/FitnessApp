@@ -34,12 +34,12 @@ export const AppStack = () => {
       <Stack.Screen name="ExerciseDetails" component={ExerciseDetails} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen
-          name="MachineDetection"
-          component={MachineDetection}
-          options={{
-            presentation: 'modal',
-          }}
-        />
+        name="MachineDetection"
+        component={MachineDetection}
+        options={{
+          presentation: 'modal',
+        }}
+      />
     </Stack.Navigator>
   );
 };
