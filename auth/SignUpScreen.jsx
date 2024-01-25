@@ -83,7 +83,7 @@ export default function SignUpScreen({ navigation }) {
         <View className="flex-row justify-center">
           <Image
             source={require('../assets/images/signup.png')}
-            style={{ width: 200, height: 150 }}
+            style={{ width: 200, height: 200 }}
           />
         </View>
       </SafeAreaView>
@@ -178,7 +178,8 @@ export default function SignUpScreen({ navigation }) {
               className="text-gray-500 font-semibold">
               Already have an account?
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('SignInScreen')}>
               <Text className="font-semibold text-yellow-500"> Log In</Text>
             </TouchableOpacity>
           </View>

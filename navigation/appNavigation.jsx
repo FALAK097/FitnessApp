@@ -13,9 +13,16 @@ const AppNavigation = () => {
   const auth = getAuth(FIREBASE_APP);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (user) => {
+        // console.log('User:', user);
+        setUser(user);
+      },
+      (error) => {
+        console.error('AuthStateChanged Error:', error);
+      }
+    );
 
     return () => unsubscribe();
   }, []);
