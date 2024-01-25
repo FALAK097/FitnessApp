@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   View,
   Text,
@@ -6,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DarkModeSwitch from '../components/DarkModeSwitch';
@@ -19,6 +19,29 @@ import {
 export default function Profile() {
   const navigation = useNavigation();
   const { theme } = useTheme();
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: () => {
+            // Add logic to clear user cache here if needed
+            // Example: AsyncStorage.clear();
+            // Redirect to login screen
+            navigation.navigate('SignInScreen');
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
   return (
     <ScrollView
@@ -68,7 +91,10 @@ export default function Profile() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity className="bg-rose-400" style={styles.logoutButton}>
+        <TouchableOpacity
+          className="bg-rose-400"
+          style={styles.logoutButton}
+          onPress={handleLogout}>
           <Text style={styles.buttonText}>Logout ❌</Text>
         </TouchableOpacity>
       </View>
