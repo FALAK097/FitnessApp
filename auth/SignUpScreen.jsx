@@ -6,16 +6,21 @@ import {
   TextInput,
   KeyboardAvoidingView,
   ActivityIndicator,
+  Alert,
+  ScrollView,
 } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendEmailVerification,
+} from 'firebase/auth';
 import { FIREBASE_APP } from '../FirebaseConfig';
 import { useTheme } from '../components/ThemeContext';
-import { ScrollView } from 'react-native';
 
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -54,18 +59,21 @@ export default function SignUpScreen({ navigation }) {
     }
 
     setLoading(true);
+
     try {
-      const response = await createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      if (response.user) {
-        navigation.navigate('Home', { username: name });
-      }
+      await sendEmailVerification(userCredential.user);
+      Alert.alert(
+        'Verification Email Sent',
+        'Please check your email for verification.'
+      );
+      navigation.navigate('VerifyEmailScreen'); // Navigate to VerifyEmailScreen after successful sign-up
     } catch (error) {
-      console.log(error);
-      alert('SignIn failed: ' + error.message);
+      Alert.alert('Error', error.message);
     } finally {
       setLoading(false);
     }

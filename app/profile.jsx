@@ -15,10 +15,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { FIREBASE_APP } from '../FirebaseConfig';
 
 export default function Profile() {
   const navigation = useNavigation();
   const { theme } = useTheme();
+  const auth = getAuth(FIREBASE_APP);
 
   const handleLogout = () => {
     Alert.alert(
@@ -35,6 +37,7 @@ export default function Profile() {
             // Add logic to clear user cache here if needed
             // Example: AsyncStorage.clear();
             // Redirect to login screen
+            // auth.signOut();
             navigation.navigate('SignInScreen');
           },
         },
