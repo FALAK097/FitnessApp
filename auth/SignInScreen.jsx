@@ -143,7 +143,7 @@ export default function SignInScreen({ navigation }) {
                 </Text>
               </TouchableOpacity>
               {loading ? (
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ActivityIndicator size="large" color="#877dfa" />
               ) : (
                 <TouchableOpacity
                   activeOpacity={0.6}

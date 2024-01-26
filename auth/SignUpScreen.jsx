@@ -70,6 +70,7 @@ export default function SignUpScreen({ navigation }) {
       setLoading(false);
     }
   };
+
   return (
     <View className="flex-1 bg-white" style={{ backgroundColor: '#877dfa' }}>
       <SafeAreaView className="flex ">
@@ -138,7 +139,7 @@ export default function SignUpScreen({ navigation }) {
                 onChangeText={(text) => setPassword(text)}
               />
               {loading ? (
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ActivityIndicator size="large" color="#877dfa" />
               ) : (
                 <TouchableOpacity
                   activeOpacity={0.6}
