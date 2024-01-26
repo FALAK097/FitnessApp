@@ -1,25 +1,27 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
+import Welcome from '../auth/Welcome';
 import SignInScreen from '../auth/SignInScreen';
 import SignUpScreen from '../auth/SignUpScreen';
+import ForgotPassword from '../auth/ForgotPassword';
+
 import Home from '../app/home';
 import Exercises from '../app/exercises';
 import ExerciseDetails from '../app/exerciseDetails';
 import Profile from '../app/profile';
 import MachineDetection from '../app/machineDetection';
 
-import Index from '../app/index';
-
 const Stack = createStackNavigator();
 
 export const AuthStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Index"
+      initialRouteName="Welcome"
       screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Index" component={Index} />
+      <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="SignInScreen" component={SignInScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
     </Stack.Navigator>
   );
 };
