@@ -68,6 +68,10 @@ export default function SignInScreen({ navigation }) {
     }
   };
 
+  const forgotScreen = () => {
+    navigation.navigate('ForgotPassword');
+  };
+
   const handleGoogleSignIn = async () => {
     promptAsync();
   };
@@ -125,7 +129,7 @@ export default function SignInScreen({ navigation }) {
               value={password}
               onChangeText={(text) => setPassword(text)}
             />
-            <TouchableOpacity className="flex items-end">
+            <TouchableOpacity className="flex items-end" onPress={forgotScreen}>
               <Text
                 style={{ color: theme.textColor }}
                 className="text-gray-700 mb-5">

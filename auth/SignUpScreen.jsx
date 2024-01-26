@@ -83,7 +83,7 @@ export default function SignUpScreen({ navigation }) {
         <View className="flex-row justify-center">
           <Image
             source={require('../assets/images/signup.png')}
-            style={{ width: 200, height: 200 }}
+            style={{ width: 280, height: 200, marginTop: 15 }}
           />
         </View>
       </SafeAreaView>
