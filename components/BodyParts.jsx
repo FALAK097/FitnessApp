@@ -45,9 +45,9 @@ const BodyPartCard = ({ navigation, item, index }) => {
         .delay(index * 200)
         .springify()}>
       <TouchableOpacity
+        activeOpacity={0.6}
         onPress={() => {
           // console.log('Navigating to Exercises with item:', item);
-          // router.push({ pathname: 'Exercises', params: item });
           navigation.navigate('Exercises', { params: item });
         }}
         style={{ width: wp(44), height: wp(52) }}

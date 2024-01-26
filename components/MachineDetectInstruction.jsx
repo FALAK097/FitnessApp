@@ -19,6 +19,7 @@ export default function MachineDetectInstruction() {
         <Text style={{ fontSize: 13, fontWeight: '500' }}>
           Step 1: Select image from media by clicking
           <TouchableOpacity
+            activeOpacity={0.6}
             style={[
               styles.buttonStyle,
               {
@@ -40,6 +41,7 @@ export default function MachineDetectInstruction() {
         <Text style={{ fontSize: 13, fontWeight: '500' }}>
           Step 2: Upload image to server by clicking
           <TouchableOpacity
+            activeOpacity={0.6}
             style={[
               styles.buttonStyle,
               {

@@ -151,6 +151,7 @@ export default function MachineDetection() {
   return (
     <>
       <TouchableOpacity
+        activeOpacity={0.6}
         onPress={navigation.goBack}
         className="bg-rose-500 mx-0 pr-1 rounded-full flex justify-center items-center absolute"
         style={{
@@ -180,6 +181,7 @@ export default function MachineDetection() {
         <View style={styles.buttonContainer}>
           <View style={styles.horizontalButtons}>
             <TouchableOpacity
+              activeOpacity={0.6}
               onPress={pickImage}
               style={[
                 styles.buttonStyle,
@@ -200,6 +202,7 @@ export default function MachineDetection() {
             </TouchableOpacity>
             {isImageSelected && (
               <TouchableOpacity
+                activeOpacity={0.6}
                 onPress={detectMachine}
                 style={[
                   styles.buttonStyle,

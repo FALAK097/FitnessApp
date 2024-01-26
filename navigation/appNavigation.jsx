@@ -29,8 +29,8 @@ const AppNavigation = () => {
 
   return (
     <NavigationContainer>
-      {/* <AuthStack /> */}
-      {user ? <AppStack /> : <AuthStack />}
+      <AuthStack />
+      {/* {user ? <AppStack /> : <AuthStack />} */}
       {/* <TabNavigation/> */}
     </NavigationContainer>
   );

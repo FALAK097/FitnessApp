@@ -50,7 +50,7 @@ export default function Home() {
         </View>
 
         <View className="flex-row justify-center items-center space-x-4">
-          <TouchableOpacity onPress={handleAvatarClick}>
+          <TouchableOpacity activeOpacity={0.6} onPress={handleAvatarClick}>
             <Image
               source={require('../assets/images/avatar.png')}
               style={{ height: hp(7), width: wp(15) }}

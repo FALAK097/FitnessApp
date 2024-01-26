@@ -25,6 +25,7 @@ export default function ForgotPassword() {
       <SafeAreaView className="flex" style={{ backgroundColor: '#877dfa' }}>
         <View className="flex-row justify-start">
           <TouchableOpacity
+            activeOpacity={0.6}
             onPress={navigation.goBack}
             className="bg-rose-500 mx-4 pr-1 rounded-full z-10 flex justify-center items-center absolute"
             style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2) }}>
@@ -73,6 +74,7 @@ export default function ForgotPassword() {
             </View>
           </View>
           <TouchableOpacity
+            activeOpacity={0.6}
             className="py-3 bg-yellow-400 rounded-xl mt-5 top-20"
             // onPress={Home}
           >

@@ -15,6 +15,7 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { FIREBASE_APP } from '../FirebaseConfig';
 import { useTheme } from '../components/ThemeContext';
+import { ScrollView } from 'react-native';
 
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -74,6 +75,7 @@ export default function SignUpScreen({ navigation }) {
       <SafeAreaView className="flex ">
         <View className="flex-row justify-start">
           <TouchableOpacity
+            activeOpacity={0.6}
             onPress={navigation.goBack}
             className="bg-rose-500 mx-4 pr-1 rounded-full flex justify-center items-center absolute"
             style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2) }}>
@@ -94,62 +96,64 @@ export default function SignUpScreen({ navigation }) {
           backgroundColor: theme.mainBackgroundColor,
         }}
         className="flex-1 bg-white px-8 pt-8">
-        <KeyboardAvoidingView behavior="padding">
-          <View className="form space-y-2">
-            <Text
-              style={{ color: theme.textColor }}
-              className="text-gray-700 ml-4">
-              Full Name
-            </Text>
-            <TextInput
-              className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-              placeholder="name"
-              value={name}
-              onChangeText={(text) => setName(text)}
-              autoCapitalize="none"
-            />
-            <Text
-              style={{ color: theme.textColor }}
-              className="text-gray-700 ml-4">
-              Email Address
-            </Text>
-            <TextInput
-              className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-              placeholder="john@gmail.com"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-            />
-            <Text
-              style={{ color: theme.textColor }}
-              className="text-gray-700 ml-4">
-              Password
-            </Text>
-            <TextInput
-              className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-5"
-              secureTextEntry={true}
-              placeholder="john123"
-              autoCapitalize="none"
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-            />
-            {loading ? (
-              <ActivityIndicator size="large" color="#0000ff" />
-            ) : (
-              <TouchableOpacity
-                className="py-3 bg-yellow-400 rounded-xl mt-3"
-                onPress={signUp}>
-                {/* onPress={() => navigation.navigate('Home')}> */}
-                <Text
-                  style={{ color: theme.textColor }}
-                  className="text-xl font-bold text-center text-gray-600">
-                  Sign Up
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
-          {/* <Text className="text-xl text-gray-700 font-bold text-center py-5">
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <KeyboardAvoidingView behavior="position">
+            <View className="form space-y-2">
+              <Text
+                style={{ color: theme.textColor }}
+                className="text-gray-700 ml-4">
+                Full Name
+              </Text>
+              <TextInput
+                className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+                placeholder="name"
+                value={name}
+                onChangeText={(text) => setName(text)}
+                autoCapitalize="none"
+              />
+              <Text
+                style={{ color: theme.textColor }}
+                className="text-gray-700 ml-4">
+                Email Address
+              </Text>
+              <TextInput
+                className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+                placeholder="john@gmail.com"
+                autoCapitalize="none"
+                keyboardType="email-address"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+              />
+              <Text
+                style={{ color: theme.textColor }}
+                className="text-gray-700 ml-4">
+                Password
+              </Text>
+              <TextInput
+                className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-5"
+                secureTextEntry={true}
+                placeholder="john123"
+                autoCapitalize="none"
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+              />
+              {loading ? (
+                <ActivityIndicator size="large" color="#0000ff" />
+              ) : (
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  className="py-3 bg-yellow-400 rounded-xl mt-3"
+                  onPress={signUp}>
+                  {/* onPress={() => navigation.navigate('Home')}> */}
+                  <Text
+                    style={{ color: theme.textColor }}
+                    className="text-xl font-bold text-center text-gray-600">
+                    Sign Up
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+            {/* <Text className="text-xl text-gray-700 font-bold text-center py-5">
             Or
           </Text>
           <View className="flex-row justify-center space-x-12">
@@ -172,18 +176,20 @@ export default function SignUpScreen({ navigation }) {
               />
             </TouchableOpacity>
           </View> */}
-          <View className="flex-row justify-center mt-7">
-            <Text
-              style={{ color: theme.textColor }}
-              className="text-gray-500 font-semibold">
-              Already have an account?
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('SignInScreen')}>
-              <Text className="font-semibold text-yellow-500"> Log In</Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
+            <View className="flex-row justify-center mt-7">
+              <Text
+                style={{ color: theme.textColor }}
+                className="text-gray-500 font-semibold">
+                Already have an account?
+              </Text>
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => navigation.navigate('SignInScreen')}>
+                <Text className="font-semibold text-yellow-500"> Log In</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+        </ScrollView>
       </View>
     </View>
   );
