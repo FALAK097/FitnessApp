@@ -16,6 +16,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { FIREBASE_APP } from '../FirebaseConfig';
+import { getAuth } from 'firebase/auth';
 
 export default function Profile() {
   const navigation = useNavigation();
@@ -34,11 +35,17 @@ export default function Profile() {
         {
           text: 'Yes',
           onPress: () => {
-            // Add logic to clear user cache here if needed
-            // Example: AsyncStorage.clear();
-            // Redirect to login screen
-            // auth.signOut();
-            navigation.navigate('SignInScreen');
+            auth
+              .signOut()
+              .then(() => {
+                // Add logic to clear user cache here if needed
+                // Example: AsyncStorage.clear();
+                // Redirect to login screen
+                navigation.navigate('SignInScreen');
+              })
+              .catch((error) => {
+                console.error('Sign out error:', error);
+              });
           },
         },
       ],
