@@ -22,21 +22,20 @@ export default function ForgotPassword() {
     <KeyboardAvoidingView
       behavior="position"
       style={{ backgroundColor: theme.mainBackgroundColor, flex: 1 }}>
-      <SafeAreaView className="flex" style={{ backgroundColor: '#877dfa' }}>
+      <SafeAreaView className="flex" style={{ backgroundColor: '#F1BE48' }}>
         <View className="flex-row justify-start">
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={navigation.goBack}
-            className="bg-rose-500 mx-4 pr-1 rounded-full z-10 flex justify-center items-center absolute"
-            style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2) }}>
-            <Ionicons name="caret-back-outline" size={hp(4)} color="white" />
-          </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.goBack()}
+          style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
+          <Ionicons name="arrow-back" size={hp(4)} color="#fff" />
+        </TouchableOpacity>
         </View>
         <View
           className="flex-row justify-center"
-          style={{ backgroundColor: '#877dfa' }}>
+          style={{ backgroundColor: '#F1BE48' }}>
           <Image
-            source={require('../assets/images/auth/forgot.png')}
+            source={require('../assets/images/forget.png')}
             style={{ width: 300, height: 250, marginTop: 20 }}
           />
         </View>

@@ -80,21 +80,20 @@ export default function SignUpScreen({ navigation }) {
   };
 
   return (
-    <View className="flex-1 bg-white" style={{ backgroundColor: '#877dfa' }}>
+    <View className="flex-1 bg-white" style={{ backgroundColor: '#F1BE48' }}>
       <SafeAreaView className="flex ">
         <View className="flex-row justify-start">
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={navigation.goBack}
-            className="bg-rose-500 mx-4 pr-1 rounded-full flex justify-center items-center absolute"
-            style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2) }}>
-            <Ionicons name="caret-back-outline" size={hp(4)} color="white" />
-          </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.goBack()}
+          style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
+          <Ionicons name="arrow-back" size={hp(4)} color="#fff" />
+        </TouchableOpacity>
         </View>
         <View className="flex-row justify-center">
           <Image
             source={require('../assets/images/signup.png')}
-            style={{ width: 280, height: 200, marginTop: 15 }}
+            style={{ width: 390, height: 200, marginTop: 15 }}
           />
         </View>
       </SafeAreaView>
@@ -114,8 +113,18 @@ export default function SignUpScreen({ navigation }) {
                 Full Name
               </Text>
               <TextInput
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'black',
+                  borderRadius: 8,
+                  padding: 16,
+                  backgroundColor: '#FFFFFF',
+                  color: 'black',
+                  marginBottom: 12,
+                }}
+                placeholderTextColor="#A1A1AA"
                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                placeholder="name"
+                placeholder="Full Name"
                 value={name}
                 onChangeText={(text) => setName(text)}
                 autoCapitalize="none"
@@ -126,6 +135,16 @@ export default function SignUpScreen({ navigation }) {
                 Email Address
               </Text>
               <TextInput
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'black',
+                  borderRadius: 8,
+                  padding: 16,
+                  backgroundColor: '#FFFFFF',
+                  color: 'black',
+                  marginBottom: 12,
+                }}
+                placeholderTextColor="#A1A1AA"
                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                 placeholder="john@gmail.com"
                 autoCapitalize="none"
@@ -139,6 +158,16 @@ export default function SignUpScreen({ navigation }) {
                 Password
               </Text>
               <TextInput
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'black',
+                  borderRadius: 8,
+                  padding: 16,
+                  backgroundColor: '#FFFFFF',
+                  color: 'black',
+                  marginBottom: 12,
+                }}
+                placeholderTextColor="#A1A1AA"
                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-5"
                 secureTextEntry={true}
                 placeholder="john123"

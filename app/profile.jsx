@@ -1,20 +1,10 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DarkModeSwitch from '../components/DarkModeSwitch';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../components/ThemeContext';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FIREBASE_APP } from '../FirebaseConfig';
 import { getAuth } from 'firebase/auth';
 
@@ -53,6 +43,10 @@ export default function Profile() {
     );
   };
 
+  const navigateToHelp = () => {
+    navigation.navigate('HelpScreen');
+  };
+
   return (
     <ScrollView
       style={[
@@ -61,10 +55,9 @@ export default function Profile() {
       ]}>
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={navigation.goBack}
-        className="bg-rose-500 mx-0 pr-1 rounded-full flex justify-center items-center absolute"
-        style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(1) }}>
-        <Ionicons name="caret-back-outline" size={hp(4)} color="white" />
+        onPress={() => navigation.goBack()}
+        style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
+        <Ionicons name="arrow-back" size={hp(4)} color={theme === 'dark' ? '#fff' : '#000'} />
       </TouchableOpacity>
 
       <View style={styles.profileContainer}>
@@ -98,6 +91,7 @@ export default function Profile() {
 
         <TouchableOpacity
           activeOpacity={0.6}
+          onPress={navigateToHelp} // Modified to call navigateToHelp function
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
             Help ❓
@@ -109,7 +103,7 @@ export default function Profile() {
           className="bg-rose-400"
           style={styles.logoutButton}
           onPress={handleLogout}>
-          <Text style={styles.buttonText}>Logout ❌</Text>
+          <Text style={styles.buttonText}>LOGOUT</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -165,6 +159,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   logoutButton: {
+    backgroundColor: '#F1BE48',
     marginTop: 'auto', // Pushes the button to the bottom
     marginBottom: hp(2), // Increased margin
     borderRadius: hp(2), // Responsive border radius

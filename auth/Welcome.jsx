@@ -14,11 +14,11 @@ export default function Welcome({ navigation }) {
     <View className="flex-1 flex justify-end">
       <Image
         className="h-full w-full absolute"
-        source={require('../assets/images/welcome.png')}
+        source={require('../assets/images/welcome1.png')}
       />
 
       <LinearGradient
-        colors={['transparent', '#18181b']}
+        colors={['transparent', '#18181']}
         style={{ width: wp(100), height: hp(70) }}
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 0.8 }}
@@ -26,10 +26,8 @@ export default function Welcome({ navigation }) {
         <Animated.View
           entering={FadeInDown.delay(100).springify()}
           className="flex items-center">
-          <Text
-            style={{ fontSize: hp(5) }}
-            className="text-white font-bold tracking-wide">
-            Best <Text className="text-rose-500">Workouts</Text>
+          <Text style={{ fontSize: hp(5), color: "#FFFFFF" }} className="text-white font-bold tracking-wide">
+            Best <Text style={{ color: "#F1BE48" }}>Workouts</Text>
           </Text>
           <Text
             style={{ fontSize: hp(5) }}
@@ -41,10 +39,10 @@ export default function Welcome({ navigation }) {
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => navigation.navigate('SignInScreen')}
-            style={{ height: hp(7), width: wp(80) }}
-            className="bg-rose-500 rounded-full flex items-center justify-center mx-auto border-[2px] border-neutral-200">
+            style={{ height: hp(7), width: wp(80), backgroundColor: '#F1BE48' }}
+            className="button-86 rounded-full flex items-center justify-center mx-auto border-[2px] border-neutral-200">
             <Text
-              style={{ fontSize: hp(3) }}
+              style={{ fontSize: hp(3), color: '#000000' }} // Changed font color to black
               className="text-white font-bold tracking-wide">
               Get Started
             </Text>
