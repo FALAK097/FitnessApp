@@ -42,7 +42,10 @@ export default function Home() {
             Ready To
           </Text>
           <Text
-            style={{ fontSize: hp(4.5) }}
+            style={{
+              fontSize: hp(4.5),
+              color: '#F1BE48',
+            }}
             className="font-bold tracking-wide text-rose-500">
             Workout!
             {/* WORKOUT, {username}! */}

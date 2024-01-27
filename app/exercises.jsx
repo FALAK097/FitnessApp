@@ -51,15 +51,14 @@ export default function Exercises() {
       <StatusBar style="auto" />
       <Image
         source={item?.image}
-        style={{ width: wp(100), height: hp(45) }}
+        style={{ width: wp(100), height: hp(4) }}
         className="rounded-b-[40px]"
       />
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={navigation.goBack}
-        className="bg-rose-500 mx-4 pr-1 rounded-full flex justify-center items-center absolute"
-        style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(7) }}>
-        <Ionicons name="caret-back-outline" size={hp(4)} color="white" />
+        onPress={() => navigation.goBack()}
+        style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
+        <Ionicons name="arrow-back" size={hp(4)} color={theme === 'dark' ? '#fff' : '#000'} />
       </TouchableOpacity>
 
       {/* exercies */}
