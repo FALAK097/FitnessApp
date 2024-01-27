@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,10 +14,32 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
 import { useTheme } from '../components/ThemeContext';
+import { sendPasswordResetEmail, getAuth } from 'firebase/auth';
+import { useState } from 'react';
+import { FIREBASE_APP } from '../FirebaseConfig';
 
 export default function ForgotPassword() {
   const navigation = useNavigation();
   const { theme } = useTheme();
+  const [email, setEmail] = useState('');
+
+  const handleResetPassword = async () => {
+    try {
+      const auth = getAuth(FIREBASE_APP);
+      await sendPasswordResetEmail(auth, email);
+      Alert.alert(
+        'Password Reset Email Sent',
+        'Please check your email to reset your password.',
+        [{ text: 'OK', onPress: () => navigation.navigate('SignInScreen') }]
+      );
+    } catch (error) {
+      console.error('Error sending password reset email:', error.message);
+      Alert.alert(
+        'Error',
+        'Failed to send password reset email. Please try again.'
+      );
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -68,6 +91,8 @@ export default function ForgotPassword() {
                   style={[styles.textInput, { color: theme.textColor }]}
                   placeholder={'Email ID'}
                   placeholderTextColor={'#aaa'}
+                  value={email}
+                  onChangeText={setEmail}
                 />
               </View>
             </View>
@@ -75,8 +100,7 @@ export default function ForgotPassword() {
           <TouchableOpacity
             activeOpacity={0.6}
             className="py-3 bg-yellow-400 rounded-xl mt-5 top-20"
-            // onPress={Home}
-          >
+            onPress={handleResetPassword}>
             <Text
               style={{ color: theme.textColor }}
               className="text-xl font-bold text-center text-gray-700">
