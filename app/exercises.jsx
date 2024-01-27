@@ -55,6 +55,7 @@ export default function Exercises() {
         className="rounded-b-[40px]"
       />
       <TouchableOpacity
+        activeOpacity={0.6}
         onPress={navigation.goBack}
         className="bg-rose-500 mx-4 pr-1 rounded-full flex justify-center items-center absolute"
         style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(7) }}>

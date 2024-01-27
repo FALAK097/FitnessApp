@@ -15,10 +15,13 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { FIREBASE_APP } from '../FirebaseConfig';
+import { getAuth } from 'firebase/auth';
 
 export default function Profile() {
   const navigation = useNavigation();
   const { theme } = useTheme();
+  const auth = getAuth(FIREBASE_APP);
 
   const handleLogout = () => {
     Alert.alert(
@@ -32,10 +35,17 @@ export default function Profile() {
         {
           text: 'Yes',
           onPress: () => {
-            // Add logic to clear user cache here if needed
-            // Example: AsyncStorage.clear();
-            // Redirect to login screen
-            navigation.navigate('SignInScreen');
+            auth
+              .signOut()
+              .then(() => {
+                // Add logic to clear user cache here if needed
+                // Example: AsyncStorage.clear();
+                // Redirect to login screen
+                navigation.navigate('SignInScreen');
+              })
+              .catch((error) => {
+                console.error('Sign out error:', error);
+              });
           },
         },
       ],
@@ -50,6 +60,7 @@ export default function Profile() {
         { backgroundColor: theme.mainBackgroundColor },
       ]}>
       <TouchableOpacity
+        activeOpacity={0.6}
         onPress={navigation.goBack}
         className="bg-rose-500 mx-0 pr-1 rounded-full flex justify-center items-center absolute"
         style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(1) }}>
@@ -57,7 +68,7 @@ export default function Profile() {
       </TouchableOpacity>
 
       <View style={styles.profileContainer}>
-        <TouchableOpacity style={styles.avatarContainer}>
+        <TouchableOpacity activeOpacity={0.6} style={styles.avatarContainer}>
           <Image
             style={styles.profileImage}
             source={require('../assets/images/avatar.png')}
@@ -70,6 +81,7 @@ export default function Profile() {
 
       <View style={styles.card}>
         <TouchableOpacity
+          activeOpacity={0.6}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
             View Profile 👤
@@ -85,6 +97,7 @@ export default function Profile() {
         </TouchableOpacity>
 
         <TouchableOpacity
+          activeOpacity={0.6}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
             Help ❓
@@ -92,6 +105,7 @@ export default function Profile() {
         </TouchableOpacity>
 
         <TouchableOpacity
+          activeOpacity={0.6}
           className="bg-rose-400"
           style={styles.logoutButton}
           onPress={handleLogout}>

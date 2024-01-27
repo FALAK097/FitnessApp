@@ -39,6 +39,7 @@ export default function Welcome({ navigation }) {
         </Animated.View>
         <Animated.View entering={FadeInDown.delay(200).springify()}>
           <TouchableOpacity
+            activeOpacity={0.6}
             onPress={() => navigation.navigate('SignInScreen')}
             style={{ height: hp(7), width: wp(80) }}
             className="bg-rose-500 rounded-full flex items-center justify-center mx-auto border-[2px] border-neutral-200">

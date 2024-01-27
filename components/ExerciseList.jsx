@@ -51,6 +51,7 @@ const ExerciseCard = ({ item, navigation, index, theme }) => {
   return (
     <Animated.View style={animatedStyle}>
       <TouchableOpacity
+        activeOpacity={0.6}
         onPress={navigateToExerciseDetails}
         style={{ flex: 1, paddingVertical: hp(3), marginBottom: hp(2) }}>
         <View

@@ -16,7 +16,7 @@ const AppNavigation = () => {
     const unsubscribe = onAuthStateChanged(
       auth,
       (user) => {
-        // console.log('User:', user);
+        console.log('User:', user);
         setUser(user);
       },
       (error) => {
