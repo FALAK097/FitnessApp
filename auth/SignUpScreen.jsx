@@ -68,10 +68,10 @@ export default function SignUpScreen({ navigation }) {
       );
       await sendEmailVerification(userCredential.user);
       Alert.alert(
-        'Verification Email Sent',
-        'Please check your email for verification.'
+        'Success',
+        'Account created successfully. Please check your email for verification.'
       );
-      navigation.navigate('VerifyEmailScreen'); // Navigate to VerifyEmailScreen after successful sign-up
+      // navigation.navigate('SignInScreen');
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {

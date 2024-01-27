@@ -10,7 +10,7 @@ import Exercises from '../app/exercises';
 import ExerciseDetails from '../app/exerciseDetails';
 import Profile from '../app/profile';
 import MachineDetection from '../app/machineDetection';
-import VerifyEmailScreen from '../auth/VerifyEmailScreen';
+// import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,11 +22,11 @@ export const AuthStack = () => {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="SignInScreen" component={SignInScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="VerifyEmailScreen"
         component={VerifyEmailScreen}
         options={{ title: 'Verify Email' }}
-      />
+      /> */}
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
     </Stack.Navigator>
   );

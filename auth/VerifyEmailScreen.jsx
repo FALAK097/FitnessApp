@@ -19,7 +19,7 @@ export default function VerifyEmailScreen() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user && user.emailVerified) {
-        navigation.navigate('Home');
+        navigation.navigate('SignInScreen');
       }
     });
 

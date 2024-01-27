@@ -16,7 +16,7 @@ const AppNavigation = () => {
     const unsubscribe = onAuthStateChanged(
       auth,
       (user) => {
-        // console.log('User:', user);
+        console.log('User:', user);
         setUser(user);
       },
       (error) => {
@@ -29,8 +29,8 @@ const AppNavigation = () => {
 
   return (
     <NavigationContainer>
-      <AuthStack />
-      {/* {user ? <AppStack /> : <AuthStack />} */}
+      {/* <AuthStack /> */}
+      {user ? <AppStack /> : <AuthStack />}
       {/* <TabNavigation/> */}
     </NavigationContainer>
   );
