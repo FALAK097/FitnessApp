@@ -61,6 +61,7 @@ const ExerciseCard = ({ item, navigation, index, theme }) => {
             borderRadius: 25,
             overflow: 'hidden',
             elevation: 5,
+            marginTop: 10
           }}>
           {item?.gifUrl && (
             <Image
