@@ -1,4 +1,11 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { Image } from 'expo-image';
@@ -13,9 +20,6 @@ import { useTheme } from '../components/ThemeContext';
 
 export default function ExerciseDetails() {
   const item = useLocalSearchParams();
-
-  // console.log('ExerciseDetails Item:', item);
-  // console.log(item.item.equipment);
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const { theme } = useTheme();
@@ -28,8 +32,9 @@ export default function ExerciseDetails() {
 
   if (loading) {
     return (
-      <View className="flex flex-1 justify-center items-center">
-        <Text className="font-bold text-2xl">Loading...</Text>
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#F1BE48" />
+        <Text style={styles.text}>Loading...</Text>
       </View>
     );
   }
@@ -145,3 +150,18 @@ export default function ExerciseDetails() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginTop: 10,
+  },
+});
