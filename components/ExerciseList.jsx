@@ -41,9 +41,7 @@ const ExerciseCard = ({ item, navigation, index, theme }) => {
     .springify();
 
   const navigateToExerciseDetails = () => {
-    // console.log('Before navigation');
     if (item && navigation) {
-      // console.log('Navigating to ExerciseDetails');
       navigation.navigate('ExerciseDetails', { item });
     }
   };
@@ -61,7 +59,7 @@ const ExerciseCard = ({ item, navigation, index, theme }) => {
             borderRadius: 25,
             overflow: 'hidden',
             elevation: 5,
-            marginTop: 10
+            marginTop: 10,
           }}>
           {item?.gifUrl && (
             <Image

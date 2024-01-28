@@ -127,7 +127,7 @@ export default function Profile() {
         <Ionicons
           name="arrow-back"
           size={hp(4)}
-          color={theme === 'dark' ? '#fff' : '#000'}
+          style={{ color: theme.textColor }}
         />
       </TouchableOpacity>
 

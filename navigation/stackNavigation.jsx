@@ -13,6 +13,8 @@ import ExerciseDetails from '../app/ExerciseDetails';
 import Profile from '../app/Profile';
 import MachineDetection from '../app/MachineDetection';
 import HelpScreen from '../app/HelpScreen';
+import BodyParts from '../app/BodyParts';
+import DietScreen from '../app/DietScreen';
 // import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
 const Stack = createStackNavigator();
@@ -20,7 +22,7 @@ const Stack = createStackNavigator();
 export const AuthStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Onboarding" // Set initialRouteName to "Onboarding"
+      initialRouteName="Onboarding"
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Onboarding" component={Onboarding} />
       <Stack.Screen name="Welcome" component={Welcome} />
@@ -44,6 +46,8 @@ export const AppStack = () => {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Exercises" component={Exercises} />
       <Stack.Screen name="ExerciseDetails" component={ExerciseDetails} />
+      <Stack.Screen name="BodyParts" component={BodyParts} />
+      <Stack.Screen name="DietScreen" component={DietScreen} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="HelpScreen" component={HelpScreen} />
       <Stack.Screen

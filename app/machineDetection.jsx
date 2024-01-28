@@ -153,8 +153,17 @@ export default function MachineDetection() {
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={() => navigation.goBack()}
-        style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
-        <Ionicons name="arrow-back" size={hp(4)} color={theme === 'dark' ? '#fff' : '#000'} />
+        style={{
+          width: hp(5.5),
+          height: hp(5.5),
+          marginTop: hp(2),
+          marginLeft: 16,
+        }}>
+        <Ionicons
+          name="arrow-back"
+          size={hp(4)}
+          style={{ color: theme.textColor }}
+        />
       </TouchableOpacity>
       <View
         style={[

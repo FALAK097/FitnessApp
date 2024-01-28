@@ -52,7 +52,7 @@ export default function ExerciseDetails() {
         activeOpacity={0.6}
         onPress={navigation.goBack}
         className="mx-2 absolute rounded-full mt-12 right-3">
-        <Anticons name="closecircle" size={hp(4.5)} color="#f43f5e" />
+        <Anticons name="closecircle" size={hp(4.5)} color="#F59E0B" />
       </TouchableOpacity>
 
       {/* details */}
