@@ -69,6 +69,10 @@ export default function Profile() {
     navigation.navigate('HelpScreen');
   };
 
+  const navigateToFAQ = () => {
+    navigation.navigate('FAQScreen');
+  };
+
   const saveAvatarToStorage = async (uri) => {
     try {
       const userId = auth.currentUser.uid;
@@ -165,7 +169,16 @@ export default function Profile() {
           onPress={navigateToHelp}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
-            Help ❓
+            About us ❓
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={navigateToFAQ}
+          style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
+          <Text style={[styles.buttonText, { color: theme.textColor }]}>
+           FAQs 💡
           </Text>
         </TouchableOpacity>
 
