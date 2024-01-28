@@ -70,7 +70,7 @@ export default function Profile() {
   };
 
   const navigateToFAQ = () => {
-    navigation.navigate('FAQScreen');
+    navigation.navigate('Faq');
   };
 
   const saveAvatarToStorage = async (uri) => {
@@ -178,7 +178,7 @@ export default function Profile() {
           onPress={navigateToFAQ}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
-           FAQs 💡
+            FAQs 💡
           </Text>
         </TouchableOpacity>
 
