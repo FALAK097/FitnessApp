@@ -55,7 +55,7 @@ export default function Home() {
         <View className="flex-row justify-center items-center space-x-4">
           <TouchableOpacity activeOpacity={0.6} onPress={handleAvatarClick}>
             <Image
-              source={require('../assets/images/avatar.png')}
+              source={require('../assets/icons/avatar.png')}
               style={{ height: hp(7), width: wp(15) }}
               className="rounded-full"
             />

@@ -4,7 +4,7 @@
     "slug": "fit-hub",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icons/icon4.png",
+    "icon": "./assets/icons/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -18,7 +18,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icons/icon4.png",
+        "foregroundImage": "./assets/icons/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.falak097.FitnessApp"
@@ -26,7 +26,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/icons/icon4.png"
+      "favicon": "./assets/icons/icon.png"
     },
     "plugins": ["expo-router", "expo-image-picker"],
     "experiments": {

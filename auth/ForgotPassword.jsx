@@ -47,18 +47,23 @@ export default function ForgotPassword() {
       style={{ backgroundColor: theme.mainBackgroundColor, flex: 1 }}>
       <SafeAreaView className="flex" style={{ backgroundColor: '#F1BE48' }}>
         <View className="flex-row justify-start">
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}
-          style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
-          <Ionicons name="arrow-back" size={hp(4)} color="#fff" />
-        </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => navigation.goBack()}
+            style={{
+              width: hp(5.5),
+              height: hp(5.5),
+              marginTop: hp(2),
+              marginLeft: 16,
+            }}>
+            <Ionicons name="arrow-back" size={hp(4)} color="#fff" />
+          </TouchableOpacity>
         </View>
         <View
           className="flex-row justify-center"
           style={{ backgroundColor: '#F1BE48' }}>
           <Image
-            source={require('../assets/images/forget.png')}
+            source={require('../assets/images/auth/forget.png')}
             style={{ width: 300, height: 250, marginTop: 20 }}
           />
         </View>
@@ -107,6 +112,21 @@ export default function ForgotPassword() {
               Submit
             </Text>
           </TouchableOpacity>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginTop: 100,
+            }}>
+            <Text style={{ color: theme.textColor, marginRight: 5 }}>
+              Don't have an account?
+            </Text>
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => navigation.navigate('SignUpScreen')}>
+              <Text className="font-semibold text-yellow-500">Sign Up</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </KeyboardAvoidingView>
