@@ -26,12 +26,12 @@ export const AuthStack = () => {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="SignInScreen" component={SignInScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       {/* <Stack.Screen
         name="VerifyEmailScreen"
         component={VerifyEmailScreen}
         options={{ title: 'Verify Email' }}
       /> */}
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
     </Stack.Navigator>
   );
 };

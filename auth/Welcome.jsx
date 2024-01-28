@@ -26,8 +26,10 @@ export default function Welcome({ navigation }) {
         <Animated.View
           entering={FadeInDown.delay(100).springify()}
           className="flex items-center">
-          <Text style={{ fontSize: hp(5), color: "#FFFFFF" }} className="text-white font-bold tracking-wide">
-            Best <Text style={{ color: "#F1BE48" }}>Workouts</Text>
+          <Text
+            style={{ fontSize: hp(5), color: '#FFFFFF' }}
+            className="text-white font-bold tracking-wide">
+            Best <Text style={{ color: '#F1BE48' }}>Workouts</Text>
           </Text>
           <Text
             style={{ fontSize: hp(5) }}
@@ -42,7 +44,7 @@ export default function Welcome({ navigation }) {
             style={{ height: hp(7), width: wp(80), backgroundColor: '#F1BE48' }}
             className="button-86 rounded-full flex items-center justify-center mx-auto border-[2px] border-neutral-200">
             <Text
-              style={{ fontSize: hp(3), color: '#000000' }} // Changed font color to black
+              style={{ fontSize: hp(3), color: '#000' }}
               className="text-white font-bold tracking-wide">
               Get Started
             </Text>
