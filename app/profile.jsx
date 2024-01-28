@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DarkModeSwitch from '../components/DarkModeSwitch';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../components/ThemeContext';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import { FIREBASE_APP } from '../FirebaseConfig';
 import { getAuth } from 'firebase/auth';
 import * as ImagePicker from 'expo-image-picker';
@@ -14,7 +25,7 @@ export default function Profile() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const auth = getAuth(FIREBASE_APP);
-  const [avatar, setAvatar] = useState(require('../assets/images/avatar.png')); // Default avatar
+  const [avatar, setAvatar] = useState(require('../assets/icons/avatar.png'));
 
   useEffect(() => {
     const fetchAvatar = async () => {
@@ -81,7 +92,8 @@ export default function Profile() {
   };
 
   const pickAvatarFromGallery = async () => {
-    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.granted === false) {
       Alert.alert('Permission to access camera roll is required!');
@@ -101,20 +113,29 @@ export default function Profile() {
 
   return (
     <ScrollView
-      style={[
-        styles.container,
-        { backgroundColor: theme.mainBackgroundColor },
-      ]}
+      style={[styles.container, { backgroundColor: theme.mainBackgroundColor }]}
       contentContainerStyle={{ flexGrow: 1 }}>
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={() => navigation.goBack()}
-        style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
-        <Ionicons name="arrow-back" size={hp(4)} color={theme === 'dark' ? '#fff' : '#000'} />
+        style={{
+          width: hp(5.5),
+          height: hp(5.5),
+          marginTop: hp(2),
+          marginLeft: 16,
+        }}>
+        <Ionicons
+          name="arrow-back"
+          size={hp(4)}
+          style={{ color: theme.textColor }}
+        />
       </TouchableOpacity>
 
       <View style={styles.profileContainer}>
-        <TouchableOpacity activeOpacity={0.6} style={styles.avatarContainer} onPress={pickAvatarFromGallery}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={styles.avatarContainer}
+          onPress={pickAvatarFromGallery}>
           <Image style={styles.profileImage} source={avatar} />
         </TouchableOpacity>
         <TouchableOpacity>

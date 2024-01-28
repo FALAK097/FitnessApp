@@ -20,8 +20,6 @@ export default function Exercises() {
   const { params: item } = useLocalSearchParams();
   const { theme } = useTheme();
 
-  // console.log('Item:', item);
-
   useEffect(() => {
     if (item) {
       getExercises(item.name);
@@ -30,12 +28,7 @@ export default function Exercises() {
 
   const getExercises = async (bodyPart) => {
     try {
-      // console.log('Request payload:', bodyPart);
-
-      // console.log('bodyPart value before API call:', bodyPart);
-
-      let data = await fetchExercisesByBodypart(bodyPart);
-      // console.log('Received data:', data);
+      const data = await fetchExercisesByBodypart(bodyPart);
       setExercises(data);
     } catch (error) {
       console.error('Error during API request:', error);
@@ -51,14 +44,29 @@ export default function Exercises() {
       <StatusBar style="auto" />
       <Image
         source={item?.image}
-        style={{ width: wp(100), height: hp(4) }}
+        style={{
+          width: wp(100),
+          height: hp(40),
+          resizeMode: 'cover',
+          marginBottom: 2,
+        }}
         className="rounded-b-[40px]"
       />
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={() => navigation.goBack()}
-        style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
-        <Ionicons name="arrow-back" size={hp(4)} color={theme === 'dark' ? '#fff' : '#000'} />
+        className="mx-4 pr-1 rounded-full flex justify-center items-center absolute"
+        style={{
+          width: hp(5.5),
+          height: hp(5.5),
+          marginTop: hp(5),
+          backgroundColor: theme.mainBackgroundColor,
+        }}>
+        <Ionicons
+          name="arrow-back"
+          size={hp(4)}
+          style={{ color: theme.textColor, marginLeft: 2 }}
+        />
       </TouchableOpacity>
 
       {/* exercies */}
@@ -68,7 +76,7 @@ export default function Exercises() {
           className="font-semibold text-neutral-700">
           {item?.name.charAt(0).toUpperCase() + item?.name.slice(1)} Exercises
         </Text>
-        <View className="mb-10">
+        <View>
           <ExerciseList data={exercises} />
         </View>
       </View>

@@ -14,7 +14,7 @@ export default function Welcome({ navigation }) {
     <View className="flex-1 flex justify-end">
       <Image
         className="h-full w-full absolute"
-        source={require('../assets/images/welcome1.png')}
+        source={require('../assets/images/onboarding/welcome.png')}
       />
 
       <LinearGradient
