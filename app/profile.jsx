@@ -42,9 +42,6 @@ export default function Profile() {
             auth
               .signOut()
               .then(() => {
-                // Add logic to clear user cache here if needed
-                // Example: AsyncStorage.clear();
-                // Redirect to login screen
                 navigation.navigate('SignInScreen');
               })
               .catch((error) => {
@@ -63,7 +60,9 @@ export default function Profile() {
 
   const saveAvatarToStorage = async (uri) => {
     try {
-      await AsyncStorage.setItem('avatarURI', uri);
+      const userId = auth.currentUser.uid;
+      const avatarStorageKey = `avatarURI_${userId}`;
+      await AsyncStorage.setItem(avatarStorageKey, uri);
     } catch (error) {
       console.error('Error saving avatar URI:', error);
     }
@@ -71,7 +70,9 @@ export default function Profile() {
 
   const getAvatarFromStorage = async () => {
     try {
-      const uri = await AsyncStorage.getItem('avatarURI');
+      const userId = auth.currentUser.uid;
+      const avatarStorageKey = `avatarURI_${userId}`;
+      const uri = await AsyncStorage.getItem(avatarStorageKey);
       return uri !== null ? uri : null;
     } catch (error) {
       console.error('Error getting avatar URI:', error);
