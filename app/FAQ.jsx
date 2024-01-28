@@ -10,6 +10,10 @@ const frequentlyAskedQuestions = [
     {
         question: 'How to use Smart Camera?',
         answer: 'After accessing the smart camera you will find a button (Pick an image) click on it. Select the image you want to identify. After that click on Detect Machine button and get the result.'
+    },
+    {
+        question: 'Forgot password',
+        answer: 'Khud se krle'
     }
 ]
 
