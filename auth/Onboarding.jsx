@@ -14,9 +14,9 @@ const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigation = useNavigation();
   const images = [
-    require('../assets/icons/onboarding1.png'),
-    require('../assets/icons/onboarding2.png'),
-    require('../assets/icons/onboarding3.png'),
+    require('../assets/images/onboarding/onboarding1.png'),
+    require('../assets/images/onboarding/onboarding2.png'),
+    require('../assets/images/onboarding/onboarding3.png'),
   ];
 
   const onNext = () => {

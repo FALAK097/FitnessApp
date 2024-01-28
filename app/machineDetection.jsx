@@ -1,13 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {
-  TouchableOpacity,
-  Button,
-  Image,
-  View,
-  Text,
-  StyleSheet,
-  BackHandler,
-} from 'react-native';
+import React, { useState } from 'react';
+import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Modal from 'react-native-modal';
 import { Card } from 'react-native-elements';
@@ -153,8 +145,15 @@ export default function MachineDetection() {
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={() => navigation.goBack()}
-        style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
-        <Ionicons name="arrow-back" size={hp(4)} color={theme === 'dark' ? '#fff' : '#000'} />
+        style={{
+          marginTop: hp(6),
+          marginLeft: 16,
+        }}>
+        <Ionicons
+          name="arrow-back"
+          size={hp(4)}
+          style={{ color: theme.textColor }}
+        />
       </TouchableOpacity>
       <View
         style={[
@@ -201,6 +200,7 @@ export default function MachineDetection() {
                   styles.buttonStyle,
                   {
                     backgroundColor: theme.backgroundColor,
+                    marginLeft: 15,
                   },
                 ]}>
                 <Text
@@ -465,6 +465,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
+    marginBottom: 100,
   },
   image: {
     width: 200,
@@ -478,8 +479,8 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     backgroundColor: 'purple',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
     borderRadius: 15,
     borderBottomColor: 'black',
     borderColor: 'grey',

@@ -83,16 +83,21 @@ export default function SignUpScreen({ navigation }) {
     <View className="flex-1 bg-white" style={{ backgroundColor: '#F1BE48' }}>
       <SafeAreaView className="flex ">
         <View className="flex-row justify-start">
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}
-          style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
-          <Ionicons name="arrow-back" size={hp(4)} color="#fff" />
-        </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => navigation.goBack()}
+            style={{
+              width: hp(5.5),
+              height: hp(5.5),
+              marginTop: hp(2),
+              marginLeft: 16,
+            }}>
+            <Ionicons name="arrow-back" size={hp(4)} color="#fff" />
+          </TouchableOpacity>
         </View>
         <View className="flex-row justify-center">
           <Image
-            source={require('../assets/images/signup.png')}
+            source={require('../assets/images/auth/signup.png')}
             style={{ width: 390, height: 200, marginTop: 15 }}
           />
         </View>

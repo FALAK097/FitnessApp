@@ -7,13 +7,17 @@ import SignInScreen from '../auth/SignInScreen';
 import SignUpScreen from '../auth/SignUpScreen';
 import ForgotPassword from '../auth/ForgotPassword';
 
-import Home from '../app/home';
-import Exercises from '../app/exercises';
-import ExerciseDetails from '../app/exerciseDetails';
-import Profile from '../app/profile';
-import MachineDetection from '../app/machineDetection';
-import HelpSection from '../app/HelpScreen';
+
+import Home from '../app/Home';
+import Exercises from '../app/Exercises';
+import ExerciseDetails from '../app/ExerciseDetails';
+import Profile from '../app/Profile';
+import MachineDetection from '../app/MachineDetection';
+import HelpScreen from '../app/HelpScreen';
+import BodyParts from '../app/BodyParts';
+import DietScreen from '../app/DietScreen';
 import FAQ from '../app/FAQ';
+
 // import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
 const Stack = createStackNavigator();
@@ -21,7 +25,7 @@ const Stack = createStackNavigator();
 export const AuthStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Onboarding" // Set initialRouteName to "Onboarding"
+      initialRouteName="Onboarding"
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Onboarding" component={Onboarding} />
       <Stack.Screen name="Welcome" component={Welcome} />
@@ -45,9 +49,14 @@ export const AppStack = () => {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Exercises" component={Exercises} />
       <Stack.Screen name="ExerciseDetails" component={ExerciseDetails} />
+      <Stack.Screen name="BodyParts" component={BodyParts} />
+      <Stack.Screen name="DietScreen" component={DietScreen} />
       <Stack.Screen name="Profile" component={Profile} />
+
       <Stack.Screen name="HelpScreen" component={HelpSection} />
       <Stack.Screen name="FAQScreen" component={FAQ} options={{title:'FAQs', headerShown:true}}/>
+
+
       <Stack.Screen
         name="MachineDetection"
         component={MachineDetection}
@@ -56,5 +65,5 @@ export const AppStack = () => {
         }}
       />
     </Stack.Navigator>
-  ); 
+  );
 };

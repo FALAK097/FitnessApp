@@ -81,16 +81,21 @@ export default function SignInScreen({ navigation }) {
     <View className="flex-1 bg-white" style={{ backgroundColor: '#F1BE48' }}>
       <SafeAreaView className="flex ">
         <View className="flex-row justify-start">
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}
-          style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
-          <Ionicons name="arrow-back" size={hp(4)} color="#fff" />
-        </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => navigation.goBack()}
+            style={{
+              width: hp(5.5),
+              height: hp(5.5),
+              marginTop: hp(2),
+              marginLeft: 16,
+            }}>
+            <Ionicons name="arrow-back" size={hp(4)} color="#fff" />
+          </TouchableOpacity>
         </View>
         <View className="flex-row justify-center">
           <Image
-            source={require('../assets/images/login.png')}
+            source={require('../assets/images/auth/login.png')}
             style={{ width: 390, height: 250 }}
           />
         </View>
@@ -116,11 +121,11 @@ export default function SignInScreen({ navigation }) {
                   borderColor: 'black',
                   borderRadius: 8,
                   padding: 16,
-                  backgroundColor: '#FFFFFF', 
+                  backgroundColor: '#FFFFFF',
                   color: 'black',
                   marginBottom: 12,
                 }}
-                placeholderTextColor="#A1A1AA" 
+                placeholderTextColor="#A1A1AA"
                 placeholder="john@gmail.com"
                 autoCapitalize="none"
                 keyboardType="email-address"
