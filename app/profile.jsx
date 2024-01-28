@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DarkModeSwitch from '../components/DarkModeSwitch';
@@ -7,11 +7,25 @@ import { useTheme } from '../components/ThemeContext';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FIREBASE_APP } from '../FirebaseConfig';
 import { getAuth } from 'firebase/auth';
+import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const auth = getAuth(FIREBASE_APP);
+  const [avatar, setAvatar] = useState(require('../assets/images/avatar.png')); // Default avatar
+
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      const uri = await getAvatarFromStorage();
+      if (uri) {
+        setAvatar({ uri });
+      }
+    };
+
+    fetchAvatar();
+  }, []);
 
   const handleLogout = () => {
     Alert.alert(
@@ -47,12 +61,50 @@ export default function Profile() {
     navigation.navigate('HelpScreen');
   };
 
+  const saveAvatarToStorage = async (uri) => {
+    try {
+      await AsyncStorage.setItem('avatarURI', uri);
+    } catch (error) {
+      console.error('Error saving avatar URI:', error);
+    }
+  };
+
+  const getAvatarFromStorage = async () => {
+    try {
+      const uri = await AsyncStorage.getItem('avatarURI');
+      return uri !== null ? uri : null;
+    } catch (error) {
+      console.error('Error getting avatar URI:', error);
+      return null;
+    }
+  };
+
+  const pickAvatarFromGallery = async () => {
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      Alert.alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    if (!pickerResult.cancelled) {
+      setAvatar({ uri: pickerResult.uri });
+      saveAvatarToStorage(pickerResult.uri);
+    }
+  };
+
   return (
     <ScrollView
       style={[
         styles.container,
         { backgroundColor: theme.mainBackgroundColor },
-      ]}>
+      ]}
+      contentContainerStyle={{ flexGrow: 1 }}>
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={() => navigation.goBack()}
@@ -61,11 +113,8 @@ export default function Profile() {
       </TouchableOpacity>
 
       <View style={styles.profileContainer}>
-        <TouchableOpacity activeOpacity={0.6} style={styles.avatarContainer}>
-          <Image
-            style={styles.profileImage}
-            source={require('../assets/images/avatar.png')}
-          />
+        <TouchableOpacity activeOpacity={0.6} style={styles.avatarContainer} onPress={pickAvatarFromGallery}>
+          <Image style={styles.profileImage} source={avatar} />
         </TouchableOpacity>
         <TouchableOpacity>
           <Text style={styles.changeAvatarText}>Tap to change avatar</Text>
@@ -91,7 +140,7 @@ export default function Profile() {
 
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={navigateToHelp} // Modified to call navigateToHelp function
+          onPress={navigateToHelp}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
             Help ❓
@@ -100,7 +149,6 @@ export default function Profile() {
 
         <TouchableOpacity
           activeOpacity={0.6}
-          className="bg-rose-400"
           style={styles.logoutButton}
           onPress={handleLogout}>
           <Text style={styles.buttonText}>LOGOUT</Text>
@@ -113,66 +161,66 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: hp(10), // Adjusted for better visibility
-    paddingHorizontal: wp(4), // Added horizontal padding
+    paddingTop: hp(10),
+    paddingHorizontal: wp(4),
   },
   profileContainer: {
     alignItems: 'center',
-    marginBottom: hp(3), // Increased margin
+    marginBottom: hp(3),
   },
   avatarContainer: {
     borderRadius: 100,
     overflow: 'hidden',
-    marginBottom: hp(2), // Increased margin
+    marginBottom: hp(2),
   },
   profileImage: {
-    height: hp(20), // Responsive height
-    width: hp(20), // Responsive width
+    height: hp(20),
+    width: hp(20),
   },
   changeAvatarText: {
-    fontSize: hp(1.5), // Responsive font size
+    fontSize: hp(1.5),
     color: '#777',
   },
   card: {
     width: '100%',
     alignItems: 'center',
-    marginTop: hp(3), // Increased top margin
+    marginTop: hp(3),
   },
   button: {
-    borderRadius: hp(2), // Responsive border radius
+    borderRadius: hp(2),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: hp(0.4), // Responsive shadow offset
+      height: hp(0.4),
     },
     shadowOpacity: 0.3,
-    shadowRadius: hp(0.6), // Responsive shadow radius
+    shadowRadius: hp(0.6),
     elevation: 5,
-    paddingVertical: hp(2), // Responsive padding
-    paddingHorizontal: wp(3), // Responsive padding
-    marginBottom: hp(2), // Increased margin
+    paddingVertical: hp(2),
+    paddingHorizontal: wp(3),
+    marginBottom: hp(2),
     width: '100%',
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: hp(2.5), // Responsive font size
+    fontSize: hp(2.5),
     fontWeight: 'bold',
   },
   logoutButton: {
     backgroundColor: '#F1BE48',
-    marginTop: 'auto', // Pushes the button to the bottom
-    marginBottom: hp(2), // Increased margin
-    borderRadius: hp(2), // Responsive border radius
+    marginTop: 'auto',
+    marginBottom: hp(2),
+    borderRadius: hp(2),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: hp(0.4), // Responsive shadow offset
+      height: hp(0.4),
     },
     shadowOpacity: 0.3,
-    shadowRadius: hp(0.6), // Responsive shadow radius
+    shadowRadius: hp(0.6),
     elevation: 5,
-    paddingVertical: hp(2), // Responsive padding
-    paddingHorizontal: wp(3), // Responsive padding
+    paddingVertical: hp(2),
+    paddingHorizontal: wp(3),
     width: '100%',
     alignItems: 'center',
   },
