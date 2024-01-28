@@ -78,21 +78,20 @@ export default function SignInScreen({ navigation }) {
   };
 
   return (
-    <View className="flex-1 bg-white" style={{ backgroundColor: '#877dfa' }}>
+    <View className="flex-1 bg-white" style={{ backgroundColor: '#F1BE48' }}>
       <SafeAreaView className="flex ">
         <View className="flex-row justify-start">
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={navigation.goBack}
-            className="bg-rose-500 mx-4 pr-1 rounded-full flex justify-center items-center absolute"
-            style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2) }}>
-            <Ionicons name="caret-back-outline" size={hp(4)} color="white" />
-          </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.goBack()}
+          style={{ width: hp(5.5), height: hp(5.5), marginTop: hp(2), marginLeft: 16 }}>
+          <Ionicons name="arrow-back" size={hp(4)} color="#fff" />
+        </TouchableOpacity>
         </View>
         <View className="flex-row justify-center">
           <Image
             source={require('../assets/images/login.png')}
-            style={{ width: 250, height: 250 }}
+            style={{ width: 390, height: 250 }}
           />
         </View>
       </SafeAreaView>
@@ -112,7 +111,16 @@ export default function SignInScreen({ navigation }) {
                 Email Address
               </Text>
               <TextInput
-                className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'black',
+                  borderRadius: 8,
+                  padding: 16,
+                  backgroundColor: '#FFFFFF', 
+                  color: 'black',
+                  marginBottom: 12,
+                }}
+                placeholderTextColor="#A1A1AA" 
                 placeholder="john@gmail.com"
                 autoCapitalize="none"
                 keyboardType="email-address"
@@ -125,7 +133,16 @@ export default function SignInScreen({ navigation }) {
                 Password
               </Text>
               <TextInput
-                className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'black',
+                  borderRadius: 8,
+                  padding: 16,
+                  backgroundColor: '#FFFFFF',
+                  color: 'black',
+                  marginBottom: 12,
+                }}
+                placeholderTextColor="#A1A1AA"
                 secureTextEntry={true}
                 placeholder="john123"
                 autoCapitalize="none"

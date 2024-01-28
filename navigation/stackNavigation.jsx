@@ -1,5 +1,7 @@
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import Onboarding from '../auth/Onboarding';
 import Welcome from '../auth/Welcome';
 import SignInScreen from '../auth/SignInScreen';
 import SignUpScreen from '../auth/SignUpScreen';
@@ -10,6 +12,7 @@ import Exercises from '../app/exercises';
 import ExerciseDetails from '../app/exerciseDetails';
 import Profile from '../app/profile';
 import MachineDetection from '../app/machineDetection';
+import HelpSection from '../app/HelpScreen';
 // import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
 const Stack = createStackNavigator();
@@ -17,8 +20,9 @@ const Stack = createStackNavigator();
 export const AuthStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Welcome"
+      initialRouteName="Onboarding" // Set initialRouteName to "Onboarding"
       screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Onboarding" component={Onboarding} />
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="SignInScreen" component={SignInScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
@@ -41,6 +45,7 @@ export const AppStack = () => {
       <Stack.Screen name="Exercises" component={Exercises} />
       <Stack.Screen name="ExerciseDetails" component={ExerciseDetails} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="HelpScreen" component={HelpSection} />
       <Stack.Screen
         name="MachineDetection"
         component={MachineDetection}
@@ -49,5 +54,5 @@ export const AppStack = () => {
         }}
       />
     </Stack.Navigator>
-  );
+  ); 
 };
