@@ -13,6 +13,7 @@ import ExerciseDetails from '../app/exerciseDetails';
 import Profile from '../app/profile';
 import MachineDetection from '../app/machineDetection';
 import HelpSection from '../app/HelpScreen';
+import FAQ from '../app/FAQ';
 // import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
 const Stack = createStackNavigator();
@@ -46,6 +47,7 @@ export const AppStack = () => {
       <Stack.Screen name="ExerciseDetails" component={ExerciseDetails} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="HelpScreen" component={HelpSection} />
+      <Stack.Screen name="FAQScreen" component={FAQ} options={{title:'FAQs', headerShown:true}}/>
       <Stack.Screen
         name="MachineDetection"
         component={MachineDetection}
