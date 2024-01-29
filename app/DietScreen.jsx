@@ -69,8 +69,8 @@ const DietScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
     padding: 20,
+    paddingBottom: 60
   },
   header: {
     flexDirection: 'row',

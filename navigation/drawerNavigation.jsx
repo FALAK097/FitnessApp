@@ -65,7 +65,7 @@ const DrawerNavigation = () => {
         headerStyle: {
           backgroundColor: "#fff"
         },
-        headerShown: true,
+        headerShown: false,
         headerTintColor: "#000",
         drawerLabelStyle: {
           color: "#000",
