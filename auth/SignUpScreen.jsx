@@ -109,7 +109,11 @@ export default function SignUpScreen({ navigation }) {
           backgroundColor: theme.mainBackgroundColor,
         }}
         className="flex-1 bg-white px-8 pt-8">
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          alwaysBounceHorizontal={false}
+          alwaysBounceVertical={false}
+          bounces={false}>
           <KeyboardAvoidingView behavior="position">
             <View className="form space-y-2">
               <Text

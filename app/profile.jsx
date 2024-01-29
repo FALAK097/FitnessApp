@@ -117,6 +117,10 @@ export default function Profile() {
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
+      alwaysBounceHorizontal={false}
+      alwaysBounceVertical={false}
+      bounces={false}
       style={[styles.container, { backgroundColor: theme.mainBackgroundColor }]}
       contentContainerStyle={{ flexGrow: 1 }}>
       <TouchableOpacity
