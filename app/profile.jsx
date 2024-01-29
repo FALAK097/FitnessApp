@@ -66,7 +66,7 @@ export default function Profile() {
   };
 
   const navigateToHelp = () => {
-    navigation.navigate('HelpScreen');
+    navigation.navigate('AboutUsScreen');
   };
 
   const navigateToFAQ = () => {

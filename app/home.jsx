@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -16,7 +17,8 @@ export default function Home() {
   const route = useRoute();
   const { theme } = useTheme();
 
-  const username = route.params?.username || 'Guestugbefu';
+  // Extracting username from route.params or defaulting to 'ANIKET'
+  const username = route.params?.username || 'Let the work begin';
 
   const handleAvatarClick = () => {
     navigation.navigate('Profile');
@@ -33,6 +35,7 @@ export default function Home() {
       style={{ backgroundColor: theme.mainBackgroundColor }}>
       <StatusBar style="dark" />
       <View className="flex-row justify-between items-center mx-5 mt-0">
+        {/* Displaying username */}
         <Text
           style={{
             fontSize: hp(3.5),
@@ -68,23 +71,26 @@ export default function Home() {
         <ImageSlider />
       </View>
 
+      {/* Card Container */}
       <View style={styles.cardContainer}>
+        {/* Exercise Card */}
         <TouchableOpacity
           style={styles.card}
           onPress={() => navigation.navigate('BodyParts')}>
           <Image
-            source={require('../assets/images/gym/gym1.jpg')}
+            source={require('../assets/images/gym/home1.jpg')}
             style={styles.cardImage}
           />
           <View style={styles.cardTextContainer}>
             <Text style={styles.cardText}>Exercise</Text>
           </View>
         </TouchableOpacity>
+        {/* Diet Card */}
         <TouchableOpacity
           style={styles.card}
           onPress={() => navigation.navigate('DietScreen')}>
           <Image
-            source={require('../assets/images/diet/diet2.jpg')}
+            source={require('../assets/images/gym/home2.jpg')}
             style={styles.cardImage}
           />
           <View style={styles.cardTextContainer}>
@@ -125,5 +131,7 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#FFFF',
+    marginTop: 50,
   },
 });
