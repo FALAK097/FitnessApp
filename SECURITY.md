@@ -4,7 +4,7 @@
 
 ### How to Report
 
-To report a vulnerability, please create a new issue on our GitHub repository [here](link-to-your-repository/issues/new). Please include "Security Vulnerability Report" in the issue title to ensure prompt attention to your report.
+To report a vulnerability, please create a new issue on our GitHub repository [here](https://github.com/FALAK097/FitnessApp/issues). Please include "Security Vulnerability Report" in the issue title to ensure prompt attention to your report.
 
 ### Response Time
 
