@@ -6,6 +6,10 @@ export const dietCardContent = [
     goal: 'Fat Loss',
     description:
       'Start your day with a nutritious breakfast to boost metabolism and burn fat. This meal is low in calories and high in protein to help you achieve your fat loss goals.',
+    category: 'Veg',
+    isVegan: true,
+    isGlutenFree: true,
+    isBudgetFriendly: true,
   },
   {
     image: require('../assets/images/diet/diet2.jpg'),
@@ -13,6 +17,10 @@ export const dietCardContent = [
     goal: 'Muscle Gain',
     description:
       'Fuel your muscles with a protein-packed breakfast to support growth and recovery. This meal is designed to provide essential nutrients for muscle building and repair.',
+    category: 'Non-Veg',
+    isVegan: false,
+    isGlutenFree: false,
+    isBudgetFriendly: true,
   },
   {
     image: require('../assets/images/diet/diet3.jpg'),
@@ -20,6 +28,10 @@ export const dietCardContent = [
     goal: 'Balanced Diet',
     description:
       'Maintain a balanced diet with a wholesome breakfast that includes a variety of nutrients from different food groups. This meal is rich in vitamins, minerals, and antioxidants.',
+    category: 'Veg',
+    isVegan: true,
+    isGlutenFree: true,
+    isBudgetFriendly: true,
   },
   // Data for Lunch
   {
@@ -28,6 +40,10 @@ export const dietCardContent = [
     goal: 'Fat Loss',
     description:
       'Enjoy a satisfying lunch that keeps you feeling full and energized while supporting your weight loss journey. This meal is low in calories and high in fiber to promote fat burning.',
+    category: 'Non-Veg',
+    isVegan: true,
+    isGlutenFree: false,
+    isBudgetFriendly: true,
   },
   {
     image: require('../assets/images/diet/diet5.jpg'),
@@ -35,6 +51,10 @@ export const dietCardContent = [
     goal: 'Muscle Gain',
     description:
       'Refuel your body with a protein-rich lunch to support muscle recovery and growth. This meal provides essential amino acids and nutrients to optimize your workout results.',
+    category: 'Veg',
+    isVegan: true,
+    isGlutenFree: true,
+    isBudgetFriendly: true,
   },
   {
     image: require('../assets/images/diet/diet6.jpg'),
@@ -42,6 +62,10 @@ export const dietCardContent = [
     goal: 'Balanced Diet',
     description:
       'Maintain a balanced and nutritious diet with a variety of foods for lunch. This meal includes lean proteins, whole grains, and vegetables to support overall health and well-being.',
+    category: 'Non-Veg',
+    isVegan: false,
+    isGlutenFree: true,
+    isBudgetFriendly: false,
   },
   // Data for Dinner
   {
@@ -50,6 +74,10 @@ export const dietCardContent = [
     goal: 'Fat Loss',
     description:
       'End your day with a light and satisfying dinner that aids in fat burning and promotes restful sleep. This meal is low in carbs and calories, yet high in nutrients to support weight loss.',
+    category: 'Non-Veg',
+    isVegan: false,
+    isGlutenFree: true,
+    isBudgetFriendly: true,
   },
   {
     image: require('../assets/images/diet/diet2.jpg'),
@@ -57,6 +85,10 @@ export const dietCardContent = [
     goal: 'Muscle Gain',
     description:
       'Recover and repair your muscles with a protein-packed dinner to optimize muscle growth and repair during sleep. This meal replenishes amino acids and promotes muscle recovery.',
+    category: 'Non-Veg',
+    isVegan: true,
+    isGlutenFree: false,
+    isBudgetFriendly: true,
   },
   {
     image: require('../assets/images/diet/diet3.jpg'),
@@ -64,5 +96,9 @@ export const dietCardContent = [
     goal: 'Balanced Diet',
     description:
       'Maintain balance and harmony with a well-rounded dinner that nourishes your body and mind. This meal includes a variety of nutrients for overall health and vitality.',
+    category: 'Veg',
+    isVegan: true,
+    isGlutenFree: false,
+    isBudgetFriendly: false,
   },
 ];

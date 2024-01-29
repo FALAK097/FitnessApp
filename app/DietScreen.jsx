@@ -1,3 +1,4 @@
+// DietScreen.js
 import React, { useState } from 'react';
 import {
   View,
@@ -11,20 +12,54 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
-import { useTheme } from '../components/ThemeContext';
 import { dietCardContent } from '../constants/dietCard';
 import FilterDiet from '../components/FilterDiet';
+import { useTheme } from '../components/ThemeContext';
 
 const DietScreen = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
-  const [selectedFilter, setSelectedFilter] = useState('Balanced Diet');
-  const filteredContent = dietCardContent.filter(
-    (item) => item.goal === selectedFilter
-  );
+
+  const [filteredData, setFilteredData] = useState(dietCardContent);
+
+  const applyFilters = (filters) => {
+    let newData = [...dietCardContent];
+
+    // Apply diet filter
+    if (filters.diet.length > 0) {
+      newData = newData.filter((item) => filters.diet.includes(item.goal));
+    }
+
+    // Apply veg/non-veg filter
+    if (filters.vegNonVeg.length > 0) {
+      if (filters.vegNonVeg.includes('Both')) {
+        // Include both Veg and Non-Veg items
+        newData = newData.filter(
+          (item) => item.category === 'Veg' || item.category === 'Non-Veg'
+        );
+      } else {
+        newData = newData.filter((item) =>
+          filters.vegNonVeg.includes(item.category)
+        );
+      }
+    }
+
+    // Apply other filters
+    if (filters.other.length > 0) {
+      newData = newData.filter((item) =>
+        filters.other.every((opt) => item[opt])
+      );
+    }
+
+    setFilteredData(newData);
+  };
+
+  const handleClearFilters = () => {
+    setFilteredData(dietCardContent); // Reset filteredData to the original data
+  };
 
   return (
     <ScrollView
@@ -54,23 +89,21 @@ const DietScreen = () => {
           Diet
         </Text>
       </View>
-
       <FilterDiet
-        selectedFilter={selectedFilter}
-        onSelectFilter={setSelectedFilter}
+        onSelectFilters={applyFilters}
+        onClearFilters={handleClearFilters}
       />
-      {filteredContent.map((item, index) => (
-        <View key={index} style={[styles.card]}>
+
+      {filteredData.map((item, index) => (
+        <View key={index} style={styles.card}>
           <Image source={item.image} style={styles.image} />
-          <Text style={[styles.title, { color: theme.textColor }]}>
-            {item.title}
-          </Text>
-          <Text style={[styles.goal, { color: theme.textColor }]}>
-            Goal: {item.goal}
-          </Text>
-          <Text style={[styles.description, { color: theme.textColor }]}>
-            {item.description}
-          </Text>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.goal}>Goal: {item.goal}</Text>
+          <Text style={styles.description}>{item.description}</Text>
+          {item.category && <Text>Category: {item.category}</Text>}
+          {item.isVegan && <Text>Vegan</Text>}
+          {item.isGlutenFree && <Text>Gluten-Free</Text>}
+          {item.isBudgetFriendly && <Text>Budget-Friendly</Text>}
         </View>
       ))}
     </ScrollView>
