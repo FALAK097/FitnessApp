@@ -5,7 +5,12 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { AppStack } from './stackNavigation';
+import ExerciseDetails from '../app/ExerciseDetails';
+import Home from '../app/home';
+import Exercises from '../app/Exercises';
+import Profile from '../app/Profile';
+import BodyParts from '../app/BodyParts';
+import MachineDetection from '../app/MachineDetection';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,10 +42,10 @@ const screenOptions = () => {
 
 export const TabNavigation = ({ navigation }) => {
   return (
-    <Tab.Navigator screenOptions={screenOptions}>
+    <Tab.Navigator initialRouteName='TabHome' screenOptions={screenOptions}>
       <Tab.Screen
         name="TabHome"
-        component={AppStack}
+        component={Home}
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -59,7 +64,7 @@ export const TabNavigation = ({ navigation }) => {
       />
       <Tab.Screen
         name="TabExercises"
-        component={AppStack}
+        component={BodyParts}
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -79,8 +84,8 @@ export const TabNavigation = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name="TabExerciseDetails"
-        component={AppStack}
+        name="TabCamera"
+        component={MachineDetection}
         initialParams={{ navigation }}
         options={{
           tabBarIcon: () => {
@@ -103,7 +108,7 @@ export const TabNavigation = ({ navigation }) => {
       />
       <Tab.Screen
         name="TabProfile"
-        component={AppStack}
+        component={Profile}
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => {

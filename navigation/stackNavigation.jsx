@@ -16,6 +16,7 @@ import AboutUsScreen from '../app/AboutUsScreen';
 import BodyParts from '../app/BodyParts';
 import DietScreen from '../app/DietScreen';
 import Faq from '../app/Faq';
+import { TabNavigation } from './tabNavigation';
 
 // import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
@@ -45,7 +46,7 @@ export const AppStack = () => {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Home" component={ TabNavigation } />
       <Stack.Screen name="Exercises" component={Exercises} />
       <Stack.Screen name="ExerciseDetails" component={ExerciseDetails} />
       <Stack.Screen name="BodyParts" component={BodyParts} />
