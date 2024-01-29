@@ -13,7 +13,7 @@ import Exercises from '../app/Exercises';
 import ExerciseDetails from '../app/ExerciseDetails';
 import Profile from '../app/Profile';
 import MachineDetection from '../app/MachineDetection';
-import HelpScreen from '../app/HelpScreen';
+import AboutUsScreen from '../app/AboutUsScreen';
 import BodyParts from '../app/BodyParts';
 import DietScreen from '../app/DietScreen';
 import FAQ from '../app/FAQ';
@@ -52,8 +52,7 @@ export const AppStack = () => {
       <Stack.Screen name="BodyParts" component={BodyParts} />
       <Stack.Screen name="DietScreen" component={DietScreen} />
       <Stack.Screen name="Profile" component={Profile} />
-
-      <Stack.Screen name="HelpScreen" component={HelpSection} />
+      <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} />
       <Stack.Screen name="FAQScreen" component={FAQ} options={{title:'FAQs', headerShown:true}}/>
 
 
