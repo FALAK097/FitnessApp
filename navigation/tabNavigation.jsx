@@ -5,7 +5,12 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { AppStack } from './stackNavigation';
+import Home from '../app/Home';
+import Profile from '../app/Profile';
+import BodyParts from '../app/BodyParts';
+import MachineDetection from '../app/MachineDetection';
+import DietScreen from '../app/DietScreen';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,10 +42,10 @@ const screenOptions = () => {
 
 export const TabNavigation = ({ navigation }) => {
   return (
-    <Tab.Navigator screenOptions={screenOptions}>
+    <Tab.Navigator initialRouteName='TabHome' screenOptions={screenOptions}>
       <Tab.Screen
         name="TabHome"
-        component={AppStack}
+        component={Home}
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -59,7 +64,7 @@ export const TabNavigation = ({ navigation }) => {
       />
       <Tab.Screen
         name="TabExercises"
-        component={AppStack}
+        component={BodyParts}
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -79,8 +84,8 @@ export const TabNavigation = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name="TabExerciseDetails"
-        component={AppStack}
+        name="TabCamera"
+        component={MachineDetection}
         initialParams={{ navigation }}
         options={{
           tabBarIcon: () => {
@@ -102,8 +107,27 @@ export const TabNavigation = ({ navigation }) => {
         }}
       />
       <Tab.Screen
+        name="TabDiet"
+        component={DietScreen}
+        initialParams={{ navigation }}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <MaterialIcons
+                  name="food-bank"
+                  size={30}
+                  color={focused ? '#16247d' : '#111'}
+                />
+                <Text style={{ fontSize: 12, color: '#16247d' }}>Diet</Text>
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
         name="TabProfile"
-        component={AppStack}
+        component={Profile}
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => {

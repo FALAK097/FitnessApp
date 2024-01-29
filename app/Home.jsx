@@ -11,6 +11,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import ImageSlider from '../components/ImageSlider';
 import { useTheme } from '../components/ThemeContext';
+import { ScrollView } from 'react-native-gesture-handler';
+import Header from '../components/Header';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -31,10 +33,12 @@ export default function Home() {
     <SafeAreaView
       className="flex-1 bg-white flex space-y-5"
       edges={['top']}
-      style={{ backgroundColor: theme.mainBackgroundColor }}>
+      style={{ backgroundColor: theme.mainBackgroundColor , paddingBottom:60}}>
       <StatusBar style="dark" />
+      
       <View className="flex-row justify-between items-center mx-5 mt-0">
         {/* Displaying username */}
+        <Header />
         <Text
           style={{
             fontSize: hp(3.5),
@@ -46,7 +50,7 @@ export default function Home() {
           Welcome, <Text style={{ color: '#F1BE48' }}>{username}</Text>
         </Text>
 
-        <TouchableOpacity activeOpacity={0.6} onPress={handleAvatarClick}>
+        {/* <TouchableOpacity activeOpacity={0.6} onPress={handleAvatarClick}>
           <Image
             source={require('../assets/icons/avatar.png')}
             style={{ height: hp(7), width: wp(15), marginRight: wp(2) }}
@@ -62,7 +66,7 @@ export default function Home() {
             color="gray"
             onPress={detectMachine}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/* Image Slider */}
@@ -71,6 +75,7 @@ export default function Home() {
       </View>
 
       {/* Card Container */}
+      <ScrollView>
       <View style={styles.cardContainer}>
         {/* Exercise Card */}
         <TouchableOpacity
@@ -97,6 +102,7 @@ export default function Home() {
           </View>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

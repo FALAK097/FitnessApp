@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: hp(10),
     paddingHorizontal: wp(4),
+    paddingBottom: 60
   },
   profileContainer: {
     alignItems: 'center',
