@@ -1,42 +1,124 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Linking,
+} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+
 import { useTheme } from '../components/ThemeContext';
 
 const AboutUsScreen = () => {
   const { theme } = useTheme();
+  const navigation = useNavigation();
+
+  const openGitHubProfile = (profileUrl) => {
+    Linking.openURL(profileUrl);
+  };
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: theme.mainBackgroundColor }]}>
-      <Text style={[styles.header, { color: theme.textColor }]}>About Our SMART CAMERA based Fitness App</Text>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      alwaysBounceHorizontal={false}
+      alwaysBounceVertical={false}
+      bounces={false}
+      contentContainerStyle={[
+        styles.container,
+        { backgroundColor: theme.mainBackgroundColor },
+      ]}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="arrow-back"
+            size={hp(4)}
+            style={{ color: theme.textColor, marginLeft: 5, marginTop: 35 }}
+          />
+        </TouchableOpacity>
+        <Text style={[styles.header, { color: theme.textColor }]}>
+          About the App
+        </Text>
+      </View>
       <Text style={[styles.description, { color: theme.textColor }]}>
-        Welcome to our fitness app! We are dedicated to helping you achieve
-        your fitness goals through innovative features and personalized
+        Welcome to our fitness app! We are dedicated to helping you achieve your
+        fitness goals through innovative features and personalized
         recommendations.
       </Text>
-      <Text style={[styles.description, { color: theme.textColor }]}>
+      <Text style={[styles.head, { color: theme.textColor }]}>
         Our app features include:
       </Text>
-      <Text style={[styles.feature, { color: theme.textColor }]}>1. Smart Camera Feature:</Text>
+      <Text style={[styles.feature, { color: theme.textColor }]}>
+        1. Smart Camera Feature:
+      </Text>
       <Text style={[styles.featureDescription, { color: theme.textColor }]}>
         Our smart camera feature allows you to click or upload a photo of any
         gym machine, and it will provide information on how to use the machine,
         its benefits, and recommend exercises you can perform using it.
       </Text>
-      <Text style={[styles.feature, { color: theme.textColor }]}>2. Diet Recommendation:</Text>
-      <Text style={[styles.featureDescription, { color: theme.textColor }]}>
-        Receive personalized diet recommendations tailored to your fitness
-        goals and dietary preferences. Whether you're looking to lose weight,
-        build muscle, or maintain a healthy lifestyle, our app provides
-        nutrition guidance to support your journey.
+      <Text style={[styles.feature, { color: theme.textColor }]}>
+        2. Diet Recommendation:
       </Text>
-      <Text style={[styles.feature, { color: theme.textColor }]}>3. Exercise Recommendation:</Text>
+      <Text style={[styles.featureDescription, { color: theme.textColor }]}>
+        Receive personalized diet recommendations tailored to your fitness goals
+        and dietary preferences. Whether you're looking to lose weight, build
+        muscle, or maintain a healthy lifestyle, our app provides nutrition
+        guidance to support your journey.
+      </Text>
+      <Text style={[styles.feature, { color: theme.textColor }]}>
+        3. Exercise Recommendation:
+      </Text>
       <Text style={[styles.featureDescription, { color: theme.textColor }]}>
         Get customized exercise recommendations based on your fitness level,
         preferences, and goals. Whether you're a beginner or an experienced
-        athlete, our app offers a variety of workout routines to help you
-        stay motivated and achieve results.
+        athlete, our app offers a variety of workout routines to help you stay
+        motivated and achieve results.
       </Text>
-      <Text style={[styles.contact, { color: theme.textColor }]}>For any questions or feedback, please contact us at support@fithub.com</Text>
+
+      <View>
+        <Text style={[styles.credits, { color: theme.textColor }]}>
+          Built by{' '}
+          <Text
+            style={{ color: '#FF671F' }}
+            onPress={() => openGitHubProfile('https://github.com/FALAK097/')}>
+            Falak
+          </Text>
+          ,{' '}
+          <Text
+            style={{ color: theme.textColor }}
+            onPress={() => openGitHubProfile('https://github.com/shubham4112')}>
+            Shubham
+          </Text>
+          ,{' '}
+          <Text
+            style={{ color: '#37367a' }}
+            onPress={() => openGitHubProfile('https://github.com/Faisal2506')}>
+            Faisal
+          </Text>{' '}
+          and{' '}
+          <Text
+            style={{ color: '#046A38' }}
+            onPress={() => openGitHubProfile('https://github.com/aniketsh22')}>
+            Aniket
+          </Text>
+        </Text>
+      </View>
+      <Text style={[styles.contact, { color: theme.textColor }]}>
+        For any questions or feedback, please contact us at{' '}
+        <Text
+          style={{ color: '#F1BE48' }}
+          onPress={() => Linking.openURL('mailto:support@fithub.com')}>
+          support@fithub.com
+        </Text>
+      </Text>
     </ScrollView>
   );
 };
@@ -47,10 +129,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   header: {
-    marginTop: 10,
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: 'center',
   },
   description: {
@@ -58,22 +139,33 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center',
   },
-  feature: {
-    fontSize: 18,
+  head: {
+    fontSize: 20,
     fontWeight: 'bold',
     marginTop: 15,
   },
-  featureDescription: {
-    fontSize: 16,
-    marginLeft: 15,
-    marginBottom: 10,
+  feature: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: hp(2.5),
   },
-  contact: {
-    fontSize: 14,
-    marginTop: 30,
+  featureDescription: {
+    fontSize: wp(4.5),
+    marginLeft: wp(7),
+    marginBottom: wp(4),
+  },
+  credits: {
+    fontSize: wp(4.5),
+    marginTop: hp(2),
     textAlign: 'center',
     fontStyle: 'italic',
-    marginBottom: 20,
+  },
+  contact: {
+    fontSize: wp(3.8),
+    marginTop: hp(2),
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginBottom: hp(2),
   },
 });
 

@@ -1,4 +1,5 @@
-import React from 'react';
+// DietScreen.js
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,110 +8,151 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+
+import { dietCardContent } from '../constants/dietCard';
+import FilterDiet from '../components/FilterDiet';
+import { useTheme } from '../components/ThemeContext';
 
 const DietScreen = () => {
   const navigation = useNavigation();
+  const { theme } = useTheme();
+
+  const [filteredData, setFilteredData] = useState(dietCardContent);
+
+  const applyFilters = (filters) => {
+    let newData = [...dietCardContent];
+
+    // Apply diet filter
+    if (filters.diet.length > 0) {
+      newData = newData.filter((item) => filters.diet.includes(item.goal));
+    }
+
+    // Apply veg/non-veg filter
+    if (filters.vegNonVeg.length > 0) {
+      if (filters.vegNonVeg.includes('Both')) {
+        // Include both Veg and Non-Veg items
+        newData = newData.filter(
+          (item) => item.category === 'Veg' || item.category === 'Non-Veg'
+        );
+      } else {
+        newData = newData.filter((item) =>
+          filters.vegNonVeg.includes(item.category)
+        );
+      }
+    }
+
+    // Apply other filters
+    if (filters.other.length > 0) {
+      newData = newData.filter((item) =>
+        filters.other.every((opt) => item[opt])
+      );
+    }
+
+    setFilteredData(newData);
+  };
+
+  const handleClearFilters = () => {
+    setFilteredData(dietCardContent); // Reset filteredData to the original data
+  };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      alwaysBounceHorizontal={false}
+      alwaysBounceVertical={false}
+      bounces={false}
+      contentContainerStyle={[
+        styles.container,
+        { backgroundColor: theme.mainBackgroundColor },
+      ]}>
       <View style={styles.header}>
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}>
-          <Ionicons name="arrow-back" size={30} color="black" />
+          onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="arrow-back"
+            size={hp(4)}
+            style={{
+              color: theme.textColor,
+              marginLeft: wp(4),
+              marginTop: hp(3),
+            }}
+          />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Diet</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Image
-          source={require('../assets/images/diet/diet1.jpg')}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Breakfast</Text>
-        <Text style={styles.description}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
-          perspiciatis unde omnis iste natus error sit voluptatem accusantium
-          doloremque laudantium.
+        <Text style={[styles.headerText, { color: theme.textColor }]}>
+          Diet
         </Text>
       </View>
+      <FilterDiet
+        onSelectFilters={applyFilters}
+        onClearFilters={handleClearFilters}
+      />
 
-      <View style={styles.card}>
-        <Image
-          source={require('../assets/images/diet/diet2.jpg')}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Lunch</Text>
-        <Text style={styles.description}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
-          perspiciatis unde omnis iste natus error sit voluptatem accusantium
-          doloremque laudantium.
-        </Text>
-      </View>
-
-      <View style={styles.card}>
-        <Image
-          source={require('../assets/images/diet/diet3.jpg')}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Dinner</Text>
-        <Text style={styles.description}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
-          perspiciatis unde omnis iste natus error sit voluptatem accusantium
-          doloremque laudantium.
-        </Text>
-      </View>
+      {filteredData.map((item, index) => (
+        <View key={index} style={styles.card}>
+          <Image source={item.image} style={styles.image} />
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.goal}>Goal: {item.goal}</Text>
+          <Text style={styles.description}>{item.description}</Text>
+          {item.category && <Text>Category: {item.category}</Text>}
+          {item.isVegan && <Text>Vegan</Text>}
+          {item.isGlutenFree && <Text>Gluten-Free</Text>}
+          {item.isBudgetFriendly && <Text>Budget-Friendly</Text>}
+        </View>
+      ))}
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    paddingBottom: 60
+    flexGrow: 1,
+    padding: wp(5),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
-  },
-  backButton: {
-    marginRight: 10,
-    marginTop: 20,
+    marginBottom: hp(2),
   },
   headerText: {
-    fontSize: 24,
+    fontSize: hp(3.5),
     fontWeight: 'bold',
     flex: 1,
     textAlign: 'center',
-    marginTop: 20,
-    marginRight: 30,
+    marginTop: hp(3),
+    marginRight: hp(5),
   },
   card: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
+    borderRadius: wp(2),
     elevation: 3,
-    marginBottom: 20,
+    marginBottom: hp(2),
     width: '100%',
-    padding: 10,
+    padding: wp(2),
     alignItems: 'center',
   },
   image: {
     width: '100%',
-    height: 200,
-    borderRadius: 10,
-    marginBottom: 10,
+    height: hp(30),
+    borderRadius: wp(2),
+    marginBottom: hp(1),
   },
   title: {
-    fontSize: 20,
+    fontSize: hp(2.5),
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: hp(1),
+  },
+  goal: {
+    fontSize: hp(2),
+    marginBottom: hp(1),
   },
   description: {
-    fontSize: 16,
+    fontSize: hp(2),
     textAlign: 'center',
   },
 });

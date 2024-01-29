@@ -20,7 +20,7 @@ export const frequentlyAskedQuestions = [
       'If you forget your password, you can reset it by selecting the "Forgot Password" option on the sign-in screen. Follow the instructions to reset your password and regain access to your account.',
   },
   {
-    question: 'Where can I find diet recommendations?',
+    question: 'Where can I find diet recommendation?',
     answer:
       'Diet recommendations are available in the diet section of the app. You can access them from the app home screen.',
   },

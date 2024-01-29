@@ -62,8 +62,11 @@ export default function ExerciseDetails() {
 
       {/* details */}
       <ScrollView
-        className="mx-4 space-y-2 mt-3"
         showsVerticalScrollIndicator={false}
+        alwaysBounceHorizontal={false}
+        alwaysBounceVertical={false}
+        bounces={false}
+        className="mx-4 space-y-2 mt-3"
         contentContainerStyle={{ paddingBottom: 60 }}>
         <Animated.Text
           entering={FadeInDown.duration(300).springify()}

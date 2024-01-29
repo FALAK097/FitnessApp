@@ -6,6 +6,7 @@ import Welcome from '../auth/Welcome';
 import SignInScreen from '../auth/SignInScreen';
 import SignUpScreen from '../auth/SignUpScreen';
 import ForgotPassword from '../auth/ForgotPassword';
+// import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
 import Exercises from '../app/Exercises';
 import ExerciseDetails from '../app/ExerciseDetails';
