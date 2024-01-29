@@ -15,7 +15,7 @@ import MachineDetection from '../app/MachineDetection';
 import AboutUsScreen from '../app/AboutUsScreen';
 import BodyParts from '../app/BodyParts';
 import DietScreen from '../app/DietScreen';
-import Faq from '../app/Faq';
+import FAQ from '../app/Faq';
 import { TabNavigation } from './tabNavigation';
 import DrawerNavigation from './drawerNavigation';
 
@@ -54,7 +54,7 @@ export const AppStack = () => {
       <Stack.Screen name="DietScreen" component={DietScreen} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} />
-      <Stack.Screen name="Faq" component={Faq} />
+      <Stack.Screen name="Faq" component={FAQ} />
 
 
       <Stack.Screen

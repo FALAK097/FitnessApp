@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -48,18 +48,16 @@ export const TabNavigation = ({ navigation }) => {
         component={Home}
         initialParams={{ navigation }}
         options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <Ionicons
-                  name="home"
-                  size={24}
-                  color={focused ? '#16247d' : '#111'}
-                />
-                <Text style={{ fontSize: 12, color: '#16247d' }}>Home</Text>
-              </View>
-            );
-          },
+          tabBarIcon: ({ focused }) => (
+            <View style={focused ? styles.selectedBtn : styles.otherBtn}>
+              <Ionicons
+                name="home"
+                size={24}
+                color={focused ? 'white' : '#111'}
+              />
+              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Home</Text>
+            </View>
+          ),
         }}
       />
       <Tab.Screen
@@ -67,20 +65,16 @@ export const TabNavigation = ({ navigation }) => {
         component={BodyParts}
         initialParams={{ navigation }}
         options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <FontAwesome6
-                  name="dumbbell"
-                  size={24}
-                  color={focused ? '#16247d' : '#111'}
-                />
-                <Text style={{ fontSize: 12, color: '#16247d' }}>
-                  Exercises
-                </Text>
-              </View>
-            );
-          },
+          tabBarIcon: ({ focused }) => (
+            <View style={focused ? styles.selectedBtn : styles.otherBtn}>
+              <FontAwesome6
+                name="dumbbell"
+                size={24}
+                color={focused ? 'white' : '#111'}
+              />
+              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Exercises</Text>
+            </View>
+          ),
         }}
       />
       <Tab.Screen
@@ -88,22 +82,13 @@ export const TabNavigation = ({ navigation }) => {
         component={MachineDetection}
         initialParams={{ navigation }}
         options={{
-          tabBarIcon: () => {
-            return (
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#16247d',
-                  width: Platform.OS == 'ios' ? 50 : 60,
-                  height: Platform.OS == 'ios' ? 50 : 60,
-                  top: Platform.OS == 'ios' ? -10 : -20,
-                  borderRadius: Platform.OS == 'ios' ? 25 : 30,
-                }}>
-                <Octicons name="device-camera" size={24} color="#fff" />
-              </View>
-            );
-          },
+          tabBarIcon: ({ focused }) => (
+            <View style={focused ? styles.selectedBtn : styles.otherBtn}>
+              <Octicons name="device-camera" size={24} color={focused ? 'white' : '#16247d'} />
+              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Detect</Text>
+
+            </View>
+          ),
         }}
       />
       <Tab.Screen
@@ -111,18 +96,16 @@ export const TabNavigation = ({ navigation }) => {
         component={DietScreen}
         initialParams={{ navigation }}
         options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <MaterialIcons
-                  name="food-bank"
-                  size={30}
-                  color={focused ? '#16247d' : '#111'}
-                />
-                <Text style={{ fontSize: 12, color: '#16247d' }}>Diet</Text>
-              </View>
-            );
-          },
+          tabBarIcon: ({ focused }) => (
+            <View style={focused ? styles.selectedBtn : styles.otherBtn}>
+              <MaterialIcons
+                name="food-bank"
+                size={30}
+                color={focused ? 'white' : '#111'}
+              />
+              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Diet</Text>
+            </View>
+          ),
         }}
       />
       <Tab.Screen
@@ -130,20 +113,33 @@ export const TabNavigation = ({ navigation }) => {
         component={Profile}
         initialParams={{ navigation }}
         options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <FontAwesome6
-                  name="user"
-                  size={24}
-                  color={focused ? '#16247d' : '#111'}
-                />
-                <Text style={{ fontSize: 12, color: '#16247d' }}>Profile</Text>
-              </View>
-            );
-          },
+          tabBarIcon: ({ focused }) => (
+            <View style={focused ? styles.selectedBtn : styles.otherBtn}>
+              <FontAwesome6
+                name="user"
+                size={24}
+                color={focused ? 'white' : '#111'}
+              />
+              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Profile</Text>
+            </View>
+          ),
         }}
       />
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  selectedBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#16247d',
+    width: Platform.OS == 'ios' ? 50 : 60,
+    height: Platform.OS == 'ios' ? 50 : 60,
+    top: Platform.OS == 'ios' ? -10 : -20,
+    borderRadius: Platform.OS == 'ios' ? 25 : 30,
+  },
+  otherBtn: {
+    alignItems: 'center', justifyContent: 'center'
+  }
+});
