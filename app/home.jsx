@@ -17,7 +17,6 @@ export default function Home() {
   const route = useRoute();
   const { theme } = useTheme();
 
-  // Extracting username from route.params or defaulting to 'ANIKET'
   const username = route.params?.username || 'Let the work begin';
 
   const handleAvatarClick = () => {

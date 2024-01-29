@@ -14,7 +14,12 @@ const DietScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      alwaysBounceHorizontal={false}
+      alwaysBounceVertical={false}
+      bounces={false}
+      contentContainerStyle={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity
           activeOpacity={0.6}

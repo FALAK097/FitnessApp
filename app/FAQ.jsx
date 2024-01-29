@@ -72,7 +72,11 @@ export default function FAQ() {
         </Text>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        alwaysBounceHorizontal={false}
+        alwaysBounceVertical={false}
+        bounces={false}>
         {frequentlyAskedQuestions.map((faq, index) => (
           <View
             key={index}

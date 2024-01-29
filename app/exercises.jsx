@@ -40,7 +40,12 @@ export default function Exercises() {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: theme.mainBackgroundColor }}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      alwaysBounceHorizontal={false}
+      alwaysBounceVertical={false}
+      bounces={false}
+      style={{ backgroundColor: theme.mainBackgroundColor }}>
       <StatusBar style="auto" />
       <Image
         source={item?.image}
