@@ -11,6 +11,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import ImageSlider from '../components/ImageSlider';
 import { useTheme } from '../components/ThemeContext';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -32,8 +33,9 @@ export default function Home() {
     <SafeAreaView
       className="flex-1 bg-white flex space-y-5"
       edges={['top']}
-      style={{ backgroundColor: theme.mainBackgroundColor }}>
+      style={{ backgroundColor: theme.mainBackgroundColor , marginBottom:60}}>
       <StatusBar style="dark" />
+      
       <View className="flex-row justify-between items-center mx-5 mt-0">
         {/* Displaying username */}
         <Text
@@ -72,6 +74,7 @@ export default function Home() {
       </View>
 
       {/* Card Container */}
+      <ScrollView>
       <View style={styles.cardContainer}>
         {/* Exercise Card */}
         <TouchableOpacity
@@ -98,6 +101,7 @@ export default function Home() {
           </View>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

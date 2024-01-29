@@ -7,7 +7,6 @@ import SignInScreen from '../auth/SignInScreen';
 import SignUpScreen from '../auth/SignUpScreen';
 import ForgotPassword from '../auth/ForgotPassword';
 
-import Home from '../app/Home';
 import Exercises from '../app/Exercises';
 import ExerciseDetails from '../app/ExerciseDetails';
 import Profile from '../app/Profile';
@@ -17,6 +16,7 @@ import BodyParts from '../app/BodyParts';
 import DietScreen from '../app/DietScreen';
 import Faq from '../app/Faq';
 import { TabNavigation } from './tabNavigation';
+import DrawerNavigation from './drawerNavigation';
 
 // import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
@@ -46,14 +46,14 @@ export const AppStack = () => {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={ TabNavigation } />
+      <Stack.Screen name="Home" component={ DrawerNavigation } />
       <Stack.Screen name="Exercises" component={Exercises} />
       <Stack.Screen name="ExerciseDetails" component={ExerciseDetails} />
       <Stack.Screen name="BodyParts" component={BodyParts} />
       <Stack.Screen name="DietScreen" component={DietScreen} />
       <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} options={{title:'ABOUTUS', headerShown:true}}/>
-      <Stack.Screen name="Faq" component={Faq} options={{title:'FAQs', headerShown:true}}/>
+      <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} />
+      <Stack.Screen name="Faq" component={Faq} />
 
 
       <Stack.Screen

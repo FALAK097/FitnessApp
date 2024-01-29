@@ -5,12 +5,12 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import ExerciseDetails from '../app/ExerciseDetails';
-import Home from '../app/home';
-import Exercises from '../app/Exercises';
+import Home from '../app/Home';
 import Profile from '../app/Profile';
 import BodyParts from '../app/BodyParts';
 import MachineDetection from '../app/MachineDetection';
+import DietScreen from '../app/DietScreen';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -101,6 +101,25 @@ export const TabNavigation = ({ navigation }) => {
                   borderRadius: Platform.OS == 'ios' ? 25 : 30,
                 }}>
                 <Octicons name="device-camera" size={24} color="#fff" />
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="TabDiet"
+        component={DietScreen}
+        initialParams={{ navigation }}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <MaterialIcons
+                  name="food-bank"
+                  size={30}
+                  color={focused ? '#16247d' : '#111'}
+                />
+                <Text style={{ fontSize: 12, color: '#16247d' }}>Diet</Text>
               </View>
             );
           },
