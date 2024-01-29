@@ -78,12 +78,7 @@ export default function FAQ() {
         alwaysBounceVertical={false}
         bounces={false}>
         {frequentlyAskedQuestions.map((faq, index) => (
-          <View
-            key={index}
-            style={[
-              styles.card,
-              { backgroundColor: theme.cardBackgroundColor },
-            ]}>
+          <View key={index} style={styles.card}>
             <TouchableWithoutFeedback onPress={() => toggleAccordion(index)}>
               <View style={styles.headerFaq}>
                 <Text style={[styles.title, { color: theme.textColor }]}>
