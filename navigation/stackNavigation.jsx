@@ -51,8 +51,8 @@ export const AppStack = () => {
       <Stack.Screen name="BodyParts" component={BodyParts} />
       <Stack.Screen name="DietScreen" component={DietScreen} />
       <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} />
-      <Stack.Screen name="FAQScreen" component={FAQ} options={{title:'FAQs', headerShown:true}}/>
+      <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} options={{title:'ABOUTUS', headerShown:true}}/>
+      <Stack.Screen name="Faq" component={Faq} options={{title:'FAQs', headerShown:true}}/>
 
 
       <Stack.Screen
