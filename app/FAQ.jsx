@@ -1,28 +1,154 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react';
-import FAQComponent from '../components/FAQcomponent';
+import React, { useState } from 'react';
+import {
+  Animated,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { AntDesign } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
-const frequentlyAskedQuestions = [
-    {
-        question: 'How to access Smart Camera?',
-        answer: 'On the top right corner of the home screen you will see a camera icon (just beside your avatar icon) click on it.'
-    },
-    {
-        question: 'How to use Smart Camera?',
-        answer: 'After accessing the smart camera you will find a button (Pick an image) click on it. Select the image you want to identify. After that click on Detect Machine button and get the result.'
-    },
-    {
-        question: 'Forgot password',
-        answer: 'Khud se krle'
-    }
-]
+import { useTheme } from '../components/ThemeContext';
+import { frequentlyAskedQuestions } from '../constants/faqData';
 
 export default function FAQ() {
+  const navigation = useNavigation();
+  const { theme } = useTheme();
+  const [openedIndices, setOpenedIndices] = useState([]);
+  const [animations, setAnimations] = useState(
+    frequentlyAskedQuestions.map(() => new Animated.Value(0))
+  );
+
+  function toggleAccordion(index) {
+    const newOpenedIndices = [...openedIndices];
+    const accordionIndex = newOpenedIndices.indexOf(index);
+
+    if (accordionIndex === -1) {
+      newOpenedIndices.push(index);
+    } else {
+      newOpenedIndices.splice(accordionIndex, 1);
+    }
+
+    setOpenedIndices(newOpenedIndices);
+
+    const newAnimations = animations.map((anim, i) => {
+      return Animated.timing(anim, {
+        toValue: newOpenedIndices.includes(i) ? 1 : 0,
+        duration: 100,
+        useNativeDriver: false,
+      });
+    });
+
+    Animated.parallel(newAnimations).start();
+  }
+
   return (
-    <View>
-    {frequentlyAskedQuestions.map((faq,index)=><FAQComponent key={index.toString()} title={faq.question} details={faq.answer}/>)}
-    </View>
-  )
+    <SafeAreaView
+      style={[
+        styles.container,
+        { backgroundColor: theme.mainBackgroundColor },
+      ]}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="arrow-back"
+            size={hp(4)}
+            style={{ color: theme.textColor, marginLeft: 5 }}
+          />
+        </TouchableOpacity>
+        <Text style={[styles.headerText, { color: theme.textColor }]}>
+          FAQ's
+        </Text>
+      </View>
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {frequentlyAskedQuestions.map((faq, index) => (
+          <View
+            key={index}
+            style={[
+              styles.card,
+              { backgroundColor: theme.cardBackgroundColor },
+            ]}>
+            <TouchableWithoutFeedback onPress={() => toggleAccordion(index)}>
+              <View style={styles.headerFaq}>
+                <Text style={[styles.title, { color: theme.textColor }]}>
+                  {faq.question}
+                </Text>
+                <AntDesign
+                  name={openedIndices.includes(index) ? 'caretup' : 'caretdown'}
+                  size={16}
+                  color={theme.textColor}
+                />
+              </View>
+            </TouchableWithoutFeedback>
+
+            <Animated.View
+              style={[
+                styles.content,
+                {
+                  height: animations[index].interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 100],
+                  }),
+                },
+              ]}>
+              <Text style={[styles.details, { color: theme.textColor }]}>
+                {faq.answer}
+              </Text>
+            </Animated.View>
+          </View>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 12,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  headerText: {
+    fontSize: hp(3),
+    fontWeight: 'bold',
+    textAlign: 'center',
+    flex: 1,
+  },
+  card: {
+    margin: 10,
+    padding: 15,
+    borderRadius: 8,
+    elevation: 4,
+  },
+  headerFaq: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  title: {
+    textTransform: 'capitalize',
+    fontWeight: 'bold',
+  },
+  content: {
+    marginTop: 8,
+    overflow: 'hidden',
+  },
+  details: {
+    opacity: 0.65,
+  },
+});

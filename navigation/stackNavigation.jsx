@@ -7,7 +7,6 @@ import SignInScreen from '../auth/SignInScreen';
 import SignUpScreen from '../auth/SignUpScreen';
 import ForgotPassword from '../auth/ForgotPassword';
 
-
 import Home from '../app/Home';
 import Exercises from '../app/Exercises';
 import ExerciseDetails from '../app/ExerciseDetails';
@@ -16,7 +15,7 @@ import MachineDetection from '../app/MachineDetection';
 import AboutUsScreen from '../app/AboutUsScreen';
 import BodyParts from '../app/BodyParts';
 import DietScreen from '../app/DietScreen';
-import FAQ from '../app/FAQ';
+import Faq from '../app/Faq';
 
 // import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
