@@ -9,9 +9,12 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import MachineDetectInstruction from '../components/MachineDetectInstruction';
 import { useTheme } from '../components/ThemeContext';
+import CommonHeader from '../components/CommonHeader';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function MachineDetection() {
   const [image, setImage] = useState(null);
@@ -38,7 +41,7 @@ export default function MachineDetection() {
       //cameraType: ImagePicker.CameraType.back,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       setImage(result.uri);
       setClassificationResult(null); // Clear previous classification result
       setIsImageSelected(true); // Set the flag to true when an image is selected
@@ -141,46 +144,36 @@ export default function MachineDetection() {
   };
 
   return (
-    <>
-      <TouchableOpacity
-        activeOpacity={0.6}
-        onPress={() => navigation.goBack()}
-        style={{
-          marginTop: hp(6),
-          marginLeft: 16,
-        }}>
-        <Ionicons
-          name="arrow-back"
-          size={hp(4)}
-          style={{ color: theme.textColor }}
-        />
-      </TouchableOpacity>
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: theme.mainBackgroundColor,
-          },
-        ]}>
-        <Text style={{ fontSize: 30, fontWeight: '500', color: 'grey' }}>
-          Machine Detection
-        </Text>
-        <Text style={{ fontSize: 14, fontWeight: '500', color: 'grey' }}>
-          Powered by FitHub
-        </Text>
+    <ScrollView
+      style={[
+        styles.container,
+        { backgroundColor: theme.mainBackgroundColor },
+      ]}>
+      <CommonHeader title="Machine Detection" navigation={navigation} />
 
-        <Image source={{ uri: image }} style={styles.image} />
-        <View style={styles.buttonContainer}>
-          <View style={styles.horizontalButtons}>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={pickImage}
+      <Image source={{ uri: image }} style={styles.image} />
+      <View style={styles.buttonContainer}>
+        <View style={styles.horizontalButtons}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={pickImage}
+            style={styles.buttonStyle}>
+            <Text
               style={[
-                styles.buttonStyle,
+                styles.buttonTitleStyle,
                 {
-                  backgroundColor: theme.backgroundColor,
+                  color: theme.textColor,
                 },
               ]}>
+              {' '}
+              PICK AN IMAGE{' '}
+            </Text>
+          </TouchableOpacity>
+          {isImageSelected && (
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={detectMachine}
+              style={styles.buttonStyle}>
               <Text
                 style={[
                   styles.buttonTitleStyle,
@@ -189,289 +182,264 @@ export default function MachineDetection() {
                   },
                 ]}>
                 {' '}
-                PICK AN IMAGE{' '}
+                DETECT MACHINE{' '}
               </Text>
             </TouchableOpacity>
-            {isImageSelected && (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                onPress={detectMachine}
+          )}
+        </View>
+        <MachineDetectInstruction />
+      </View>
+      <Modal
+        isVisible={bottomSheetVisible}
+        style={styles.bottomModal}
+        swipeDirection={['down']}
+        onSwipeComplete={() => setBottomSheetVisible(false)}
+        onBackdropPress={() => setBottomSheetVisible(false)}
+        onRequestClose={handleBackPress}>
+        <View
+          style={[
+            styles.modalContent,
+            {
+              backgroundColor: theme.mainBackgroundColor,
+            },
+          ]}>
+          {classificationResult && (
+            <>
+              <Text
                 style={[
-                  styles.buttonStyle,
+                  styles.result,
                   {
-                    backgroundColor: theme.backgroundColor,
-                    marginLeft: 15,
+                    color: theme.textColor,
                   },
                 ]}>
-                <Text
-                  style={[
-                    styles.buttonTitleStyle,
-                    {
-                      color: theme.textColor,
-                    },
-                  ]}>
-                  {' '}
-                  DETECT MACHINE{' '}
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
-          <MachineDetectInstruction />
-        </View>
-        <Modal
-          isVisible={bottomSheetVisible}
-          style={styles.bottomModal}
-          swipeDirection={['down']}
-          onSwipeComplete={() => setBottomSheetVisible(false)}
-          onBackdropPress={() => setBottomSheetVisible(false)}
-          onRequestClose={handleBackPress}>
-          <View
-            style={[
-              styles.modalContent,
-              {
-                backgroundColor: theme.mainBackgroundColor,
-              },
-            ]}>
-            {classificationResult && (
-              <>
-                <Text
-                  style={[
-                    styles.result,
-                    {
-                      color: theme.textColor,
-                    },
-                  ]}>
-                  Machine Detected: {classificationResult}
-                </Text>
-                {classificationResult && (
-                  <View>
-                    <Text
-                      style={[
-                        styles.machineInfoTitle,
-                        {
-                          color: theme.textColor,
-                        },
-                      ]}>
-                      Machine Information:
-                    </Text>
-                    {getMachineDetails(classificationResult) && (
-                      <>
-                        <Text
-                          style={[
-                            styles.machineInfoLabel,
-                            {
-                              color: theme.textColor,
-                            },
-                          ]}>
-                          Name:
-                        </Text>
-                        <Text
-                          style={[
-                            styles.machineInfoText,
-                            {
-                              color: theme.textColor,
-                            },
-                          ]}>
-                          {getMachineDetails(classificationResult).name}
-                        </Text>
-                        <Text
-                          style={[
-                            styles.machineInfoLabel,
-                            {
-                              color: theme.textColor,
-                            },
-                          ]}>
-                          Difficulty:
-                        </Text>
-                        <Text
-                          style={[
-                            styles.machineInfoText,
-                            {
-                              color: theme.textColor,
-                            },
-                          ]}>
-                          {getMachineDetails(classificationResult).difficulty}
-                        </Text>
-                        <Text
-                          style={[
-                            styles.machineInfoLabel,
-                            {
-                              color: theme.textColor,
-                            },
-                          ]}>
-                          Description:
-                        </Text>
-                        <Text
-                          style={[
-                            styles.machineInfoText,
-                            {
-                              color: theme.textColor,
-                            },
-                          ]}>
-                          {getMachineDetails(classificationResult).description}
-                        </Text>
-                        <Text
-                          style={[
-                            styles.machineInfoLabel,
-                            {
-                              color: theme.textColor,
-                            },
-                          ]}>
-                          Instructions:
-                        </Text>
-                        <Text
-                          style={[
-                            styles.machineInfoText,
-                            {
-                              color: theme.textColor,
-                            },
-                          ]}>
-                          {getMachineDetails(classificationResult).instructions}
-                        </Text>
-                        <Text
-                          style={[
-                            styles.machineInfoLabel,
-                            {
-                              color: theme.textColor,
-                            },
-                          ]}>
-                          Target Muscles:
-                        </Text>
-                        <Text
-                          style={[
-                            styles.machineInfoText,
-                            {
-                              color: theme.textColor,
-                            },
-                          ]}>
+                Machine Detected: {classificationResult}
+              </Text>
+              {classificationResult && (
+                <View>
+                  <Text
+                    style={[
+                      styles.machineInfoTitle,
+                      {
+                        color: theme.textColor,
+                      },
+                    ]}>
+                    Machine Information:
+                  </Text>
+                  {getMachineDetails(classificationResult) && (
+                    <>
+                      <Text
+                        style={[
+                          styles.machineInfoLabel,
                           {
-                            getMachineDetails(classificationResult)
-                              .targetMuscles
-                          }
-                        </Text>
+                            color: theme.textColor,
+                          },
+                        ]}>
+                        Name:
+                      </Text>
+                      <Text
+                        style={[
+                          styles.machineInfoText,
+                          {
+                            color: theme.textColor,
+                          },
+                        ]}>
+                        {getMachineDetails(classificationResult).name}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.machineInfoLabel,
+                          {
+                            color: theme.textColor,
+                          },
+                        ]}>
+                        Difficulty:
+                      </Text>
+                      <Text
+                        style={[
+                          styles.machineInfoText,
+                          {
+                            color: theme.textColor,
+                          },
+                        ]}>
+                        {getMachineDetails(classificationResult).difficulty}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.machineInfoLabel,
+                          {
+                            color: theme.textColor,
+                          },
+                        ]}>
+                        Description:
+                      </Text>
+                      <Text
+                        style={[
+                          styles.machineInfoText,
+                          {
+                            color: theme.textColor,
+                          },
+                        ]}>
+                        {getMachineDetails(classificationResult).description}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.machineInfoLabel,
+                          {
+                            color: theme.textColor,
+                          },
+                        ]}>
+                        Instructions:
+                      </Text>
+                      <Text
+                        style={[
+                          styles.machineInfoText,
+                          {
+                            color: theme.textColor,
+                          },
+                        ]}>
+                        {getMachineDetails(classificationResult).instructions}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.machineInfoLabel,
+                          {
+                            color: theme.textColor,
+                          },
+                        ]}>
+                        Target Muscles:
+                      </Text>
+                      <Text
+                        style={[
+                          styles.machineInfoText,
+                          {
+                            color: theme.textColor,
+                          },
+                        ]}>
+                        {getMachineDetails(classificationResult).targetMuscles}
+                      </Text>
 
-                        {/* Cards for Beginner, Intermediate, and Expert Levels */}
-                        <View style={styles.levelContainer}>
-                          <Card
-                            title="Beginner Level"
-                            containerStyle={[
-                              styles.cardContainer,
-                              {
-                                backgroundColor: theme.backgroundColor,
-                              },
-                            ]}>
-                            <Text style={styles.cardText}>
-                              Reps:{' '}
-                              {
-                                getMachineDetails(classificationResult).beginner
-                                  .reps
-                              }
-                            </Text>
-                            <Text style={styles.cardText}>
-                              Sets:{' '}
-                              {
-                                getMachineDetails(classificationResult).beginner
-                                  .sets
-                              }
-                            </Text>
-                            <Text style={styles.cardText}>
-                              Weight:{' '}
-                              {
-                                getMachineDetails(classificationResult).beginner
-                                  .weight
-                              }
-                            </Text>
-                            <Text style={styles.machineInfoLabel}>Novice</Text>
-                          </Card>
-                          <Card
-                            title="Intermediate Level"
-                            containerStyle={[
-                              styles.cardContainer,
-                              {
-                                backgroundColor: theme.backgroundColor,
-                              },
-                            ]}>
-                            <Text style={styles.cardText}>
-                              Reps:{' '}
-                              {
-                                getMachineDetails(classificationResult)
-                                  .intermediate.reps
-                              }
-                            </Text>
-                            <Text style={styles.cardText}>
-                              Sets:{' '}
-                              {
-                                getMachineDetails(classificationResult)
-                                  .intermediate.sets
-                              }
-                            </Text>
-                            <Text style={styles.cardText}>
-                              Weight:{' '}
-                              {
-                                getMachineDetails(classificationResult)
-                                  .intermediate.weight
-                              }
-                            </Text>
-                            <Text style={styles.machineInfoLabel}>Medium</Text>
-                          </Card>
-                          <Card
-                            title="Intermediate Level"
-                            containerStyle={[
-                              styles.cardContainer,
-                              {
-                                backgroundColor: theme.backgroundColor,
-                              },
-                            ]}>
-                            <Text style={styles.cardText}>
-                              Reps:{' '}
-                              {
-                                getMachineDetails(classificationResult).expert
-                                  .reps
-                              }
-                            </Text>
-                            <Text style={styles.cardText}>
-                              Sets:{' '}
-                              {
-                                getMachineDetails(classificationResult).expert
-                                  .sets
-                              }
-                            </Text>
-                            <Text style={styles.cardText}>
-                              Weight:{' '}
-                              {
-                                getMachineDetails(classificationResult).expert
-                                  .weight
-                              }
-                            </Text>
-                            <Text style={styles.machineInfoLabel}>Expert</Text>
-                          </Card>
-                        </View>
-                      </>
-                    )}
-                  </View>
-                )}
-              </>
-            )}
-          </View>
-        </Modal>
-      </View>
-    </>
+                      {/* Cards for Beginner, Intermediate, and Expert Levels */}
+                      <View style={styles.levelContainer}>
+                        <Card
+                          title="Beginner Level"
+                          containerStyle={[
+                            styles.cardContainer,
+                            {
+                              backgroundColor: theme.backgroundColor,
+                            },
+                          ]}>
+                          <Text style={styles.cardText}>
+                            Reps:{' '}
+                            {
+                              getMachineDetails(classificationResult).beginner
+                                .reps
+                            }
+                          </Text>
+                          <Text style={styles.cardText}>
+                            Sets:{' '}
+                            {
+                              getMachineDetails(classificationResult).beginner
+                                .sets
+                            }
+                          </Text>
+                          <Text style={styles.cardText}>
+                            Weight:{' '}
+                            {
+                              getMachineDetails(classificationResult).beginner
+                                .weight
+                            }
+                          </Text>
+                          <Text style={styles.machineInfoLabel}>Novice</Text>
+                        </Card>
+                        <Card
+                          title="Intermediate Level"
+                          containerStyle={[
+                            styles.cardContainer,
+                            {
+                              backgroundColor: theme.backgroundColor,
+                            },
+                          ]}>
+                          <Text style={styles.cardText}>
+                            Reps:{' '}
+                            {
+                              getMachineDetails(classificationResult)
+                                .intermediate.reps
+                            }
+                          </Text>
+                          <Text style={styles.cardText}>
+                            Sets:{' '}
+                            {
+                              getMachineDetails(classificationResult)
+                                .intermediate.sets
+                            }
+                          </Text>
+                          <Text style={styles.cardText}>
+                            Weight:{' '}
+                            {
+                              getMachineDetails(classificationResult)
+                                .intermediate.weight
+                            }
+                          </Text>
+                          <Text style={styles.machineInfoLabel}>Medium</Text>
+                        </Card>
+                        <Card
+                          title="Intermediate Level"
+                          containerStyle={[
+                            styles.cardContainer,
+                            {
+                              backgroundColor: theme.backgroundColor,
+                            },
+                          ]}>
+                          <Text style={styles.cardText}>
+                            Reps:{' '}
+                            {
+                              getMachineDetails(classificationResult).expert
+                                .reps
+                            }
+                          </Text>
+                          <Text style={styles.cardText}>
+                            Sets:{' '}
+                            {
+                              getMachineDetails(classificationResult).expert
+                                .sets
+                            }
+                          </Text>
+                          <Text style={styles.cardText}>
+                            Weight:{' '}
+                            {
+                              getMachineDetails(classificationResult).expert
+                                .weight
+                            }
+                          </Text>
+                          <Text style={styles.machineInfoLabel}>Expert</Text>
+                        </Card>
+                      </View>
+                    </>
+                  )}
+                </View>
+              )}
+            </>
+          )}
+        </View>
+      </Modal>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    marginBottom: 100,
+    paddingTop: 30,
+    paddingLeft: 5,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: wp(90),
+    height: hp(40),
+    alignSelf: 'center',
     marginVertical: 20,
     borderRadius: 10,
+    borderColor: '#333',
+    borderWidth: 3,
   },
   buttonContainer: {
     marginVertical: 10,

@@ -19,8 +19,9 @@ import { useNavigation } from '@react-navigation/native';
 
 import { useTheme } from '../components/ThemeContext';
 import { frequentlyAskedQuestions } from '../constants/faqData';
+import CommonHeader from '../components/CommonHeader';
 
-export default function FAQ() {
+export default function Faq() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const [openedIndices, setOpenedIndices] = useState([]);
@@ -57,20 +58,11 @@ export default function FAQ() {
         styles.container,
         { backgroundColor: theme.mainBackgroundColor },
       ]}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}>
-          <Ionicons
-            name="arrow-back"
-            size={hp(4)}
-            style={{ color: theme.textColor, marginLeft: 5 }}
-          />
-        </TouchableOpacity>
-        <Text style={[styles.headerText, { color: theme.textColor }]}>
-          FAQ's
-        </Text>
-      </View>
+      <CommonHeader
+        title="FAQ's"
+        navigation={navigation}
+        style={{ marginBottom: 5, marginRight: 20, marginLeft: -5 }}
+      />
 
       <ScrollView
         showsVerticalScrollIndicator={false}

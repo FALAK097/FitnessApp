@@ -1,20 +1,23 @@
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome5';
-import Octicons from 'react-native-vector-icons/Octicons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {
+  MaterialIcons,
+  FontAwesome5,
+  FontAwesome,
+  Octicons,
+  Ionicons,
+} from '@expo/vector-icons';
+import { useTheme } from '../components/ThemeContext';
 
 import Home from '../app/Home';
 import Profile from '../app/Profile';
 import BodyParts from '../app/BodyParts';
 import MachineDetection from '../app/MachineDetection';
 import DietScreen from '../app/DietScreen';
-import { MaterialIcons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
-const screenOptions = () => {
+const screenOptions = ({ theme }) => {
   return {
     headerShown: false,
     tabBarShowLabel: false,
@@ -24,11 +27,9 @@ const screenOptions = () => {
       right: 0,
       bottom: 0,
       elevation: 0,
-      background: '#fff',
+      backgroundColor: theme.drawerBackgroundColor,
       height: 60,
     },
-    tabBarActiveTintColor: '#fff',
-    tabBarInactiveTintColor: '#B8C2CC',
     tabBarLabelStyle: {
       fontSize: 12,
       fontWeight: 'bold',
@@ -37,25 +38,44 @@ const screenOptions = () => {
     tabBarIconStyle: {
       marginBottom: 5,
     },
+    tabBarHideOnKeyboard: true,
   };
 };
 
 export const TabNavigation = ({ navigation }) => {
+  const { theme } = useTheme();
+
   return (
-    <Tab.Navigator initialRouteName='TabHome' screenOptions={screenOptions}>
+    <Tab.Navigator
+      initialRouteName="TabHome"
+      screenOptions={screenOptions({ theme })}>
       <Tab.Screen
         name="TabHome"
         component={Home}
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={focused ? styles.selectedBtn : styles.otherBtn}>
+            <View
+              style={
+                focused
+                  ? [
+                      styles.selectedBtn,
+                      { backgroundColor: theme.logOutButton },
+                    ]
+                  : styles.otherBtn
+              }>
               <Ionicons
                 name="home"
                 size={24}
-                color={focused ? 'white' : '#111'}
+                color={focused ? 'white' : theme.textColor}
               />
-              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Home</Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: focused ? 'white' : theme.textColor,
+                }}>
+                Home
+              </Text>
             </View>
           ),
         }}
@@ -66,13 +86,27 @@ export const TabNavigation = ({ navigation }) => {
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={focused ? styles.selectedBtn : styles.otherBtn}>
-              <FontAwesome6
+            <View
+              style={
+                focused
+                  ? [
+                      styles.selectedBtn,
+                      { backgroundColor: theme.logOutButton },
+                    ]
+                  : styles.otherBtn
+              }>
+              <FontAwesome5
                 name="dumbbell"
                 size={24}
-                color={focused ? 'white' : '#111'}
+                color={focused ? 'white' : theme.textColor}
               />
-              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Exercises</Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: focused ? 'white' : theme.textColor,
+                }}>
+                Exercises
+              </Text>
             </View>
           ),
         }}
@@ -83,10 +117,27 @@ export const TabNavigation = ({ navigation }) => {
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={focused ? styles.selectedBtn : styles.otherBtn}>
-              <Octicons name="device-camera" size={24} color={focused ? 'white' : '#16247d'} />
-              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Detect</Text>
-
+            <View
+              style={
+                focused
+                  ? [
+                      styles.selectedBtn,
+                      { backgroundColor: theme.logOutButton },
+                    ]
+                  : styles.otherBtn
+              }>
+              <Octicons
+                name="device-camera"
+                size={24}
+                color={focused ? 'white' : theme.textColor}
+              />
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: focused ? 'white' : theme.textColor,
+                }}>
+                Detect
+              </Text>
             </View>
           ),
         }}
@@ -97,13 +148,27 @@ export const TabNavigation = ({ navigation }) => {
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={focused ? styles.selectedBtn : styles.otherBtn}>
+            <View
+              style={
+                focused
+                  ? [
+                      styles.selectedBtn,
+                      { backgroundColor: theme.logOutButton },
+                    ]
+                  : styles.otherBtn
+              }>
               <MaterialIcons
                 name="food-bank"
                 size={30}
-                color={focused ? 'white' : '#111'}
+                color={focused ? 'white' : theme.textColor}
               />
-              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Diet</Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: focused ? 'white' : theme.textColor,
+                }}>
+                Diet
+              </Text>
             </View>
           ),
         }}
@@ -114,13 +179,27 @@ export const TabNavigation = ({ navigation }) => {
         initialParams={{ navigation }}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={focused ? styles.selectedBtn : styles.otherBtn}>
-              <FontAwesome6
+            <View
+              style={
+                focused
+                  ? [
+                      styles.selectedBtn,
+                      { backgroundColor: theme.logOutButton },
+                    ]
+                  : styles.otherBtn
+              }>
+              <FontAwesome
                 name="user"
                 size={24}
-                color={focused ? 'white' : '#111'}
+                color={focused ? 'white' : theme.textColor}
               />
-              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Profile</Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: focused ? 'white' : theme.textColor,
+                }}>
+                Profile
+              </Text>
             </View>
           ),
         }}
@@ -133,13 +212,13 @@ const styles = StyleSheet.create({
   selectedBtn: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#16247d',
     width: Platform.OS == 'ios' ? 50 : 60,
     height: Platform.OS == 'ios' ? 50 : 60,
     top: Platform.OS == 'ios' ? -10 : -20,
     borderRadius: Platform.OS == 'ios' ? 25 : 30,
   },
   otherBtn: {
-    alignItems: 'center', justifyContent: 'center'
-  }
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

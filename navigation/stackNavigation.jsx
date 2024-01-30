@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Onboarding from '../auth/Onboarding';
@@ -6,7 +5,7 @@ import Welcome from '../auth/Welcome';
 import SignInScreen from '../auth/SignInScreen';
 import SignUpScreen from '../auth/SignUpScreen';
 import ForgotPassword from '../auth/ForgotPassword';
-// import VerifyEmailScreen from '../auth/VerifyEmailScreen';
+import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
 import Exercises from '../app/Exercises';
 import ExerciseDetails from '../app/ExerciseDetails';
@@ -15,11 +14,8 @@ import MachineDetection from '../app/MachineDetection';
 import AboutUsScreen from '../app/AboutUsScreen';
 import BodyParts from '../app/BodyParts';
 import DietScreen from '../app/DietScreen';
-import FAQ from '../app/Faq';
-import { TabNavigation } from './tabNavigation';
+import Faq from '../app/Faq';
 import DrawerNavigation from './drawerNavigation';
-
-// import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
 const Stack = createStackNavigator();
 
@@ -33,11 +29,11 @@ export const AuthStack = () => {
       <Stack.Screen name="SignInScreen" component={SignInScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="VerifyEmailScreen"
         component={VerifyEmailScreen}
         options={{ title: 'Verify Email' }}
-      /> */}
+      />
     </Stack.Navigator>
   );
 };
@@ -47,16 +43,14 @@ export const AppStack = () => {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={ DrawerNavigation } />
+      <Stack.Screen name="Home" component={DrawerNavigation} />
       <Stack.Screen name="Exercises" component={Exercises} />
       <Stack.Screen name="ExerciseDetails" component={ExerciseDetails} />
       <Stack.Screen name="BodyParts" component={BodyParts} />
       <Stack.Screen name="DietScreen" component={DietScreen} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} />
-      <Stack.Screen name="Faq" component={FAQ} />
-
-
+      <Stack.Screen name="Faq" component={Faq} />
       <Stack.Screen
         name="MachineDetection"
         component={MachineDetection}
