@@ -1,16 +1,18 @@
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome5';
-import Octicons from 'react-native-vector-icons/Octicons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {
+  MaterialIcons,
+  FontAwesome5,
+  Octicons,
+  Ionicons,
+} from '@expo/vector-icons';
+import { useTheme } from '../components/ThemeContext';
 
 import Home from '../app/Home';
 import Profile from '../app/Profile';
 import BodyParts from '../app/BodyParts';
 import MachineDetection from '../app/MachineDetection';
 import DietScreen from '../app/DietScreen';
-import { MaterialIcons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,8 +43,10 @@ const screenOptions = () => {
 };
 
 export const TabNavigation = ({ navigation }) => {
+  const { theme } = useTheme();
+
   return (
-    <Tab.Navigator initialRouteName='TabHome' screenOptions={screenOptions}>
+    <Tab.Navigator initialRouteName="TabHome" screenOptions={screenOptions}>
       <Tab.Screen
         name="TabHome"
         component={Home}
@@ -55,7 +59,9 @@ export const TabNavigation = ({ navigation }) => {
                 size={24}
                 color={focused ? 'white' : '#111'}
               />
-              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Home</Text>
+              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>
+                Home
+              </Text>
             </View>
           ),
         }}
@@ -67,12 +73,14 @@ export const TabNavigation = ({ navigation }) => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={focused ? styles.selectedBtn : styles.otherBtn}>
-              <FontAwesome6
+              <FontAwesome5
                 name="dumbbell"
                 size={24}
                 color={focused ? 'white' : '#111'}
               />
-              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Exercises</Text>
+              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>
+                Exercises
+              </Text>
             </View>
           ),
         }}
@@ -84,9 +92,14 @@ export const TabNavigation = ({ navigation }) => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={focused ? styles.selectedBtn : styles.otherBtn}>
-              <Octicons name="device-camera" size={24} color={focused ? 'white' : '#16247d'} />
-              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Detect</Text>
-
+              <Octicons
+                name="device-camera"
+                size={24}
+                color={focused ? 'white' : '#16247d'}
+              />
+              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>
+                Detect
+              </Text>
             </View>
           ),
         }}
@@ -103,7 +116,9 @@ export const TabNavigation = ({ navigation }) => {
                 size={30}
                 color={focused ? 'white' : '#111'}
               />
-              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Diet</Text>
+              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>
+                Diet
+              </Text>
             </View>
           ),
         }}
@@ -115,12 +130,14 @@ export const TabNavigation = ({ navigation }) => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={focused ? styles.selectedBtn : styles.otherBtn}>
-              <FontAwesome6
+              <FontAwesome5
                 name="user"
                 size={24}
                 color={focused ? 'white' : '#111'}
               />
-              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>Profile</Text>
+              <Text style={{ fontSize: 12, color: focused ? 'white' : '#111' }}>
+                Profile
+              </Text>
             </View>
           ),
         }}
@@ -140,6 +157,7 @@ const styles = StyleSheet.create({
     borderRadius: Platform.OS == 'ios' ? 25 : 30,
   },
   otherBtn: {
-    alignItems: 'center', justifyContent: 'center'
-  }
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

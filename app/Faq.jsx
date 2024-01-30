@@ -20,7 +20,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../components/ThemeContext';
 import { frequentlyAskedQuestions } from '../constants/faqData';
 
-export default function FAQ() {
+export default function Faq() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const [openedIndices, setOpenedIndices] = useState([]);

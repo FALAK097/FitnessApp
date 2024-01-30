@@ -14,10 +14,10 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { bodyParts } from '../constants';
 import { useTheme } from '../components/ThemeContext';
+import CommonHeader from '../components/CommonHeader';
 
 export default function BodyParts() {
   const navigation = useNavigation();
@@ -29,20 +29,11 @@ export default function BodyParts() {
         styles.container,
         { backgroundColor: theme.mainBackgroundColor },
       ]}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}>
-          <Ionicons
-            name="arrow-back"
-            size={hp(4)}
-            style={{ color: theme.textColor, marginLeft: 5 }}
-          />
-        </TouchableOpacity>
-        <Text style={[styles.headerText, { color: theme.textColor }]}>
-          Exercises
-        </Text>
-      </View>
+      <CommonHeader
+        title="Body Parts"
+        navigation={navigation}
+        style={{ marginTop: 3, marginRight: 5, marginLeft: -5 }}
+      />
 
       <FlatList
         data={bodyParts}
@@ -93,18 +84,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 12,
-    paddingBottom: 60
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 5,
-  },
-  headerText: {
-    fontSize: hp(3),
-    fontWeight: 'bold',
-    textAlign: 'center',
-    flex: 1,
+    paddingBottom: hp(8),
   },
   columnWrapper: {
     justifyContent: 'space-between',
