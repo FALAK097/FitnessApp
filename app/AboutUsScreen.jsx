@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
 import { useTheme } from '../components/ThemeContext';
+import CommonHeader from '../components/CommonHeader';
 
 const AboutUsScreen = () => {
   const { theme } = useTheme();
@@ -34,20 +35,16 @@ const AboutUsScreen = () => {
         styles.container,
         { backgroundColor: theme.mainBackgroundColor },
       ]}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}>
-          <Ionicons
-            name="arrow-back"
-            size={hp(4)}
-            style={{ color: theme.textColor, marginLeft: 5, marginTop: 35 }}
-          />
-        </TouchableOpacity>
-        <Text style={[styles.header, { color: theme.textColor }]}>
-          About the App
-        </Text>
-      </View>
+      <CommonHeader
+        title="About Us"
+        navigation={navigation}
+        style={{
+          marginTop: 35,
+          marginRight: 20,
+          marginLeft: -15,
+          marginBottom: 20,
+        }}
+      />
       <Text style={[styles.description, { color: theme.textColor }]}>
         Welcome to our fitness app! We are dedicated to helping you achieve your
         fitness goals through innovative features and personalized

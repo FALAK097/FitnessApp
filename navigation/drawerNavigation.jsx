@@ -13,11 +13,13 @@ import Profile from '../app/Profile';
 import MachineDetection from '../app/MachineDetection';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DietScreen from '../app/DietScreen';
+import { useTheme } from '../components/ThemeContext';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
   const navigation = useNavigation();
+  const { theme } = useTheme();
   const handleAvatarClick = () => {
     navigation.navigate('Profile');
   };
@@ -26,14 +28,14 @@ const DrawerNavigation = () => {
     <Drawer.Navigator
       drawerContent={(props) => {
         return (
-          <SafeAreaView>
+          <SafeAreaView
+            style={{ backgroundColor: theme.drawerBackgroundColor }}>
             <View
               style={{
                 height: 200,
                 width: '100%',
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: '#fff',
               }}>
               <TouchableOpacity activeOpacity={0.6} onPress={handleAvatarClick}>
                 <Image
@@ -50,7 +52,7 @@ const DrawerNavigation = () => {
                 style={{
                   fontSize: 16,
                   fontWeight: 'bold',
-                  color: '#000',
+                  color: theme.drawerTextColor,
                 }}>
                 John Doe
               </Text>
@@ -61,16 +63,16 @@ const DrawerNavigation = () => {
       }}
       screenOptions={{
         drawerStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: theme.drawerBackgroundColor,
           width: 250,
         },
         headerStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: theme.drawerBackgroundColor,
         },
         headerShown: false,
-        headerTintColor: '#000',
+        headerTintColor: theme.drawerTextColor,
         drawerLabelStyle: {
-          color: '#000',
+          color: theme.drawerTextColor,
           fontSize: 14,
           marginLeft: -10,
         },
@@ -81,7 +83,9 @@ const DrawerNavigation = () => {
           drawerLabel: 'Home',
           title: 'Home',
           headerShadowVisible: false,
-          drawerIcon: () => <Ionicons name="home" size={24} color="#000" />,
+          drawerIcon: () => (
+            <Ionicons name="home" size={24} color={theme.drawerIconColor} />
+          ),
         }}
         component={TabNavigation}
       />
@@ -92,7 +96,11 @@ const DrawerNavigation = () => {
           title: 'Exercise',
           headerShadowVisible: false,
           drawerIcon: () => (
-            <FontAwesome5 name="dumbbell" size={24} color="#000" />
+            <FontAwesome5
+              name="dumbbell"
+              size={24}
+              color={theme.drawerIconColor}
+            />
           ),
         }}
         component={BodyParts}
@@ -104,7 +112,11 @@ const DrawerNavigation = () => {
           title: 'DrawCamera',
           headerShadowVisible: false,
           drawerIcon: () => (
-            <FontAwesome5 name="camera" size={24} color="#000" />
+            <FontAwesome5
+              name="camera"
+              size={24}
+              color={theme.drawerIconColor}
+            />
           ),
         }}
         component={MachineDetection}
@@ -116,7 +128,11 @@ const DrawerNavigation = () => {
           title: 'Diet',
           headerShadowVisible: false,
           drawerIcon: () => (
-            <MaterialIcons name="food-bank" size={30} color="#000" />
+            <MaterialIcons
+              name="food-bank"
+              size={30}
+              color={theme.drawerIconColor}
+            />
           ),
         }}
         component={DietScreen}
@@ -127,7 +143,9 @@ const DrawerNavigation = () => {
           drawerLabel: 'Profile',
           title: 'Profile',
           headerShadowVisible: false,
-          drawerIcon: () => <FontAwesome5 name="user" size={24} color="#000" />,
+          drawerIcon: () => (
+            <FontAwesome5 name="user" size={24} color={theme.drawerIconColor} />
+          ),
         }}
         component={Profile}
       />

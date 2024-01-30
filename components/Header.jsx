@@ -2,28 +2,40 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Octicons } from '@expo/vector-icons';
+import { useTheme } from './ThemeContext';
 
 export default function Header({ username, onPressAvatar, onPressCamera }) {
   const navigation = useNavigation();
+  const { theme } = useTheme();
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => navigation.toggleDrawer()}
-        style={styles.iconContainer}>
-        <Octicons name="three-bars" size={24} color="#000" />
+        style={[
+          styles.icon,
+          { backgroundColor: theme.drawerBackgroundColor, marginRight: 5 },
+        ]}>
+        <Octicons name="three-bars" size={24} color={theme.textColor} />
       </TouchableOpacity>
 
-      <Text style={styles.usernameText}>
+      <Text style={[styles.usernameText, { color: theme.textColor }]}>
         Welcome, <Text style={styles.highlightedText}>{username}</Text>
       </Text>
 
-      <TouchableOpacity style={styles.avatarContainer} onPress={onPressAvatar}>
-        <Octicons name="person" size={24} color="#000" />
+      <TouchableOpacity
+        style={[styles.icon, { backgroundColor: theme.drawerBackgroundColor }]}
+        onPress={onPressAvatar}>
+        <Octicons name="person" size={24} color={theme.textColor} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.cameraContainer} onPress={onPressCamera}>
-        <Octicons name="device-camera" size={24} color="gray" />
+      <TouchableOpacity
+        style={[
+          styles.icon,
+          { backgroundColor: theme.drawerBackgroundColor, marginLeft: 5 },
+        ]}
+        onPress={onPressCamera}>
+        <Octicons name="device-camera" size={24} color={theme.textColor} />
       </TouchableOpacity>
     </View>
   );
@@ -38,13 +50,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginHorizontal: 16,
   },
-  iconContainer: {
+  icon: {
     height: 45,
     width: 45,
     borderRadius: 999,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffffffc3',
     elevation: 10,
   },
   usernameText: {
@@ -55,17 +66,5 @@ const styles = StyleSheet.create({
   },
   highlightedText: {
     color: '#F1BE48',
-  },
-  avatarContainer: {
-    marginRight: 15,
-  },
-  cameraContainer: {
-    backgroundColor: '#c0c0c0',
-    height: 45,
-    width: 45,
-    borderRadius: 999,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 10,
   },
 });

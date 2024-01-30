@@ -4,12 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useTheme } from '../components/ThemeContext';
 
 import Header from '../components/Header';
 import ImageSlider from '../components/ImageSlider';
 
 export default function Home() {
   const navigation = useNavigation();
+  const { theme } = useTheme();
   const route = useRoute();
 
   const { username } = route.params || { username: "Let's Workout" };
@@ -23,7 +25,12 @@ export default function Home() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, paddingBottom: 60 }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        paddingBottom: 60,
+        backgroundColor: theme.mainBackgroundColor,
+      }}>
       <StatusBar style="dark" />
 
       <Header

@@ -139,7 +139,10 @@ export default function Profile() {
           <Image style={styles.profileImage} source={avatar} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.changeAvatarText}>Tap to change avatar</Text>
+          <Text
+            style={[styles.changeAvatarText, { color: theme.logOutButton }]}>
+            Tap to change avatar
+          </Text>
         </TouchableOpacity>
       </View>
 
