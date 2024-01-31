@@ -14,7 +14,7 @@ export default function Home() {
   const { theme } = useTheme();
   const route = useRoute();
 
-  const { username } = route.params || { username: "Let's Workout" };
+  const { name } = route.params || { name: 'Guest' };
 
   const handleAvatarClick = () => {
     navigation.navigate('Profile');
@@ -34,7 +34,7 @@ export default function Home() {
       <StatusBar style="dark" />
 
       <Header
-        username={username}
+        name={name}
         onPressAvatar={handleAvatarClick}
         onPressCamera={detectMachine}
       />
@@ -47,7 +47,9 @@ export default function Home() {
         <View style={styles.cardContainer}>
           <TouchableOpacity
             style={styles.card}
-            onPress={() => navigation.navigate('BodyParts')}>
+            onPress={() =>
+              navigation.navigate('TabExercises', { screen: 'BodyParts' })
+            }>
             <Image
               source={require('../assets/images/gym/home1.jpg')}
               style={styles.cardImage}
@@ -59,7 +61,9 @@ export default function Home() {
 
           <TouchableOpacity
             style={styles.card}
-            onPress={() => navigation.navigate('DietScreen')}>
+            onPress={() =>
+              navigation.navigate('TabDiet', { screen: 'DietScreen' })
+            }>
             <Image
               source={require('../assets/images/gym/home2.jpg')}
               style={styles.cardImage}

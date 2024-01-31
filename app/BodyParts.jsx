@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 12,
-    paddingBottom: hp(8),
+    paddingBottom: 60,
   },
   columnWrapper: {
     justifyContent: 'space-between',

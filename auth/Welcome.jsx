@@ -18,7 +18,7 @@ export default function Welcome({ navigation }) {
       />
 
       <LinearGradient
-        colors={['transparent', '#18181']}
+        colors={['transparent', '#181818']}
         style={{ width: wp(100), height: hp(70) }}
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 0.8 }}

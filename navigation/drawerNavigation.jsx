@@ -4,7 +4,12 @@ import {
   createDrawerNavigator,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import { Ionicons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import {
+  Ionicons,
+  FontAwesome5,
+  MaterialIcons,
+  FontAwesome,
+} from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 import { TabNavigation } from './tabNavigation';
@@ -76,6 +81,8 @@ const DrawerNavigation = () => {
           fontSize: 14,
           marginLeft: -10,
         },
+        gestureEnabled: true,
+        gestureDistanceThreshold: 500,
       }}>
       <Drawer.Screen
         name="DrawHome"
@@ -144,7 +151,7 @@ const DrawerNavigation = () => {
           title: 'Profile',
           headerShadowVisible: false,
           drawerIcon: () => (
-            <FontAwesome5 name="user" size={24} color={theme.drawerIconColor} />
+            <FontAwesome name="user" size={24} color={theme.drawerIconColor} />
           ),
         }}
         component={Profile}
