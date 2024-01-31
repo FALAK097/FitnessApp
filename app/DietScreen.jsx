@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: wp(5),
+    paddingBottom: hp(8),
   },
   card: {
     borderRadius: wp(2),
