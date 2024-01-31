@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Octicons } from '@expo/vector-icons';
 import { useTheme } from './ThemeContext';
 
-export default function Header({ username, onPressAvatar, onPressCamera }) {
+export default function Header({ name, onPressAvatar, onPressCamera }) {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
@@ -20,7 +20,7 @@ export default function Header({ username, onPressAvatar, onPressCamera }) {
       </TouchableOpacity>
 
       <Text style={[styles.usernameText, { color: theme.textColor }]}>
-        Welcome, <Text style={styles.highlightedText}>{username}</Text>
+        Welcome, <Text style={styles.highlightedText}>{name}</Text>
       </Text>
 
       <TouchableOpacity

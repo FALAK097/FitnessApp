@@ -14,7 +14,7 @@ export default function Home() {
   const { theme } = useTheme();
   const route = useRoute();
 
-  const { username } = route.params || { username: "Let's Workout" };
+  const { name } = route.params || { name: 'Guest' };
 
   const handleAvatarClick = () => {
     navigation.navigate('Profile');
@@ -34,7 +34,7 @@ export default function Home() {
       <StatusBar style="dark" />
 
       <Header
-        username={username}
+        name={name}
         onPressAvatar={handleAvatarClick}
         onPressCamera={detectMachine}
       />
