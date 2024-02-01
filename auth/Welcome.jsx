@@ -1,4 +1,4 @@
-import { View, Text, Image, Dimensions } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import React from 'react';
 import {
   widthPercentageToDP as wp,
@@ -9,18 +9,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
-const { width, height } = Dimensions.get('window');
-
 export default function Welcome({ navigation }) {
   return (
-    <View style={{ flex: 1 }}>
+    <View className="flex-1 flex justify-end">
       <Image
-        style={{ height: 800, width: width, position: 'absolute' }}
-        source={require('../assets/images/onboarding/getstart1.png')}
+        className="h-full w-full absolute"
+        source={require('../assets/images/onboarding/getstart.png')}
       />
 
       <LinearGradient
-        colors={['transparent', '#18181']}
+        colors={['transparent', '#181818']}
         style={{ width: wp(100), height: hp(70) }}
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 0.8 }}
@@ -34,16 +32,20 @@ export default function Welcome({ navigation }) {
             Best <Text style={{ color: '#F1BE48' }}>Workouts</Text>
           </Text>
           <Text
-            style={{ fontSize: hp(5), color: '#FFFFFF', fontWeight: 'bold' }}>
+            style={{ fontSize: hp(5) }}
+            className="text-white font-bold tracking-wide">
             For you
           </Text>
         </Animated.View>
-        <Animated.View entering={FadeInDown.delay(200).springify()} style={{ alignItems: 'center' }}>
+        <Animated.View entering={FadeInDown.delay(200).springify()}>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => navigation.navigate('SignInScreen')}
-            style={{ marginTop: 40, marginBottom: 0, height: hp(7), width: wp(80), backgroundColor: '#F1BE48', borderRadius: hp(3.5), justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#FFFFFF' }}>
-            <Text style={{ fontSize: hp(3), color: '#000', fontWeight: 'bold' }}>
+            style={{ height: hp(7), width: wp(80), backgroundColor: '#F1BE48' }}
+            className="button-86 rounded-full flex items-center justify-center mx-auto border-[2px] border-neutral-200">
+            <Text
+              style={{ fontSize: hp(3), color: '#000' }}
+              className="text-white font-bold tracking-wide">
               Get Started
             </Text>
           </TouchableOpacity>

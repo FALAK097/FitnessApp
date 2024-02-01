@@ -80,37 +80,66 @@ const AboutUsScreen = () => {
         athlete, our app offers a variety of workout routines to help you stay
         motivated and achieve results.
       </Text>
-
+      <Text
+        style={{
+          color: theme.textColor,
+          fontSize: 17,
+          textAlign: 'center',
+          marginBottom: 3,
+        }}>
+        Built by
+      </Text>
       <View style={styles.credits}>
-        <Text style={{ color: theme.textColor, fontSize: 17 }}>Built by</Text>
-        <TouchableOpacity onPress={() => openGitHubProfile('https://github.com/shubham4112')}>
-          <Image
-            source={require('../assets/icons/avatar1.png')}
-            style={styles.profileImage}
-            resizeMode="cover"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => openGitHubProfile('https://github.com/aniketsh22')}>
-          <Image
-            source={require('../assets/icons/avatar2.png')}
-            style={styles.profileImage}
-            resizeMode="cover"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => openGitHubProfile('https://github.com/FALAK097/')}>
-          <Image
-            source={require('../assets/icons/avatar3.png')}
-            style={styles.profileImage}
-            resizeMode="cover"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => openGitHubProfile('https://github.com/Faisal2506')}>
-          <Image
-            source={require('../assets/icons/avatar4.png')}
-            style={styles.profileImage}
-            resizeMode="cover"
-          />
-        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+          }}>
+          <TouchableOpacity
+            onPress={() => openGitHubProfile('https://github.com/shubham4112')}>
+            <Image
+              source={require('../assets/icons/avatar1.png')}
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+            <Text style={{ color: theme.textColor, textAlign: 'center' }}>
+              Shubham
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => openGitHubProfile('https://github.com/aniketsh22')}>
+            <Image
+              source={require('../assets/icons/avatar2.png')}
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+            <Text style={{ color: theme.textColor, textAlign: 'center' }}>
+              Aniket
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => openGitHubProfile('https://github.com/FALAK097/')}>
+            <Image
+              source={require('../assets/icons/avatar3.png')}
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+            <Text style={{ color: theme.textColor, textAlign: 'center' }}>
+              Falak
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => openGitHubProfile('https://github.com/Faisal2506')}>
+            <Image
+              source={require('../assets/icons/avatar4.png')}
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+            <Text style={{ color: theme.textColor, textAlign: 'center' }}>
+              Faisal
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <Text style={[styles.contact, { color: theme.textColor, fontSize: 17 }]}>
@@ -157,9 +186,6 @@ const styles = StyleSheet.create({
     marginBottom: wp(4),
   },
   credits: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     marginTop: hp(2),
     marginBottom: hp(2),
   },
