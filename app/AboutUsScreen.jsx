@@ -3,6 +3,7 @@ import {
   View,
   TouchableOpacity,
   Text,
+  Image,
   StyleSheet,
   ScrollView,
   Linking,
@@ -80,38 +81,42 @@ const AboutUsScreen = () => {
         motivated and achieve results.
       </Text>
 
-      <View>
-        <Text style={[styles.credits, { color: theme.textColor }]}>
-          Built by{' '}
-          <Text
-            style={{ color: '#FF671F' }}
-            onPress={() => openGitHubProfile('https://github.com/FALAK097/')}>
-            Falak
-          </Text>
-          ,{' '}
-          <Text
-            style={{ color: theme.textColor }}
-            onPress={() => openGitHubProfile('https://github.com/shubham4112')}>
-            Shubham
-          </Text>
-          ,{' '}
-          <Text
-            style={{ color: '#37367a' }}
-            onPress={() => openGitHubProfile('https://github.com/Faisal2506')}>
-            Faisal
-          </Text>{' '}
-          and{' '}
-          <Text
-            style={{ color: '#046A38' }}
-            onPress={() => openGitHubProfile('https://github.com/aniketsh22')}>
-            Aniket
-          </Text>
-        </Text>
+      <View style={styles.credits}>
+        <Text style={{ color: theme.textColor, fontSize: 17 }}>Built by</Text>
+        <TouchableOpacity onPress={() => openGitHubProfile('https://github.com/shubham4112')}>
+          <Image
+            source={require('../assets/icons/avatar1.png')}
+            style={styles.profileImage}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => openGitHubProfile('https://github.com/aniketsh22')}>
+          <Image
+            source={require('../assets/icons/avatar2.png')}
+            style={styles.profileImage}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => openGitHubProfile('https://github.com/FALAK097/')}>
+          <Image
+            source={require('../assets/icons/avatar3.png')}
+            style={styles.profileImage}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => openGitHubProfile('https://github.com/Faisal2506')}>
+          <Image
+            source={require('../assets/icons/avatar4.png')}
+            style={styles.profileImage}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
       </View>
-      <Text style={[styles.contact, { color: theme.textColor }]}>
+
+      <Text style={[styles.contact, { color: theme.textColor, fontSize: 17 }]}>
         For any questions or feedback, please contact us at{' '}
         <Text
-          style={{ color: '#F1BE48' }}
+          style={{ color: '#dc9e11', fontWeight: '900' }}
           onPress={() => Linking.openURL('mailto:support@fithub.com')}>
           support@fithub.com
         </Text>
@@ -152,17 +157,23 @@ const styles = StyleSheet.create({
     marginBottom: wp(4),
   },
   credits: {
-    fontSize: wp(4.5),
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: hp(2),
-    textAlign: 'center',
-    fontStyle: 'italic',
+    marginBottom: hp(2),
+  },
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginLeft: 5,
+    marginRight: 5,
   },
   contact: {
     fontSize: wp(3.8),
-    marginTop: hp(2),
     textAlign: 'center',
     fontStyle: 'italic',
-    marginBottom: hp(2),
   },
 });
 

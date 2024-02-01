@@ -72,7 +72,8 @@ export const TabNavigation = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 12,
-                  color: focused ? 'white' : theme.textColor,
+                  fontWeight:'900',
+                  color: focused ? 'black' : theme.textColor,
                 }}>
                 Home
               </Text>
@@ -103,7 +104,8 @@ export const TabNavigation = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 12,
-                  color: focused ? 'white' : theme.textColor,
+                  fontWeight:'900',
+                  color: focused ? 'black' : theme.textColor,
                 }}>
                 Exercises
               </Text>
@@ -134,7 +136,8 @@ export const TabNavigation = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 12,
-                  color: focused ? 'white' : theme.textColor,
+                  fontWeight:'900',
+                  color: focused ? 'black' : theme.textColor,
                 }}>
                 Detect
               </Text>
@@ -165,7 +168,8 @@ export const TabNavigation = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 12,
-                  color: focused ? 'white' : theme.textColor,
+                  fontWeight:'900',
+                  color: focused ? 'black' : theme.textColor,
                 }}>
                 Diet
               </Text>
@@ -196,7 +200,8 @@ export const TabNavigation = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 12,
-                  color: focused ? 'white' : theme.textColor,
+                  fontWeight:'900',
+                  color: focused ? 'black' : theme.textColor,
                 }}>
                 Profile
               </Text>

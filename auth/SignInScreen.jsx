@@ -95,8 +95,8 @@ export default function SignInScreen({ navigation }) {
         </View>
         <View className="flex-row justify-center">
           <Image
-            source={require('../assets/images/auth/login.png')}
-            style={{ width: 390, height: 250 }}
+            source={require('../assets/images/auth/login.gif')}
+            style={{ width: 290, height: 250, marginBottom: 30, marginTop: -60 }}
           />
         </View>
       </SafeAreaView>
