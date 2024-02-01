@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -8,11 +8,14 @@ import { useTheme } from '../components/ThemeContext';
 
 import Header from '../components/Header';
 import ImageSlider from '../components/ImageSlider';
+import SearchBar from '../components/SearchBar';
+import { fetchExercisesByBodypart } from '../api/exerciseDB';
 
 export default function Home() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const route = useRoute();
+  const [filteredExercises, setFilteredExercises] = useState([]);
 
   const { name } = route.params || { name: 'Guest' };
 
@@ -22,6 +25,29 @@ export default function Home() {
 
   const detectMachine = () => {
     navigation.navigate('MachineDetection');
+  };
+
+  const handleSearch = async (query) => {
+    try {
+      const exercises = await fetchExercisesByBodypart(query);
+      // Check if exercises array is defined and not empty
+      if (exercises && exercises.length > 0) {
+        // Filter exercises based on the search query
+        const filteredExercises = exercises.filter((exercise) =>
+          exercise.name.toLowerCase().includes(query.toLowerCase())
+        );
+        console.log('Search results:', filteredExercises);
+        // Update state to reflect the filtered exercises
+        setFilteredExercises(filteredExercises);
+      } else {
+        // Handle case where no exercises were found
+        console.log('No exercises found for the given body part');
+        setFilteredExercises([]);
+      }
+    } catch (error) {
+      console.error('Error searching exercises:', error);
+      // Handle error condition
+    }
   };
 
   return (
@@ -38,6 +64,8 @@ export default function Home() {
         onPressAvatar={handleAvatarClick}
         onPressCamera={detectMachine}
       />
+
+      <SearchBar onSearch={handleSearch} />
 
       <View>
         <ImageSlider />

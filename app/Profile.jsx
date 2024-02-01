@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: hp(4),
-    paddingHorizontal: wp(2),
+    paddingHorizontal: wp(4),
   },
   profileContainer: {
     marginTop: hp(4),
