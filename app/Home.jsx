@@ -71,7 +71,11 @@ export default function Home() {
         <ImageSlider />
       </View>
 
-      <ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        alwaysBounceHorizontal={false}
+        alwaysBounceVertical={false}
+        bounces={false}>
         <View style={styles.cardContainer}>
           <TouchableOpacity
             style={styles.card}
