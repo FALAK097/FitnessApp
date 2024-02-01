@@ -9,18 +9,18 @@ import {
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '../components/ThemeContext';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { FIREBASE_APP } from '../FirebaseConfig';
-import { getAuth } from 'firebase/auth';
+import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { getAuth } from 'firebase/auth';
+import { FIREBASE_APP } from '../FirebaseConfig';
+import { useTheme } from '../components/ThemeContext';
 import DarkModeSwitch from '../components/DarkModeSwitch';
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; // Import MaterialCommunityIcons
 import CommonHeader from '../components/CommonHeader';
 
 export default function Profile() {
@@ -30,15 +30,19 @@ export default function Profile() {
   const [avatar, setAvatar] = useState(require('../assets/icons/avatar.png'));
 
   useEffect(() => {
-    const fetchAvatar = async () => {
+    fetchAvatar();
+  }, []);
+
+  const fetchAvatar = async () => {
+    try {
       const uri = await getAvatarFromStorage();
       if (uri) {
         setAvatar({ uri });
       }
-    };
-
-    fetchAvatar();
-  }, []);
+    } catch (error) {
+      console.error('Error fetching avatar:', error);
+    }
+  };
 
   const handleLogout = () => {
     Alert.alert(
@@ -75,27 +79,41 @@ export default function Profile() {
     navigation.navigate('Faq');
   };
 
-  const saveAvatarToStorage = async (uri) => {
-    try {
-      const userId = auth.currentUser.uid;
-      const avatarStorageKey = `avatarURI_${userId}`;
-      await AsyncStorage.setItem(avatarStorageKey, uri);
-    } catch (error) {
-      console.error('Error saving avatar URI:', error);
-    }
-  };
-
   const getAvatarFromStorage = async () => {
     try {
       const userId = auth.currentUser.uid;
       const avatarStorageKey = `avatarURI_${userId}`;
       const uri = await AsyncStorage.getItem(avatarStorageKey);
-      return uri !== null ? uri : null;
+      return uri || null;
     } catch (error) {
       console.error('Error getting avatar URI:', error);
       return null;
     }
   };
+
+  const saveAvatarToStorage = async (uri) => {
+    try {
+      const userId = auth.currentUser.uid;
+      const avatarStorageKey = `avatarURI_${userId}`;
+      await AsyncStorage.setItem(avatarStorageKey, uri);
+      setAvatar({ uri }); // Update the avatar in the component state
+
+      // Emit a navigation event to notify DrawerNavigation about the avatar change
+      if (navigation && navigation.emit) {
+        navigation.emit('avatarChanged', uri);
+      }
+    } catch (error) {
+      console.error('Error saving avatar URI:', error);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('avatarChanged', (uri) => {
+      setAvatar({ uri });
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const pickAvatarFromGallery = async () => {
     let permissionResult =

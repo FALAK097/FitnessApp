@@ -20,11 +20,18 @@ export default function Welcome({ navigation }) {
       />
 
       <LinearGradient
-        colors={['transparent', '#181818']}
-        style={{ flex: 1, justifyContent: 'flex-end', paddingBottom: hp(12), paddingTop: hp(70) }}>
-        <Animated.View entering={FadeInDown.delay(100).springify()} style={{ alignItems: 'center' }}>
-          <Text style={{ fontSize: hp(5), color: '#FFFFFF', fontWeight: 'bold', marginBottom: hp(2) }}>
-            Best <Text style={{ color: '#F1BE48', fontWeight: 'bold' }}>Workouts</Text>
+        colors={['transparent', '#18181']}
+        style={{ width: wp(100), height: hp(70) }}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 0.8 }}
+        className="flex justify-end pb-12 space-y-8">
+        <Animated.View
+          entering={FadeInDown.delay(100).springify()}
+          className="flex items-center">
+          <Text
+            style={{ fontSize: hp(5), color: '#FFFFFF' }}
+            className="text-white font-bold tracking-wide">
+            Best <Text style={{ color: '#F1BE48' }}>Workouts</Text>
           </Text>
           <Text
             style={{ fontSize: hp(5), color: '#FFFFFF', fontWeight: 'bold' }}>

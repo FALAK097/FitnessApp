@@ -30,31 +30,29 @@ export default function SignUpScreen({ navigation }) {
   const auth = getAuth(FIREBASE_APP);
   const { theme } = useTheme();
 
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
-  const validatePassword = (password) => {
-    return password.length >= 6;
-  };
-
-  const validateName = (name) => {
-    return name.length >= 3;
-  };
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePassword = (password) => password.length >= 6;
+  const validateName = (name) => name.length >= 3;
 
   const signUp = async () => {
-    if (name.trim() === '' || !validateName(name)) {
-      alert('Please enter a valid name (minimum 3 letters).');
+    if (!validateName(name)) {
+      Alert.alert(
+        'Invalid Name',
+        'Please enter a valid name (minimum 3 letters).'
+      );
       return;
     }
 
     if (!validateEmail(email)) {
-      alert('Please enter a valid email address.');
+      Alert.alert('Invalid Email', 'Please enter a valid email address.');
       return;
     }
 
     if (!validatePassword(password)) {
-      alert('Password must be at least 6 characters long.');
+      Alert.alert(
+        'Invalid Password',
+        'Password must be at least 6 characters long.'
+      );
       return;
     }
 
@@ -71,7 +69,7 @@ export default function SignUpScreen({ navigation }) {
         'Success',
         'Account created successfully. Please check your email for verification.'
       );
-      // navigation.navigate('SignInScreen');
+      navigation.navigate('SignInScreen');
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {

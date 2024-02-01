@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Octicons } from '@expo/vector-icons';
 import { useTheme } from './ThemeContext';
 
-export default function Header({ username, onPressAvatar, onPressCamera }) {
+export default function Header({ name, onPressAvatar, onPressCamera }) {
   const navigation = useNavigation();
   const { theme } = useTheme();
 
@@ -19,12 +19,12 @@ export default function Header({ username, onPressAvatar, onPressCamera }) {
         <Octicons name="three-bars" size={24} color={theme.textColor} />
       </TouchableOpacity>
 
-      <Text style={[styles.usernameText, { color: theme.textColor, marginLeft: 9}]}>
-        Welcome Let's Start <Text style={styles.highlightedText}>{username}</Text>
+      <Text style={[styles.usernameText, { color: theme.textColor }]}>
+        Welcome, <Text style={styles.highlightedText}>{username}</Text>
       </Text>
 
       <TouchableOpacity
-        style={[styles.icon, { backgroundColor:'#f1be48' }]}
+        style={[styles.icon, { backgroundColor: theme.drawerBackgroundColor }]}
         onPress={onPressAvatar}>
         <Octicons name="person" size={24} color={theme.textColor} />
       </TouchableOpacity>
@@ -36,7 +36,7 @@ export default function Header({ username, onPressAvatar, onPressCamera }) {
         ]}
         onPress={onPressCamera}>
         <Octicons name="device-camera" size={24} color={theme.textColor} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
