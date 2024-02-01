@@ -14,16 +14,16 @@ export default function Header({ name, onPressAvatar, onPressCamera }) {
         onPress={() => navigation.toggleDrawer()}
         style={[
           styles.icon,
-          { backgroundColor: theme.drawerBackgroundColor, marginRight: 5 },
+          { backgroundColor:'#f1be48', marginRight: 5 },
         ]}>
         <Octicons name="three-bars" size={24} color={theme.textColor} />
       </TouchableOpacity>
 
       <Text style={[styles.usernameText, { color: theme.textColor }]}>
-        Welcome, <Text style={styles.highlightedText}>{name}</Text>
+        Welcome, <Text style={styles.highlightedText}>{username}</Text>
       </Text>
 
-      {/* <TouchableOpacity
+      <TouchableOpacity
         style={[styles.icon, { backgroundColor: theme.drawerBackgroundColor }]}
         onPress={onPressAvatar}>
         <Octicons name="person" size={24} color={theme.textColor} />
@@ -32,7 +32,7 @@ export default function Header({ name, onPressAvatar, onPressCamera }) {
       <TouchableOpacity
         style={[
           styles.icon,
-          { backgroundColor: theme.drawerBackgroundColor, marginLeft: 5 },
+          { backgroundColor: '#f1be48', marginLeft: 5 },
         ]}
         onPress={onPressCamera}>
         <Octicons name="device-camera" size={24} color={theme.textColor} />

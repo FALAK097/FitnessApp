@@ -63,8 +63,8 @@ export default function ForgotPassword() {
           className="flex-row justify-center"
           style={{ backgroundColor: '#F1BE48' }}>
           <Image
-            source={require('../assets/images/auth/forget.png')}
-            style={{ width: 300, height: 250, marginTop: 20 }}
+            source={require('../assets/images/auth/forget1.png')}
+            style={{ width: 300, height: 250, marginTop: 10 }}
           />
         </View>
       </SafeAreaView>

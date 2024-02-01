@@ -13,7 +13,7 @@ export const darkTheme = {
   backgroundColor: '#61677A',
   mainBackgroundColor: '#121212',
   textColor: '#FFFFFF',
-  logOutButton: '#E0115F',
+  logOutButton: '#f1be48',
   buttonText: '#FFFFFF',
   drawerBackgroundColor: '#222222',
   drawerTextColor: '#FFFFFF',

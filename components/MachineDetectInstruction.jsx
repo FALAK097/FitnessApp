@@ -56,7 +56,7 @@ export default function MachineDetectInstruction() {
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    backgroundColor: 'purple',
+    backgroundColor: '#F1BE48',
     borderRadius: 7.5,
     borderColor: 'grey',
     borderBottomWidth: 3,

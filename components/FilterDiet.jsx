@@ -156,8 +156,8 @@ const FilterDiet = ({ onSelectFilters, onClearFilters }) => {
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.applyButton} onPress={applyFilters}>
-        <Text style={[styles.applyButtonText, { color: theme.textColor }]}>
+      <TouchableOpacity style={[styles.applyButton, { backgroundColor: 'black', color:'white' }]} onPress={applyFilters}>
+        <Text style={[styles.applyButtonText, { color: theme.textColor, color:'white' }]}>
           Apply Filters
         </Text>
       </TouchableOpacity>
