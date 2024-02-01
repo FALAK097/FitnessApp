@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch }) => {
     <View style={styles.container}>
       <TextInput
         style={[styles.input, { color: theme.textColor }]}
-        placeholder="Search any exercise, diet, or machine"
+        placeholder="Search any exercise, machine or diet"
         placeholderTextColor={theme.textColor}
         value={searchQuery}
         onChangeText={setSearchQuery}
