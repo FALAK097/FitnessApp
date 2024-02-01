@@ -1,160 +1,103 @@
-// DietScreen.js
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { dietCardContent } from '../constants/dietCard';
-import FilterDiet from '../components/FilterDiet';
-import { useTheme } from '../components/ThemeContext';
-
-const DietScreen = () => {
+export default function DietScreen() {
+  const [selectedGender, setSelectedGender] = useState("Male");
   const navigation = useNavigation();
-  const { theme } = useTheme();
 
-  const [filteredData, setFilteredData] = useState(dietCardContent);
-
-  const applyFilters = (filters) => {
-    let newData = [...dietCardContent];
-
-    // Apply diet filter
-    if (filters.diet.length > 0) {
-      newData = newData.filter((item) => filters.diet.includes(item.goal));
-    }
-
-    // Apply veg/non-veg filter
-    if (filters.vegNonVeg.length > 0) {
-      if (filters.vegNonVeg.includes('Both')) {
-        // Include both Veg and Non-Veg items
-        newData = newData.filter(
-          (item) => item.category === 'Veg' || item.category === 'Non-Veg'
-        );
-      } else {
-        newData = newData.filter((item) =>
-          filters.vegNonVeg.includes(item.category)
-        );
-      }
-    }
-
-    // Apply other filters
-    if (filters.other.length > 0) {
-      newData = newData.filter((item) =>
-        filters.other.every((opt) => item[opt])
-      );
-    }
-
-    setFilteredData(newData);
+  const goToUserInfo = () => {
+    navigation.navigate('UserInfoPage', { selectedGender });
   };
 
-  const handleClearFilters = () => {
-    setFilteredData(dietCardContent); // Reset filteredData to the original data
+  const handleGenderSelection = (gender) => {
+    setSelectedGender(gender);
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      alwaysBounceHorizontal={false}
-      alwaysBounceVertical={false}
-      bounces={false}
-      contentContainerStyle={[
-        styles.container,
-        { backgroundColor: theme.mainBackgroundColor },
-      ]}>
-      <View style={styles.header}>
+    <View style={styles.container}>
+      <Text style={styles.title}>Choose Your Gender</Text>
+      <View style={styles.genderButtons}>
         <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}>
-          <Ionicons
-            name="arrow-back"
-            size={hp(4)}
+          style={selectedGender === 'Male' ? styles.selectedBtn : styles.btn}
+          onPress={() => handleGenderSelection("Male")}
+        >
+          <Image
+            source={require('../assets/images/Male.png')}
             style={{
-              color: theme.textColor,
-              marginLeft: wp(4),
-              marginTop: hp(3),
+              height: selectedGender === 'Male' ? 120 : 80,
+              width: selectedGender === 'Male' ? 120 : 80,
+              borderWidth: selectedGender === 'Male' ? 5 : 0,
             }}
           />
         </TouchableOpacity>
-        <Text style={[styles.headerText, { color: theme.textColor }]}>
-          Diet
-        </Text>
+        <TouchableOpacity
+          style={selectedGender === 'Female' ? styles.selectedBtn : styles.btn}
+          onPress={() => handleGenderSelection("Female")}
+        >
+          <Image
+            source={require('../assets/images/Female.png')}
+            style={{
+              height: selectedGender === 'Female' ? 120 : 80,
+              width: selectedGender === 'Female' ? 120 : 80,
+              borderWidth: selectedGender === 'Female' ? 5 : 0,
+            }}
+          />
+        </TouchableOpacity>
       </View>
-      <FilterDiet
-        onSelectFilters={applyFilters}
-        onClearFilters={handleClearFilters}
-      />
-
-      {filteredData.map((item, index) => (
-        <View key={index} style={styles.card}>
-          <Image source={item.image} style={styles.image} />
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.goal}>Goal: {item.goal}</Text>
-          <Text style={styles.description}>{item.description}</Text>
-          {item.category && <Text>Category: {item.category}</Text>}
-          {item.isVegan && <Text>Vegan</Text>}
-          {item.isGlutenFree && <Text>Gluten-Free</Text>}
-          {item.isBudgetFriendly && <Text>Budget-Friendly</Text>}
-        </View>
-      ))}
-    </ScrollView>
+      <TouchableOpacity style={styles.selectedGenderBtn} onPress={goToUserInfo}>
+        <Text style={styles.selectedGenderText}>Proceed further</Text>
+      </TouchableOpacity>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    padding: wp(5),
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: hp(2),
-  },
-  headerText: {
-    fontSize: hp(3.5),
-    fontWeight: 'bold',
     flex: 1,
-    textAlign: 'center',
-    marginTop: hp(3),
-    marginRight: hp(5),
-  },
-  card: {
-    borderRadius: wp(2),
-    elevation: 3,
-    marginBottom: hp(2),
-    width: '100%',
-    padding: wp(2),
+    justifyContent: 'center',
     alignItems: 'center',
-  },
-  image: {
-    width: '100%',
-    height: hp(30),
-    borderRadius: wp(2),
-    marginBottom: hp(1),
+    backgroundColor: '#fff', // Set a background color for better contrast
   },
   title: {
-    fontSize: hp(2.5),
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: hp(1),
+    marginBottom: 20,
   },
-  goal: {
-    fontSize: hp(2),
-    marginBottom: hp(1),
+  genderButtons: {
+    flexDirection: 'row',
+    marginBottom: 20,
   },
-  description: {
-    fontSize: hp(2),
-    textAlign: 'center',
+  btn: {
+    paddingHorizontal: 20,
+    backgroundColor: '#777', // Slightly lighter grey
+    margin: 10,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  selectedBtn: {
+    paddingHorizontal: 20,
+    backgroundColor: '#555', // Slightly darker grey
+    margin: 10,
+    paddingVertical: 10,
+    borderRadius: 10,
+    borderColor: 'Black',
+    borderWidth: 10,
+  },
+  selectedBtnText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  selectedGenderBtn: {
+    backgroundColor: '#EFA900',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+  },
+  selectedGenderText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
   },
 });
-
-export default DietScreen;
