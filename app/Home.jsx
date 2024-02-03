@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -8,14 +9,14 @@ import { useTheme } from '../components/ThemeContext';
 
 import Header from '../components/Header';
 // import ImageSlider from '../components/ImageSlider';
-import SearchBar from '../components/SearchBar';
-import { fetchExercisesByBodypart } from '../api/exerciseDB';
+// import SearchBar from '../components/SearchBar';
+// import { fetchExercisesByBodypart } from '../api/exerciseDB';
 
 export default function Home() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const route = useRoute();
-  const [filteredExercises, setFilteredExercises] = useState([]);
+  // const [filteredExercises, setFilteredExercises] = useState([]);
 
   const { name } = route.params || { name: 'Guest' };
 
@@ -23,32 +24,28 @@ export default function Home() {
     navigation.navigate('Profile');
   };
 
-  const detectMachine = () => {
-    navigation.navigate('TabCamera', { screen: 'MachineDetection' });
-  };
-
-  const handleSearch = async (query) => {
-    try {
-      const exercises = await fetchExercisesByBodypart(query);
-      // Check if exercises array is defined and not empty
-      if (exercises && exercises.length > 0) {
-        // Filter exercises based on the search query
-        const filteredExercises = exercises.filter((exercise) =>
-          exercise.name.toLowerCase().includes(query.toLowerCase())
-        );
-        console.log('Search results:', filteredExercises);
-        // Update state to reflect the filtered exercises
-        setFilteredExercises(filteredExercises);
-      } else {
-        // Handle case where no exercises were found
-        console.log('No exercises found for the given body part');
-        setFilteredExercises([]);
-      }
-    } catch (error) {
-      console.error('Error searching exercises:', error);
-      // Handle error condition
-    }
-  };
+  // const handleSearch = async (query) => {
+  //   try {
+  //     const exercises = await fetchExercisesByBodypart(query);
+  //     // Check if exercises array is defined and not empty
+  //     if (exercises && exercises.length > 0) {
+  //       // Filter exercises based on the search query
+  //       const filteredExercises = exercises.filter((exercise) =>
+  //         exercise.name.toLowerCase().includes(query.toLowerCase())
+  //       );
+  //       console.log('Search results:', filteredExercises);
+  //       // Update state to reflect the filtered exercises
+  //       setFilteredExercises(filteredExercises);
+  //     } else {
+  //       // Handle case where no exercises were found
+  //       console.log('No exercises found for the given body part');
+  //       setFilteredExercises([]);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error searching exercises:', error);
+  //     // Handle error condition
+  //   }
+  // };
 
   const handleRedirect = () => {
     navigation.navigate('TabCamera', { screen: 'MachineDetection' });
@@ -63,11 +60,7 @@ export default function Home() {
       }}>
       <StatusBar style="dark" />
 
-      <Header
-        name={name}
-        onPressAvatar={handleAvatarClick}
-        // onPressCamera={detectMachine}
-      />
+      <Header name={name} onPressAvatar={handleAvatarClick} />
 
       {/* <SearchBar onSearch={handleSearch} /> */}
 
@@ -77,8 +70,9 @@ export default function Home() {
           style={styles.smallCardImage}
         />
       </TouchableOpacity>
-      <Text style={styles.clickText}>Click camera to begin detection</Text>
-      
+      <Text style={[styles.clickText, { color: theme.textColor }]}>
+        Click camera to begin detection
+      </Text>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -152,18 +146,16 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   smallCardImage: {
-    width: 220, 
-    height: 220, 
-    resizeMode: 'contain', 
-    alignSelf: 'center', 
-    marginTop: 5, 
+    width: wp(50),
+    height: wp(50),
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginTop: 2,
   },
   clickText: {
     textAlign: 'center',
-    marginTop: 10,
-    color: 'black', 
     fontSize: 20,
-    fontWeight: '900', 
+    fontWeight: '900',
     marginBottom: 10,
   },
 });

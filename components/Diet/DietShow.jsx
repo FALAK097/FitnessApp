@@ -19,7 +19,7 @@ export default function DietShow() {
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        const apiUrl = 'http://192.168.1.106:5000/generate_meals';
+        const apiUrl = process.env.EXPO_PUBLIC_DIET_API + '/generate_meals';
         const requestOptions = {
           method: 'POST',
           headers: {
