@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   createDrawerNavigator,
   DrawerItemList,
@@ -11,25 +11,23 @@ import {
   FontAwesome,
 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { TabNavigation } from './tabNavigation';
 import BodyParts from '../app/BodyParts';
 import Profile from '../app/Profile';
 import MachineDetection from '../app/MachineDetection';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import DietScreen from '../app/DietScreen';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TabNavigation } from './tabNavigation';
 import { useTheme } from '../components/ThemeContext';
-import { getAuth } from 'firebase/auth';
-import { FIREBASE_APP } from '../FirebaseConfig';
+import { useAvatar } from '../context/AvatarContext';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
-  const auth = getAuth(FIREBASE_APP);
-  const [avatar, setAvatar] = useState(require('../assets/icons/avatar.png'));
+  const { avatar, updateAvatar } = useAvatar();
 
   useEffect(() => {
     fetchAvatar();
@@ -37,35 +35,15 @@ const DrawerNavigation = () => {
 
   const fetchAvatar = async () => {
     try {
-      const uri = await getAvatarFromStorage();
-      if (uri) {
-        setAvatar({ uri });
+      const storedUri = await AsyncStorage.getItem('avatarURI');
+      if (storedUri) {
+        const uri = JSON.parse(storedUri); // Parse the stored URI
+        updateAvatar(uri);
       }
     } catch (error) {
       console.error('Error fetching avatar:', error);
     }
   };
-
-  const getAvatarFromStorage = async () => {
-    try {
-      const userId = auth.currentUser.uid;
-      const avatarStorageKey = `avatarURI_${userId}`;
-      const uri = await AsyncStorage.getItem(avatarStorageKey);
-      return uri || null;
-    } catch (error) {
-      console.error('Error getting avatar URI:', error);
-      return null;
-    }
-  };
-
-  // Listen for the avatarChanged event
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('avatarChanged', (uri) => {
-      setAvatar({ uri });
-    });
-
-    return unsubscribe;
-  }, [navigation]);
 
   return (
     <Drawer.Navigator

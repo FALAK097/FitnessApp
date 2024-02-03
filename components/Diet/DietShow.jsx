@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Switch, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Switch,
+  TouchableOpacity,
+} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
 export default function DietShow() {
   const route = useRoute();
-  const { selectedGender, age, height, weight, activityLvl, goal } = route.params;
+  const { selectedGender, age, height, weight, activityLvl, goal } =
+    route.params;
   const [apiData, setApiData] = useState(null);
   const [isVeg, setIsVeg] = useState(true);
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        const apiUrl = 'http://192.168.0.100:5000/generate_meals'; // Replace with your API URL
+        const apiUrl = process.env.EXPO_PUBLIC_DIET_API + '/generate_meals';
         const requestOptions = {
           method: 'POST',
           headers: {
@@ -58,10 +66,18 @@ export default function DietShow() {
       {apiData && (
         <View>
           <Text style={styles.sectionHeader}>Calories Information:</Text>
-          <Text>Total Calories per Day: {apiData.calories['calories-per-day']}</Text>
-          <Text>Breakfast Calories: {apiData.calories['breakfast-calories-per-day']}</Text>
-          <Text>Lunch Calories: {apiData.calories['lunch-calories-per-day']}</Text>
-          <Text>Dinner Calories: {apiData.calories['dinner-calories-per-day']}</Text>
+          <Text>
+            Total Calories per Day: {apiData.calories['calories-per-day']}
+          </Text>
+          <Text>
+            Breakfast Calories: {apiData.calories['breakfast-calories-per-day']}
+          </Text>
+          <Text>
+            Lunch Calories: {apiData.calories['lunch-calories-per-day']}
+          </Text>
+          <Text>
+            Dinner Calories: {apiData.calories['dinner-calories-per-day']}
+          </Text>
 
           <Text style={styles.sectionHeader}>
             {isVeg ? 'Veg Meal Options:' : 'Non-Veg Meal Options:'}
