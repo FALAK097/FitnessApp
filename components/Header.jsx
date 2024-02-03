@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Octicons } from '@expo/vector-icons';
-import { useTheme } from './ThemeContext';
-import { getAuth } from 'firebase/auth';
-import { FIREBASE_APP } from '../FirebaseConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { useAvatar } from '../context/AvatarContext';
+import { useTheme } from './ThemeContext';
 
 export default function Header({ name, onPressAvatar }) {
   const navigation = useNavigation();
-  const auth = getAuth(FIREBASE_APP);
   const { theme } = useTheme();
-  const [avatar, setAvatar] = useState(require('../assets/icons/avatar.png'));
+  const { avatar, updateAvatar } = useAvatar();
 
   useEffect(() => {
     fetchAvatar();
@@ -19,35 +18,14 @@ export default function Header({ name, onPressAvatar }) {
 
   const fetchAvatar = async () => {
     try {
-      const uri = await getAvatarFromStorage();
+      const uri = await AsyncStorage.getItem('avatarURI');
       if (uri) {
-        setAvatar({ uri });
+        updateAvatar({ uri });
       }
     } catch (error) {
       console.error('Error fetching avatar:', error);
     }
   };
-
-  const getAvatarFromStorage = async () => {
-    try {
-      const userId = auth.currentUser.uid;
-      const avatarStorageKey = `avatarURI_${userId}`;
-      const uri = await AsyncStorage.getItem(avatarStorageKey);
-      return uri || null;
-    } catch (error) {
-      console.error('Error getting avatar URI:', error);
-      return null;
-    }
-  };
-
-  // Listen for the avatarChanged event
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('avatarChanged', (uri) => {
-      setAvatar({ uri });
-    });
-
-    return unsubscribe;
-  }, [navigation]);
 
   return (
     <View style={styles.container}>

@@ -4,7 +4,6 @@ import { AppStack, AuthStack } from './stackNavigation';
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_APP } from '../FirebaseConfig';
-import { AvatarProvider } from '../context/AvatarContext';
 
 const AppNavigation = () => {
   const [user, setUser] = useState(null);
@@ -43,11 +42,9 @@ const AppNavigation = () => {
   }
 
   return (
-    <AvatarProvider>
-      <NavigationContainer>
-        {user ? <AppStack /> : <AuthStack />}
-      </NavigationContainer>
-    </AvatarProvider>
+    <NavigationContainer>
+      {user ? <AppStack /> : <AuthStack />}
+    </NavigationContainer>
   );
 };
 
