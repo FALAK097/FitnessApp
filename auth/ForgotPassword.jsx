@@ -13,7 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import { sendPasswordResetEmail, getAuth } from 'firebase/auth';
 import { useState } from 'react';
 import { FIREBASE_APP } from '../FirebaseConfig';

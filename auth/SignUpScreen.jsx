@@ -20,7 +20,7 @@ import {
   sendEmailVerification,
 } from 'firebase/auth';
 import { FIREBASE_APP } from '../FirebaseConfig';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -96,7 +96,12 @@ export default function SignUpScreen({ navigation }) {
         <View className="flex-row justify-center">
           <Image
             source={require('../assets/images/auth/signup.gif')}
-            style={{ width: 240, height: 200, marginBottom: 30, marginTop: -10 }}          
+            style={{
+              width: 240,
+              height: 200,
+              marginBottom: 30,
+              marginTop: -10,
+            }}
           />
         </View>
       </SafeAreaView>

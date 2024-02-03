@@ -7,7 +7,7 @@ import {
   Octicons,
   Ionicons,
 } from '@expo/vector-icons';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 import Home from '../app/Home';
 import Profile from '../app/Profile';
@@ -72,7 +72,7 @@ export const TabNavigation = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 12,
-                  fontWeight:'900',
+                  fontWeight: '900',
                   color: focused ? 'black' : theme.textColor,
                 }}>
                 Home
@@ -104,7 +104,7 @@ export const TabNavigation = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 12,
-                  fontWeight:'900',
+                  fontWeight: '900',
                   color: focused ? 'black' : theme.textColor,
                 }}>
                 Exercises
@@ -136,7 +136,7 @@ export const TabNavigation = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 12,
-                  fontWeight:'900',
+                  fontWeight: '900',
                   color: focused ? 'black' : theme.textColor,
                 }}>
                 Detect
@@ -168,7 +168,7 @@ export const TabNavigation = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 12,
-                  fontWeight:'900',
+                  fontWeight: '900',
                   color: focused ? 'black' : theme.textColor,
                 }}>
                 Diet
@@ -200,7 +200,7 @@ export const TabNavigation = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 12,
-                  fontWeight:'900',
+                  fontWeight: '900',
                   color: focused ? 'black' : theme.textColor,
                 }}>
                 Profile

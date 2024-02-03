@@ -19,7 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getAuth } from 'firebase/auth';
 import { FIREBASE_APP } from '../FirebaseConfig';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import DarkModeSwitch from '../components/DarkModeSwitch';
 import CommonHeader from '../components/CommonHeader';
 import { useAvatar } from '../context/AvatarContext';

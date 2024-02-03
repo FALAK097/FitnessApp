@@ -13,7 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FIREBASE_APP } from '../FirebaseConfig';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import {
   signInWithEmailAndPassword,
   getAuth,
@@ -97,7 +97,12 @@ export default function SignInScreen({ navigation }) {
         <View className="flex-row justify-center">
           <Image
             source={require('../assets/images/auth/login.gif')}
-            style={{ width: 290, height: 250, marginBottom: 30, marginTop: -60 }}
+            style={{
+              width: 290,
+              height: 250,
+              marginBottom: 30,
+              marginTop: -60,
+            }}
           />
         </View>
       </SafeAreaView>

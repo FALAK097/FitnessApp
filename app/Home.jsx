@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 import Header from '../components/Header';
 // import ImageSlider from '../components/ImageSlider';

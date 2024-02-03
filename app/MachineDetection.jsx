@@ -12,7 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import MachineDetectInstruction from '../components/MachineDetectInstruction';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import CommonHeader from '../components/CommonHeader';
 import { ScrollView } from 'react-native-gesture-handler';
 
