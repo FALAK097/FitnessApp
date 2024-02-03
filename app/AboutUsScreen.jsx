@@ -15,7 +15,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import CommonHeader from '../components/CommonHeader';
 
 const AboutUsScreen = () => {

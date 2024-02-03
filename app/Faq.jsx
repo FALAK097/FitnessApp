@@ -17,7 +17,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import { frequentlyAskedQuestions } from '../constants/faqData';
 import CommonHeader from '../components/CommonHeader';
 

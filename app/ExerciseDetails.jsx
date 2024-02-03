@@ -16,7 +16,7 @@ import {
 import Anticons from 'react-native-vector-icons/AntDesign';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function ExerciseDetails() {
   const item = useLocalSearchParams();

@@ -33,32 +33,36 @@ const ActivityLevel = () => {
 
       <TouchableOpacity
         style={[styles.btn, activityLvl === 'sedentary' && styles.selectedBtn]}
-        onPress={() => handleActivityLevelSelection('sedentary')}
-      >
+        onPress={() => handleActivityLevelSelection('sedentary')}>
         <Text style={styles.btnText}>Sedentary</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.btn, activityLvl === 'lightly_active' && styles.selectedBtn]}
-        onPress={() => handleActivityLevelSelection('lightly_active')}
-      >
+        style={[
+          styles.btn,
+          activityLvl === 'lightly_active' && styles.selectedBtn,
+        ]}
+        onPress={() => handleActivityLevelSelection('lightly_active')}>
         <Text style={styles.btnText}>Lightly Active</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.btn, activityLvl === 'moderately_active' && styles.selectedBtn]}
-        onPress={() => handleActivityLevelSelection('moderately_active')}
-      >
+        style={[
+          styles.btn,
+          activityLvl === 'moderately_active' && styles.selectedBtn,
+        ]}
+        onPress={() => handleActivityLevelSelection('moderately_active')}>
         <Text style={styles.btnText}>Moderately Active</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.btn, activityLvl === 'active' && styles.selectedBtn]}
-        onPress={() => handleActivityLevelSelection('active')}
-      >
+        onPress={() => handleActivityLevelSelection('active')}>
         <Text style={styles.btnText}>Active</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.btn, activityLvl === 'very_active' && styles.selectedBtn]}
-        onPress={() => handleActivityLevelSelection('very_active')}
-      >
+        style={[
+          styles.btn,
+          activityLvl === 'very_active' && styles.selectedBtn,
+        ]}
+        onPress={() => handleActivityLevelSelection('very_active')}>
         <Text style={styles.btnText}>Very Active</Text>
       </TouchableOpacity>
 
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   selectedBtn: {
-    backgroundColor: '#FFD700', // Different color for the selected button
+    backgroundColor: '#FFD700',
   },
   btnText: {
     fontSize: 16,

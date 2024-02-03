@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Card } from 'react-native-elements';
-import { useTheme } from './ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function MachineDetectInstruction() {
   const { theme } = useTheme();

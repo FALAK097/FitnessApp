@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { useTheme } from './ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const DarkModeSwitch = () => {

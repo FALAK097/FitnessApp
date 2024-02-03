@@ -29,20 +29,17 @@ export default function GoalSelection() {
       <Text style={styles.header}>What is your goal?</Text>
       <TouchableOpacity
         style={[styles.btn, goal === 'lose' && styles.selectedBtn]}
-        onPress={() => setGoal('lose')}
-      >
+        onPress={() => setGoal('lose')}>
         <Text style={styles.btnText}>Lose Weight</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.btn, goal === 'maintain' && styles.selectedBtn]}
-        onPress={() => setGoal('maintain')}
-      >
+        onPress={() => setGoal('maintain')}>
         <Text style={styles.btnText}>Maintain Weight</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.btn, goal === 'gain' && styles.selectedBtn]}
-        onPress={() => setGoal('gain')}
-      >
+        onPress={() => setGoal('gain')}>
         <Text style={styles.btnText}>Gain Weight</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.proceedBtn} onPress={goToDietShow}>
@@ -60,7 +57,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     paddingHorizontal: 15,
-    backgroundColor: '#EAEAEA', // Default button color
+    backgroundColor: '#EAEAEA',
     marginVertical: 10,
     paddingVertical: 20,
     borderRadius: 10,
@@ -68,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   selectedBtn: {
-    backgroundColor: '#FFD700', // Selected button color
+    backgroundColor: '#FFD700',
   },
   btnText: {
     fontSize: 16,
@@ -80,7 +77,7 @@ const styles = StyleSheet.create({
   },
   proceedBtn: {
     marginTop: 40,
-    backgroundColor: '#EFA900', // Proceed button color
+    backgroundColor: '#EFA900',
     borderRadius: 10,
     paddingHorizontal: 20,
     paddingVertical: 10,

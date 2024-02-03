@@ -19,16 +19,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getAuth } from 'firebase/auth';
 import { FIREBASE_APP } from '../FirebaseConfig';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import DarkModeSwitch from '../components/DarkModeSwitch';
 import CommonHeader from '../components/CommonHeader';
 import ChatBot from './ChatBot';
+import { useAvatar } from '../context/AvatarContext';
 
 export default function Profile() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const auth = getAuth(FIREBASE_APP);
-  const [avatar, setAvatar] = useState(require('../assets/icons/avatar.png'));
+  const { avatar, updateAvatar } = useAvatar();
+  // const [avatar, setAvatar] = useState(require('../assets/icons/avatar.png'));
 
   useEffect(() => {
     fetchAvatar();
@@ -38,7 +40,7 @@ export default function Profile() {
     try {
       const uri = await getAvatarFromStorage();
       if (uri) {
-        setAvatar({ uri });
+        updateAvatar({ uri });
       }
     } catch (error) {
       console.error('Error fetching avatar:', error);
@@ -97,7 +99,6 @@ export default function Profile() {
       const userId = auth.currentUser.uid;
       const avatarStorageKey = `avatarURI_${userId}`;
       await AsyncStorage.setItem(avatarStorageKey, uri);
-      setAvatar({ uri }); // Update the avatar in the component state
 
       // Emit a navigation event to notify DrawerNavigation about the avatar change
       if (navigation && navigation.emit) {
@@ -107,14 +108,6 @@ export default function Profile() {
       console.error('Error saving avatar URI:', error);
     }
   };
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('avatarChanged', (uri) => {
-      setAvatar({ uri });
-    });
-
-    return unsubscribe;
-  }, [navigation]);
 
   const pickAvatarFromGallery = async () => {
     let permissionResult =
@@ -131,10 +124,54 @@ export default function Profile() {
     });
 
     if (!pickerResult.canceled) {
-      setAvatar({ uri: pickerResult.uri });
+      updateAvatar({ uri: pickerResult.uri });
       saveAvatarToStorage(pickerResult.uri);
     }
   };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('avatarChanged', (uri) => {
+      updateAvatar({ uri });
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  // const saveAvatarToStorage = async (uri) => {
+  //   try {
+  //     const userId = auth.currentUser.uid;
+  //     const avatarStorageKey = `avatarURI_${userId}`;
+  //     await AsyncStorage.setItem(avatarStorageKey, uri);
+  //     updateAvatar({ uri }); // Update the avatar in the component state
+
+  //     // Emit a navigation event to notify DrawerNavigation about the avatar change
+  //     if (navigation && navigation.emit) {
+  //       navigation.emit('avatarChanged', uri);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error saving avatar URI:', error);
+  //   }
+  // };
+
+  // const pickAvatarFromGallery = async () => {
+  //   let permissionResult =
+  //     await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+  //   if (permissionResult.granted === false) {
+  //     Alert.alert('Permission to access camera roll is required!');
+  //     return;
+  //   }
+
+  //   let pickerResult = await ImagePicker.launchImageLibraryAsync({
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //   });
+
+  //   if (!pickerResult.canceled) {
+  //     updateAvatar({ uri: pickerResult.uri });
+  //     saveAvatarToStorage(pickerResult.uri);
+  //   }
+  // };
 
   return (
     <ScrollView
