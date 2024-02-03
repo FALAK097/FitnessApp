@@ -19,7 +19,7 @@ import Profile from '../app/Profile';
 import MachineDetection from '../app/MachineDetection';
 import DietScreen from '../app/DietScreen';
 import { TabNavigation } from './tabNavigation';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import { useAvatar } from '../context/AvatarContext';
 
 const Drawer = createDrawerNavigator();

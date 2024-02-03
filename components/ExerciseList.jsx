@@ -7,7 +7,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { useTheme } from './ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function ExerciseList({ data }) {
   const navigation = useNavigation();

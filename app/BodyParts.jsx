@@ -16,7 +16,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 
 import { bodyParts } from '../constants';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import CommonHeader from '../components/CommonHeader';
 
 export default function BodyParts() {

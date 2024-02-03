@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from './ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import React from 'react';
 

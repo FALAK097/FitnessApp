@@ -5,7 +5,7 @@ import { Octicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useAvatar } from '../context/AvatarContext';
-import { useTheme } from './ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Header({ name, onPressAvatar }) {
   const navigation = useNavigation();

@@ -12,7 +12,7 @@ import { ScrollView } from 'react-native-virtualized-view';
 import { fetchExercisesByBodypart } from '../api/exerciseDB';
 import ExerciseList from '../components/ExerciseList';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Exercises() {
   const navigation = useNavigation();

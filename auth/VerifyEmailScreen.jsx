@@ -15,7 +15,7 @@ import {
   sendEmailVerification,
 } from 'firebase/auth';
 import { FIREBASE_APP } from '../FirebaseConfig';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function VerifyEmailScreen() {
   const navigation = useNavigation();
