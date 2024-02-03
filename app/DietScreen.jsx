@@ -1,158 +1,103 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { dietCardContent } from '../constants/dietCard';
-import FilterDiet from '../components/FilterDiet';
-import { useTheme } from '../components/ThemeContext';
-import CommonHeader from '../components/CommonHeader';
-
-const DietScreen = () => {
+export default function DietScreen() {
+  const [selectedGender, setSelectedGender] = useState("Male");
   const navigation = useNavigation();
-  const { theme } = useTheme();
 
-  const [filteredData, setFilteredData] = useState(dietCardContent);
-
-  const applyFilters = (filters) => {
-    let newData = [...dietCardContent];
-
-    // Apply diet filter
-    if (filters.diet.length > 0) {
-      newData = newData.filter((item) => filters.diet.includes(item.goal));
-    }
-
-    // Apply veg/non-veg filter
-    if (filters.vegNonVeg.length > 0) {
-      if (filters.vegNonVeg.includes('Both')) {
-        // Include both Veg and Non-Veg items
-        newData = newData.filter(
-          (item) => item.category === 'Veg' || item.category === 'Non-Veg'
-        );
-      } else {
-        newData = newData.filter((item) =>
-          filters.vegNonVeg.includes(item.category)
-        );
-      }
-    }
-
-    // Apply other filters
-    if (filters.other.length > 0) {
-      newData = newData.filter((item) =>
-        filters.other.every((opt) => item[opt])
-      );
-    }
-
-    setFilteredData(newData);
+  const goToUserInfo = () => {
+    navigation.navigate('UserInfoPage', { selectedGender });
   };
 
-  const handleClearFilters = () => {
-    setFilteredData(dietCardContent); // Reset filteredData to the original data
+  const handleGenderSelection = (gender) => {
+    setSelectedGender(gender);
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      alwaysBounceHorizontal={false}
-      alwaysBounceVertical={false}
-      bounces={false}
-      contentContainerStyle={[
-        styles.container,
-        { backgroundColor: theme.mainBackgroundColor },
-      ]}>
-      <CommonHeader
-        title="Diet"
-        navigation={navigation}
-        style={{ marginTop: 30, marginRight: 25, marginLeft: -10 }}
-      />
-
-      <FilterDiet
-        onSelectFilters={applyFilters}
-        onClearFilters={handleClearFilters}
-      />
-
-      {filteredData.map((item, index) => (
-        <View
-          key={index}
-          style={[styles.card, { backgroundColor: theme.backgroundColor }]}>
-          <Image source={item.image} style={styles.image} />
-          <Text style={[styles.title, { color: theme.textColor }]}>
-            {item.title}
-          </Text>
-          <Text style={[styles.goal, { color: theme.textColor }]}>
-            Goal: {item.goal}
-          </Text>
-          <Text style={[styles.description, { color: theme.textColor }]}>
-            {item.description}
-          </Text>
-          {item.category && (
-            <Text style={[styles.goal, { color: theme.textColor }]}>
-              Category: {item.category}
-            </Text>
-          )}
-          {item.isVegan && (
-            <Text style={[styles.goal, { color: theme.textColor }]}>Vegan</Text>
-          )}
-          {item.isGlutenFree && (
-            <Text style={[styles.goal, { color: theme.textColor }]}>
-              Gluten-Free
-            </Text>
-          )}
-          {item.isBudgetFriendly && (
-            <Text style={[styles.goal, { color: theme.textColor }]}>
-              Budget-Friendly
-            </Text>
-          )}
-        </View>
-      ))}
-    </ScrollView>
+    <View style={styles.container}>
+      <Text style={styles.title}>Choose Your Gender</Text>
+      <View style={styles.genderButtons}>
+        <TouchableOpacity
+          style={selectedGender === 'Male' ? styles.selectedBtn : styles.btn}
+          onPress={() => handleGenderSelection("Male")}
+        >
+          <Image
+            source={require('../assets/images/Male.png')}
+            style={{
+              height: selectedGender === 'Male' ? 120 : 80,
+              width: selectedGender === 'Male' ? 120 : 80,
+              borderWidth: selectedGender === 'Male' ? 5 : 0,
+            }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={selectedGender === 'Female' ? styles.selectedBtn : styles.btn}
+          onPress={() => handleGenderSelection("Female")}
+        >
+          <Image
+            source={require('../assets/images/Female.png')}
+            style={{
+              height: selectedGender === 'Female' ? 120 : 80,
+              width: selectedGender === 'Female' ? 120 : 80,
+              borderWidth: selectedGender === 'Female' ? 5 : 0,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity style={styles.selectedGenderBtn} onPress={goToUserInfo}>
+        <Text style={styles.selectedGenderText}>Proceed further</Text>
+      </TouchableOpacity>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    padding: wp(5),
-    paddingBottom: hp(8),
-  },
-  card: {
-    borderRadius: wp(2),
-    elevation: 3,
-    marginBottom: hp(2),
-    width: '100%',
-    padding: wp(2),
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-  },
-  image: {
-    width: '100%',
-    height: hp(30),
-    borderRadius: wp(2),
-    marginBottom: hp(1),
+    backgroundColor: '#fff', // Set a background color for better contrast
   },
   title: {
-    fontSize: hp(2.5),
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: hp(1),
+    marginBottom: 20,
   },
-  goal: {
-    fontSize: hp(2),
-    marginBottom: hp(1),
+  genderButtons: {
+    flexDirection: 'row',
+    marginBottom: 20,
   },
-  description: {
-    fontSize: hp(2),
-    textAlign: 'center',
+  btn: {
+    paddingHorizontal: 20,
+    backgroundColor: '#777', // Slightly lighter grey
+    margin: 10,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  selectedBtn: {
+    paddingHorizontal: 20,
+    backgroundColor: '#555', // Slightly darker grey
+    margin: 10,
+    paddingVertical: 10,
+    borderRadius: 10,
+    borderColor: 'Black',
+    borderWidth: 10,
+  },
+  selectedBtnText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  selectedGenderBtn: {
+    backgroundColor: '#EFA900',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+  },
+  selectedGenderText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
   },
 });
-
-export default DietScreen;

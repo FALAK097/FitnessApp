@@ -217,6 +217,7 @@ const styles = StyleSheet.create({
   selectedBtn: {
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#F1BE48',
     width: Platform.OS == 'ios' ? 50 : 60,
     height: Platform.OS == 'ios' ? 50 : 60,
     top: Platform.OS == 'ios' ? -10 : -20,

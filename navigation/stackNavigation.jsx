@@ -16,6 +16,10 @@ import BodyParts from '../app/BodyParts';
 import DietScreen from '../app/DietScreen';
 import Faq from '../app/Faq';
 import DrawerNavigation from './drawerNavigation';
+import UserInfoPage from '../components/Diet/UserInfoPage';
+import ActivityLevel from '../components/Diet/ActivityLevel';
+import GoalSelection from '../components/Diet/GoalSelection';
+import DietShow from '../components/Diet/DietShow';
 
 const Stack = createStackNavigator();
 
@@ -51,6 +55,10 @@ export const AppStack = () => {
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} />
       <Stack.Screen name="Faq" component={Faq} />
+      <Stack.Screen name="UserInfoPage" component={UserInfoPage} />
+      <Stack.Screen name="ActivityLevel" component={ActivityLevel}/>
+      <Stack.Screen name="GoalSelection" component={GoalSelection}/>
+      <Stack.Screen name="DietShow" component={DietShow}/>
       <Stack.Screen
         name="MachineDetection"
         component={MachineDetection}
