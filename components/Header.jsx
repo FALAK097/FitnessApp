@@ -18,9 +18,10 @@ export default function Header({ name, onPressAvatar }) {
 
   const fetchAvatar = async () => {
     try {
-      const uri = await AsyncStorage.getItem('avatarURI');
-      if (uri) {
-        updateAvatar({ uri });
+      const storedUri = await AsyncStorage.getItem('avatarURI');
+      if (storedUri) {
+        const uri = JSON.parse(storedUri); // Parse the stored URI
+        updateAvatar(uri);
       }
     } catch (error) {
       console.error('Error fetching avatar:', error);
