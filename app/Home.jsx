@@ -1,25 +1,23 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import Octicons from 'react-native-vector-icons/Octicons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
-import ImageSlider from '../components/ImageSlider';
-import { useTheme } from '../components/ThemeContext';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useTheme } from '../components/ThemeContext';
+
 import Header from '../components/Header';
+import ImageSlider from '../components/ImageSlider';
+import SearchBar from '../components/SearchBar';
+import { fetchExercisesByBodypart } from '../api/exerciseDB';
 
 export default function Home() {
   const navigation = useNavigation();
-  const route = useRoute();
   const { theme } = useTheme();
+  const route = useRoute();
+  const [filteredExercises, setFilteredExercises] = useState([]);
 
-  const username = route.params?.username || 'Let the work begin';
+  const { name } = route.params || { name: 'Guest' };
 
   const handleAvatarClick = () => {
     navigation.navigate('Profile');
@@ -29,79 +27,84 @@ export default function Home() {
     navigation.navigate('MachineDetection');
   };
 
+  const handleSearch = async (query) => {
+    try {
+      const exercises = await fetchExercisesByBodypart(query);
+      // Check if exercises array is defined and not empty
+      if (exercises && exercises.length > 0) {
+        // Filter exercises based on the search query
+        const filteredExercises = exercises.filter((exercise) =>
+          exercise.name.toLowerCase().includes(query.toLowerCase())
+        );
+        console.log('Search results:', filteredExercises);
+        // Update state to reflect the filtered exercises
+        setFilteredExercises(filteredExercises);
+      } else {
+        // Handle case where no exercises were found
+        console.log('No exercises found for the given body part');
+        setFilteredExercises([]);
+      }
+    } catch (error) {
+      console.error('Error searching exercises:', error);
+      // Handle error condition
+    }
+  };
+
   return (
     <SafeAreaView
-      className="flex-1 bg-white flex space-y-5"
-      edges={['top']}
-      style={{ backgroundColor: theme.mainBackgroundColor , paddingBottom:60}}>
+      style={{
+        flex: 1,
+        paddingBottom: 60,
+        backgroundColor: theme.mainBackgroundColor,
+      }}>
       <StatusBar style="dark" />
-      
-      <View className="flex-row justify-between items-center mx-5 mt-0">
-        {/* Displaying username */}
-        <Header />
-        <Text
-          style={{
-            fontSize: hp(3.5),
-            color: theme.textColor,
-            flex: 1,
-            marginRight: wp(2),
-          }}
-          className="font-bold tracking-wide">
-          Welcome, <Text style={{ color: '#F1BE48' }}>{username}</Text>
-        </Text>
 
-        {/* <TouchableOpacity activeOpacity={0.6} onPress={handleAvatarClick}>
-          <Image
-            source={require('../assets/icons/avatar.png')}
-            style={{ height: hp(7), width: wp(15), marginRight: wp(2) }}
-            className="rounded-full"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          className="bg-neutral-200 rounded-full flex justify-center items-center border-[3px] border-neutral-300"
-          style={{ height: hp(5.5), width: hp(6) }}>
-          <Octicons
-            name="device-camera"
-            size={hp(4)}
-            color="gray"
-            onPress={detectMachine}
-          />
-        </TouchableOpacity> */}
-      </View>
+      <Header
+        name={name}
+        onPressAvatar={handleAvatarClick}
+        onPressCamera={detectMachine}
+      />
 
-      {/* Image Slider */}
+      <SearchBar onSearch={handleSearch} />
+
       <View>
         <ImageSlider />
       </View>
 
-      {/* Card Container */}
-      <ScrollView>
-      <View style={styles.cardContainer}>
-        {/* Exercise Card */}
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => navigation.navigate('BodyParts')}>
-          <Image
-            source={require('../assets/images/gym/home1.jpg')}
-            style={styles.cardImage}
-          />
-          <View style={styles.cardTextContainer}>
-            <Text style={styles.cardText}>Exercise</Text>
-          </View>
-        </TouchableOpacity>
-        {/* Diet Card */}
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => navigation.navigate('DietScreen')}>
-          <Image
-            source={require('../assets/images/gym/home2.jpg')}
-            style={styles.cardImage}
-          />
-          <View style={styles.cardTextContainer}>
-            <Text style={styles.cardText}>Diet</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        alwaysBounceHorizontal={false}
+        alwaysBounceVertical={false}
+        bounces={false}>
+        <View style={styles.cardContainer}>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() =>
+              navigation.navigate('TabExercises', { screen: 'BodyParts' })
+            }>
+            <Image
+              source={require('../assets/images/gym/home1.jpg')}
+              style={styles.cardImage}
+            />
+            <View style={styles.cardTextContainer}>
+              <Text style={styles.cardText}>Exercise</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() =>
+              navigation.navigate('TabDiet', { screen: 'DietScreen' })
+            }>
+            <Image
+              source={require('../assets/images/gym/home2.jpg')}
+              style={styles.cardImage}
+            />
+            <View style={styles.cardTextContainer}>
+              <Text style={styles.cardText}>Diet</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

@@ -57,9 +57,10 @@ export default function SignInScreen({ navigation }) {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      // console.log(response);
+      console.log(response);
       if (response.user) {
-        navigation.navigate('Home');
+        navigation.navigate('Home', { user: response.user });
+        console.log('name', +response.user);
       }
     } catch (error) {
       console.log(error);
@@ -95,8 +96,8 @@ export default function SignInScreen({ navigation }) {
         </View>
         <View className="flex-row justify-center">
           <Image
-            source={require('../assets/images/auth/login.png')}
-            style={{ width: 390, height: 250 }}
+            source={require('../assets/images/auth/login.gif')}
+            style={{ width: 290, height: 250, marginBottom: 30, marginTop: -60 }}
           />
         </View>
       </SafeAreaView>

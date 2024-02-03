@@ -18,14 +18,7 @@ export default function MachineDetectInstruction() {
         ]}>
         <Text style={{ fontSize: 13, fontWeight: '500' }}>
           Step 1: Select image from media by clicking
-          <TouchableOpacity
-            activeOpacity={0.6}
-            style={[
-              styles.buttonStyle,
-              {
-                backgroundColor: theme.backgroundColor,
-              },
-            ]}>
+          <TouchableOpacity activeOpacity={0.6} style={styles.buttonStyle}>
             <Text
               style={[
                 styles.buttonTitleStyle,
@@ -40,14 +33,7 @@ export default function MachineDetectInstruction() {
         </Text>
         <Text style={{ fontSize: 13, fontWeight: '500' }}>
           Step 2: Upload image to server by clicking
-          <TouchableOpacity
-            activeOpacity={0.6}
-            style={[
-              styles.buttonStyle,
-              {
-                backgroundColor: theme.backgroundColor,
-              },
-            ]}>
+          <TouchableOpacity activeOpacity={0.6} style={styles.buttonStyle}>
             <Text
               style={[
                 styles.buttonTitleStyle,
@@ -70,10 +56,8 @@ export default function MachineDetectInstruction() {
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    paddingVertical: 10,
-    backgroundColor: 'purple',
+    backgroundColor: '#F1BE48',
     borderRadius: 7.5,
-    borderBottomColor: 'black',
     borderColor: 'grey',
     borderBottomWidth: 3,
     elevation: 11,
@@ -83,13 +67,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   instructionCardContainer: {
-    width: '100%',
-    margin: 5,
+    width: '90%',
+    alignSelf: 'center',
     marginTop: 30,
-    backgroundColor: 'lightgray',
     borderRadius: 20,
-    borderColor: 'grey',
-    borderBottomWidth: 4,
     elevation: 10,
   },
 });

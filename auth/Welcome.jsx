@@ -14,11 +14,11 @@ export default function Welcome({ navigation }) {
     <View className="flex-1 flex justify-end">
       <Image
         className="h-full w-full absolute"
-        source={require('../assets/images/onboarding/welcome.png')}
+        source={require('../assets/images/onboarding/getstart.png')}
       />
 
       <LinearGradient
-        colors={['transparent', '#18181']}
+        colors={['transparent', '#181818']}
         style={{ width: wp(100), height: hp(70) }}
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 0.8 }}

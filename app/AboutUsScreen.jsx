@@ -3,6 +3,7 @@ import {
   View,
   TouchableOpacity,
   Text,
+  Image,
   StyleSheet,
   ScrollView,
   Linking,
@@ -15,6 +16,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
 import { useTheme } from '../components/ThemeContext';
+import CommonHeader from '../components/CommonHeader';
 
 const AboutUsScreen = () => {
   const { theme } = useTheme();
@@ -34,20 +36,16 @@ const AboutUsScreen = () => {
         styles.container,
         { backgroundColor: theme.mainBackgroundColor },
       ]}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}>
-          <Ionicons
-            name="arrow-back"
-            size={hp(4)}
-            style={{ color: theme.textColor, marginLeft: 5, marginTop: 35 }}
-          />
-        </TouchableOpacity>
-        <Text style={[styles.header, { color: theme.textColor }]}>
-          About the App
-        </Text>
-      </View>
+      <CommonHeader
+        title="About Us"
+        navigation={navigation}
+        style={{
+          marginTop: 35,
+          marginRight: 20,
+          marginLeft: -15,
+          marginBottom: 20,
+        }}
+      />
       <Text style={[styles.description, { color: theme.textColor }]}>
         Welcome to our fitness app! We are dedicated to helping you achieve your
         fitness goals through innovative features and personalized
@@ -82,39 +80,72 @@ const AboutUsScreen = () => {
         athlete, our app offers a variety of workout routines to help you stay
         motivated and achieve results.
       </Text>
-
-      <View>
-        <Text style={[styles.credits, { color: theme.textColor }]}>
-          Built by{' '}
-          <Text
-            style={{ color: '#FF671F' }}
-            onPress={() => openGitHubProfile('https://github.com/FALAK097/')}>
-            Falak
-          </Text>
-          ,{' '}
-          <Text
-            style={{ color: theme.textColor }}
+      <Text
+        style={{
+          color: theme.textColor,
+          fontSize: 17,
+          textAlign: 'center',
+          marginBottom: 3,
+        }}>
+        Built by
+      </Text>
+      <View style={styles.credits}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+          }}>
+          <TouchableOpacity
             onPress={() => openGitHubProfile('https://github.com/shubham4112')}>
-            Shubham
-          </Text>
-          ,{' '}
-          <Text
-            style={{ color: '#37367a' }}
-            onPress={() => openGitHubProfile('https://github.com/Faisal2506')}>
-            Faisal
-          </Text>{' '}
-          and{' '}
-          <Text
-            style={{ color: '#046A38' }}
+            <Image
+              source={require('../assets/icons/avatar1.png')}
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+            <Text style={{ color: theme.textColor, textAlign: 'center' }}>
+              Shubham
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => openGitHubProfile('https://github.com/aniketsh22')}>
-            Aniket
-          </Text>
-        </Text>
+            <Image
+              source={require('../assets/icons/avatar2.png')}
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+            <Text style={{ color: theme.textColor, textAlign: 'center' }}>
+              Aniket
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => openGitHubProfile('https://github.com/FALAK097/')}>
+            <Image
+              source={require('../assets/icons/avatar3.png')}
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+            <Text style={{ color: theme.textColor, textAlign: 'center' }}>
+              Falak
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => openGitHubProfile('https://github.com/Faisal2506')}>
+            <Image
+              source={require('../assets/icons/avatar4.png')}
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+            <Text style={{ color: theme.textColor, textAlign: 'center' }}>
+              Faisal
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <Text style={[styles.contact, { color: theme.textColor }]}>
+
+      <Text style={[styles.contact, { color: theme.textColor, fontSize: 17 }]}>
         For any questions or feedback, please contact us at{' '}
         <Text
-          style={{ color: '#F1BE48' }}
+          style={{ color: '#dc9e11', fontWeight: '900' }}
           onPress={() => Linking.openURL('mailto:support@fithub.com')}>
           support@fithub.com
         </Text>
@@ -155,17 +186,20 @@ const styles = StyleSheet.create({
     marginBottom: wp(4),
   },
   credits: {
-    fontSize: wp(4.5),
     marginTop: hp(2),
-    textAlign: 'center',
-    fontStyle: 'italic',
+    marginBottom: hp(2),
+  },
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginLeft: 5,
+    marginRight: 5,
   },
   contact: {
     fontSize: wp(3.8),
-    marginTop: hp(2),
     textAlign: 'center',
     fontStyle: 'italic',
-    marginBottom: hp(2),
   },
 });
 

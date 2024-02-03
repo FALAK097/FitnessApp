@@ -1,12 +1,9 @@
-import { LogBox, View, ActivityIndicator, Image, Text } from 'react-native';
+import { View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppStack, AuthStack } from './stackNavigation';
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_APP } from '../FirebaseConfig';
-import { TabNavigation } from './tabNavigation';
-
-LogBox.ignoreLogs(['Warning: Failed prop type']);
 
 const AppNavigation = () => {
   const [user, setUser] = useState(null);

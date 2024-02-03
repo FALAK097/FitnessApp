@@ -8,18 +8,20 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import DarkModeSwitch from '../components/DarkModeSwitch';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '../components/ThemeContext';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { FIREBASE_APP } from '../FirebaseConfig';
-import { getAuth } from 'firebase/auth';
+import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { getAuth } from 'firebase/auth';
+import { FIREBASE_APP } from '../FirebaseConfig';
+import { useTheme } from '../components/ThemeContext';
+import DarkModeSwitch from '../components/DarkModeSwitch';
+import CommonHeader from '../components/CommonHeader';
 
 export default function Profile() {
   const navigation = useNavigation();
@@ -28,15 +30,19 @@ export default function Profile() {
   const [avatar, setAvatar] = useState(require('../assets/icons/avatar.png'));
 
   useEffect(() => {
-    const fetchAvatar = async () => {
+    fetchAvatar();
+  }, []);
+
+  const fetchAvatar = async () => {
+    try {
       const uri = await getAvatarFromStorage();
       if (uri) {
         setAvatar({ uri });
       }
-    };
-
-    fetchAvatar();
-  }, []);
+    } catch (error) {
+      console.error('Error fetching avatar:', error);
+    }
+  };
 
   const handleLogout = () => {
     Alert.alert(
@@ -73,27 +79,41 @@ export default function Profile() {
     navigation.navigate('Faq');
   };
 
-  const saveAvatarToStorage = async (uri) => {
-    try {
-      const userId = auth.currentUser.uid;
-      const avatarStorageKey = `avatarURI_${userId}`;
-      await AsyncStorage.setItem(avatarStorageKey, uri);
-    } catch (error) {
-      console.error('Error saving avatar URI:', error);
-    }
-  };
-
   const getAvatarFromStorage = async () => {
     try {
       const userId = auth.currentUser.uid;
       const avatarStorageKey = `avatarURI_${userId}`;
       const uri = await AsyncStorage.getItem(avatarStorageKey);
-      return uri !== null ? uri : null;
+      return uri || null;
     } catch (error) {
       console.error('Error getting avatar URI:', error);
       return null;
     }
   };
+
+  const saveAvatarToStorage = async (uri) => {
+    try {
+      const userId = auth.currentUser.uid;
+      const avatarStorageKey = `avatarURI_${userId}`;
+      await AsyncStorage.setItem(avatarStorageKey, uri);
+      setAvatar({ uri }); // Update the avatar in the component state
+
+      // Emit a navigation event to notify DrawerNavigation about the avatar change
+      if (navigation && navigation.emit) {
+        navigation.emit('avatarChanged', uri);
+      }
+    } catch (error) {
+      console.error('Error saving avatar URI:', error);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('avatarChanged', (uri) => {
+      setAvatar({ uri });
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const pickAvatarFromGallery = async () => {
     let permissionResult =
@@ -109,7 +129,7 @@ export default function Profile() {
       aspect: [4, 3],
     });
 
-    if (!pickerResult.cancelled) {
+    if (!pickerResult.canceled) {
       setAvatar({ uri: pickerResult.uri });
       saveAvatarToStorage(pickerResult.uri);
     }
@@ -123,21 +143,11 @@ export default function Profile() {
       bounces={false}
       style={[styles.container, { backgroundColor: theme.mainBackgroundColor }]}
       contentContainerStyle={{ flexGrow: 1 }}>
-      <TouchableOpacity
-        activeOpacity={0.6}
-        onPress={() => navigation.goBack()}
-        style={{
-          width: hp(5.5),
-          height: hp(5.5),
-          marginTop: hp(2),
-          marginLeft: 16,
-        }}>
-        <Ionicons
-          name="arrow-back"
-          size={hp(4)}
-          style={{ color: theme.textColor }}
-        />
-      </TouchableOpacity>
+      <CommonHeader
+        title="Profile"
+        navigation={navigation}
+        style={{ marginRight: 20 }}
+      />
 
       <View style={styles.profileContainer}>
         <TouchableOpacity
@@ -147,7 +157,10 @@ export default function Profile() {
           <Image style={styles.profileImage} source={avatar} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.changeAvatarText}>Tap to change avatar</Text>
+          <Text
+            style={[styles.changeAvatarText, { color: theme.logOutButton }]}>
+            Tap to change avatar
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -156,14 +169,15 @@ export default function Profile() {
           activeOpacity={0.6}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
-            View Profile 👤
+            Edit Profile
           </Text>
+          <FontAwesome5 name="user-edit" size={hp(4)} color={theme.textColor} />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
-            Switch Theme 🌓
+            Switch Theme
           </Text>
           <DarkModeSwitch />
         </TouchableOpacity>
@@ -173,8 +187,13 @@ export default function Profile() {
           onPress={navigateToHelp}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
-            About us ❓
+            About us
           </Text>
+          <FontAwesome5
+            name="info-circle"
+            size={hp(4)}
+            color={theme.textColor}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -182,15 +201,28 @@ export default function Profile() {
           onPress={navigateToFAQ}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
-            FAQs 💡
+            FAQs
           </Text>
+          <MaterialCommunityIcons
+            name="comment-text-multiple"
+            size={hp(4)}
+            color={theme.textColor}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
           activeOpacity={0.6}
-          style={styles.logoutButton}
+          style={[styles.logoutButton, { backgroundColor: theme.logOutButton }]}
           onPress={handleLogout}>
-          <Text style={styles.buttonText}>LOGOUT</Text>
+          <MaterialCommunityIcons
+            name="logout"
+            size={24}
+            color={theme.buttonText}
+            style={styles.icon}
+          />
+          <Text style={[styles.buttonText, { color: theme.buttonText }]}>
+            LOGOUT
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -200,16 +232,15 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: hp(10),
+    paddingTop: hp(4),
     paddingHorizontal: wp(4),
-    paddingBottom: 60
   },
   profileContainer: {
+    marginTop: hp(4),
     alignItems: 'center',
-    marginBottom: hp(3),
   },
   avatarContainer: {
-    borderRadius: 100,
+    borderRadius: wp(10),
     overflow: 'hidden',
     marginBottom: hp(2),
   },
@@ -219,7 +250,7 @@ const styles = StyleSheet.create({
   },
   changeAvatarText: {
     fontSize: hp(1.5),
-    color: '#777',
+    color: '#F1BE48',
   },
   card: {
     width: '100%',
@@ -241,27 +272,23 @@ const styles = StyleSheet.create({
     marginBottom: hp(2),
     width: '100%',
     alignItems: 'center',
-  },
-  buttonText: {
-    fontSize: hp(2.5),
-    fontWeight: 'bold',
+    flexDirection: 'row', // Align icon and text horizontally
+    justifyContent: 'space-between', // Add space between icon and text
   },
   logoutButton: {
-    backgroundColor: '#F1BE48',
-    marginTop: 'auto',
-    marginBottom: hp(2),
-    borderRadius: hp(2),
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: hp(0.4),
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: hp(0.6),
-    elevation: 5,
-    paddingVertical: hp(2),
-    paddingHorizontal: wp(3),
-    width: '100%',
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    elevation: 3,
+  },
+  buttonText: {
+    fontSize: 16,
+    marginLeft: 5,
+  },
+  icon: {
+    marginRight: 5,
   },
 });
