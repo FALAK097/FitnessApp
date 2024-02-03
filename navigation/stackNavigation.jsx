@@ -20,6 +20,7 @@ import UserInfoPage from '../components/Diet/UserInfoPage';
 import ActivityLevel from '../components/Diet/ActivityLevel';
 import GoalSelection from '../components/Diet/GoalSelection';
 import DietShow from '../components/Diet/DietShow';
+import ChatBot from '../app/ChatBot';
 
 const Stack = createStackNavigator();
 
@@ -59,6 +60,7 @@ export const AppStack = () => {
       <Stack.Screen name="ActivityLevel" component={ActivityLevel}/>
       <Stack.Screen name="GoalSelection" component={GoalSelection}/>
       <Stack.Screen name="DietShow" component={DietShow}/>
+      <Stack.Screen name="ChatBot" component={ChatBot}/>
       <Stack.Screen
         name="MachineDetection"
         component={MachineDetection}

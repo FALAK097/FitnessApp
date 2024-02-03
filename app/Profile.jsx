@@ -22,6 +22,7 @@ import { FIREBASE_APP } from '../FirebaseConfig';
 import { useTheme } from '../components/ThemeContext';
 import DarkModeSwitch from '../components/DarkModeSwitch';
 import CommonHeader from '../components/CommonHeader';
+import ChatBot from './ChatBot';
 
 export default function Profile() {
   const navigation = useNavigation();
@@ -172,6 +173,16 @@ export default function Profile() {
             Edit Profile
           </Text>
           <FontAwesome5 name="user-edit" size={hp(4)} color={theme.textColor} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.navigate('ChatBot')}
+          style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
+          <Text style={[styles.buttonText, { color: theme.textColor }]}>
+            AI ChatBot
+          </Text>
+          <FontAwesome5 name="rocketchat" size={hp(4)} color={theme.textColor} />
         </TouchableOpacity>
 
         <TouchableOpacity

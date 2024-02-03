@@ -11,7 +11,7 @@ export default function DietShow() {
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        const apiUrl = 'http://192.168.0.100:5000/generate_meals'; // Replace with your API URL
+        const apiUrl = 'http://192.168.31.155:5000/generate_meals'; // Replace with your API URL
         const requestOptions = {
           method: 'POST',
           headers: {
