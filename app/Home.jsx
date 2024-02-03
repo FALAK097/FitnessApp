@@ -7,7 +7,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useTheme } from '../components/ThemeContext';
 
 import Header from '../components/Header';
-import ImageSlider from '../components/ImageSlider';
+// import ImageSlider from '../components/ImageSlider';
 import SearchBar from '../components/SearchBar';
 import { fetchExercisesByBodypart } from '../api/exerciseDB';
 
@@ -50,6 +50,10 @@ export default function Home() {
     }
   };
 
+  const handleRedirect = () => {
+    navigation.navigate('TabCamera', { screen: 'MachineDetection' });
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -67,9 +71,14 @@ export default function Home() {
 
       <SearchBar onSearch={handleSearch} />
 
-      <View>
-        <ImageSlider />
-      </View>
+      <TouchableOpacity onPress={handleRedirect}>
+        <Image
+          source={require('../assets/images/camera/camera.gif')}
+          style={styles.smallCardImage}
+        />
+      </TouchableOpacity>
+      <Text style={styles.clickText}>Click camera to begin detection</Text>
+      
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -141,5 +150,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFF',
     marginTop: 50,
+  },
+  smallCardImage: {
+    width: 220, 
+    height: 220, 
+    resizeMode: 'contain', 
+    alignSelf: 'center', 
+    marginTop: 5, 
+  },
+  clickText: {
+    textAlign: 'center',
+    marginTop: 10,
+    color: 'black', 
+    fontSize: 20,
+    fontWeight: '900', 
+    marginBottom: 10,
   },
 });
