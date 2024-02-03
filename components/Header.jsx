@@ -23,11 +23,11 @@ export default function Header({ name, onPressAvatar, onPressCamera }) {
         onPress={onPressAvatar}>
         <Octicons name="person" size={24} color={theme.textColor} />
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[styles.icon, { backgroundColor: '#f1be48', marginLeft: 5 }]}
         onPress={onPressCamera}>
         <Octicons name="device-camera" size={24} color={theme.textColor} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }

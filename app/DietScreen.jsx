@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function DietScreen() {
-  const [selectedGender, setSelectedGender] = useState("Male");
+  const [selectedGender, setSelectedGender] = useState('Male');
   const navigation = useNavigation();
 
   const goToUserInfo = () => {
@@ -20,10 +20,9 @@ export default function DietScreen() {
       <View style={styles.genderButtons}>
         <TouchableOpacity
           style={selectedGender === 'Male' ? styles.selectedBtn : styles.btn}
-          onPress={() => handleGenderSelection("Male")}
-        >
+          onPress={() => handleGenderSelection('Male')}>
           <Image
-            source={require('../assets/images/Male.png')}
+            source={require('../assets/images/diet/Male.png')}
             style={{
               height: selectedGender === 'Male' ? 120 : 80,
               width: selectedGender === 'Male' ? 120 : 80,
@@ -33,10 +32,9 @@ export default function DietScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           style={selectedGender === 'Female' ? styles.selectedBtn : styles.btn}
-          onPress={() => handleGenderSelection("Female")}
-        >
+          onPress={() => handleGenderSelection('Female')}>
           <Image
-            source={require('../assets/images/Female.png')}
+            source={require('../assets/images/diet/Female.png')}
             style={{
               height: selectedGender === 'Female' ? 120 : 80,
               width: selectedGender === 'Female' ? 120 : 80,
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff', // Set a background color for better contrast
+    backgroundColor: '#fff',
   },
   title: {
     fontSize: 24,
@@ -70,14 +68,14 @@ const styles = StyleSheet.create({
   },
   btn: {
     paddingHorizontal: 20,
-    backgroundColor: '#777', // Slightly lighter grey
+    backgroundColor: '#777',
     margin: 10,
     paddingVertical: 10,
     borderRadius: 10,
   },
   selectedBtn: {
     paddingHorizontal: 20,
-    backgroundColor: '#555', // Slightly darker grey
+    backgroundColor: '#555',
     margin: 10,
     paddingVertical: 10,
     borderRadius: 10,

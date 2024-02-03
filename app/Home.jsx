@@ -24,7 +24,7 @@ export default function Home() {
   };
 
   const detectMachine = () => {
-    navigation.navigate('MachineDetection');
+    navigation.navigate('TabCamera', { screen: 'MachineDetection' });
   };
 
   const handleSearch = async (query) => {
@@ -62,10 +62,10 @@ export default function Home() {
       <Header
         name={name}
         onPressAvatar={handleAvatarClick}
-        onPressCamera={detectMachine}
+        // onPressCamera={detectMachine}
       />
 
-      <SearchBar onSearch={handleSearch} />
+      {/* <SearchBar onSearch={handleSearch} /> */}
 
       <View>
         <ImageSlider />
