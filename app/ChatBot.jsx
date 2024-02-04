@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { View, TouchableOpacity, Text, TextInput, ScrollView, StyleSheet, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 const ChatBot = () => {
     const [text, setText] = useState("");
