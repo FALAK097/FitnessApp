@@ -77,7 +77,7 @@ const DrawerNavigation = () => {
                   fontWeight: 'bold',
                   color: theme.drawerTextColor,
                 }}>
-                John Doe
+                {/* John Doe */}
               </Text>
             </View>
             <DrawerItemList {...props} />
@@ -86,7 +86,7 @@ const DrawerNavigation = () => {
       }}
       screenOptions={{
         drawerStyle: {
-          backgroundColor: theme.drawerBackgroundColor,
+          backgroundColor: 'black',
           width: 250,
         },
         headerStyle: {
@@ -111,6 +111,17 @@ const DrawerNavigation = () => {
           drawerIcon: () => (
             <Ionicons name="home" size={24} color={theme.drawerIconColor} />
           ),
+        }}
+        component={TabNavigation}
+      />
+      <Drawer.Screen
+        name="DrawChatBot"
+        options={{
+          drawerLabel: 'ChatBot',
+          title: 'ChatBot',
+          headerShadowVisible: false,
+          drawerIcon: () => (
+          <FontAwesome5 name="rocketchat" size={24} color="black" />),
         }}
         component={TabNavigation}
       />

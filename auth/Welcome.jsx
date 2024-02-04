@@ -1,57 +1,37 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import { StatusBar } from 'expo-status-bar';
-import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 export default function Welcome({ navigation }) {
   return (
-    <View className="flex-1 flex justify-end">
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Image
-        className="h-full w-full absolute"
-        source={require('../assets/images/onboarding/getstart.png')}
+        style={{ height: '100%', width: '100%', position: 'absolute' }}
+        source={require('../assets/gif/welcome.gif')}
       />
+      
+      <Animated.View style={{ alignItems: 'center', marginBottom: 40, marginTop: 450 }}>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={{ fontSize: 18, color: '#FFFFFF', fontWeight: '900', textAlign: 'center', marginLeft: 15, marginRight: 15 }}>
+              Unlock Your Ultimate Fitness Potential: Where <Text style={{ color: '#F1BE48' }}>SMART</Text> Meets Sweat
+          </Text>
+      </View>
+      </Animated.View>
 
-      <LinearGradient
-        colors={['transparent', '#181818']}
-        style={{ width: wp(100), height: hp(70) }}
-        start={{ x: 0.5, y: 0 }}
-        end={{ x: 0.5, y: 0.8 }}
-        className="flex justify-end pb-12 space-y-8">
-        <Animated.View
-          entering={FadeInDown.delay(100).springify()}
-          className="flex items-center">
-          <Text
-            style={{ fontSize: hp(5), color: '#FFFFFF' }}
-            className="text-white font-bold tracking-wide">
-            Best <Text style={{ color: '#F1BE48' }}>Workouts</Text>
+      <Animated.View>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.navigate('SignInScreen')}
+          style={{ height: 50, width: 150, backgroundColor: '#F1BE48', borderRadius: 25, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+          <Text style={{ fontSize: 20, color: '#000', fontWeight: 'bold', marginRight: 10 }}>
+            →
           </Text>
-          <Text
-            style={{ fontSize: hp(5) }}
-            className="text-white font-bold tracking-wide">
-            For you
+          <Text style={{ fontSize: 20, color: '#000', fontWeight: '900' }}>
+            Start
           </Text>
-        </Animated.View>
-        <Animated.View entering={FadeInDown.delay(200).springify()}>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => navigation.navigate('SignInScreen')}
-            style={{ height: hp(7), width: wp(80), backgroundColor: '#F1BE48' }}
-            className="button-86 rounded-full flex items-center justify-center mx-auto border-[2px] border-neutral-200">
-            <Text
-              style={{ fontSize: hp(3), color: '#000' }}
-              className="text-white font-bold tracking-wide">
-              Get Started
-            </Text>
-          </TouchableOpacity>
-        </Animated.View>
-      </LinearGradient>
-      <StatusBar style="light" />
+        </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 }
