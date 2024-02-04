@@ -18,7 +18,7 @@ const AppNavigation = () => {
         setUser(user);
         setTimeout(() => {
           setLoading(false);
-        }, 4200);
+        }, 9000);
       },
       (error) => {
         console.error('AuthStateChanged Error:', error);
@@ -33,7 +33,7 @@ const AppNavigation = () => {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Image
-          source={require('../assets/images/onboarding/onboarding.gif')}
+          source={require('../assets/images/onboarding/on11.gif')}
           style={{ width: '100%', height: '100%' }}
           resizeMode="cover"
         />
