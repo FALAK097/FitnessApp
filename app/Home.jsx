@@ -19,7 +19,7 @@ export default function Home() {
   const route = useRoute();
   // const [filteredExercises, setFilteredExercises] = useState([]);
 
-  const { name } = route.params || { name: 'Guest' };
+  const { displayName } = route.params || { displayName: 'Guest' };
 
   const handleAvatarClick = () => {
     navigation.navigate('TabProfile', { screen: ' Profile' });
@@ -61,7 +61,7 @@ export default function Home() {
       }}>
       <StatusBar style="dark" />
 
-      <Header name={name} onPressAvatar={handleAvatarClick} />
+      <Header displayName={displayName} onPressAvatar={handleAvatarClick} />
 
       {/* <SearchBar onSearch={handleSearch} /> */}
 

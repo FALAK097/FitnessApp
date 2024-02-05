@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import {
-  MaterialIcons,
   FontAwesome5,
   FontAwesome,
   Octicons,
@@ -14,6 +13,7 @@ import Profile from '../app/Profile';
 import BodyParts from '../app/BodyParts';
 import MachineDetection from '../app/MachineDetection';
 import DietScreen from '../app/DietScreen';
+import { useEffect, useState } from 'react';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +27,7 @@ const screenOptions = ({ theme }) => {
       right: 0,
       bottom: 0,
       elevation: 0,
-      backgroundColor: theme.drawerBackgroundColor,
+      backgroundColor: 'transparent',
       height: 60,
     },
     tabBarLabelStyle: {
@@ -44,6 +44,16 @@ const screenOptions = ({ theme }) => {
 
 export const TabNavigation = ({ navigation }) => {
   const { theme } = useTheme();
+  const [activeTab, setActiveTab] = useState('TabHome');
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('tabPress', (e) => {
+      const tabName = e.target?.options?.title || 'TabHome';
+      setActiveTab(tabName);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <Tab.Navigator
@@ -160,9 +170,9 @@ export const TabNavigation = ({ navigation }) => {
                     ]
                   : styles.otherBtn
               }>
-              <MaterialIcons
-                name="food-bank"
-                size={30}
+              <Ionicons
+                name="fast-food"
+                size={24}
                 color={focused ? 'white' : theme.textColor}
               />
               <Text
