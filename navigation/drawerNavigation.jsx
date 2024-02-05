@@ -121,7 +121,7 @@ const DrawerNavigation = () => {
           title: 'ChatBot',
           headerShadowVisible: false,
           drawerIcon: () => (
-          <FontAwesome5 name="rocketchat" size={24} color="black" />),
+          <FontAwesome5 name="rocketchat" size={24} color={theme.drawerIconColor} />),
         }}
         component={TabNavigation}
       />

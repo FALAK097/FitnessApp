@@ -1,54 +1,63 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Button, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useTheme } from '../context/ThemeContext';
+import * as Permissions from 'expo-permissions';
+import { Pedometer } from 'expo-sensors';
 
 import Header from '../components/Header';
-// import ImageSlider from '../components/ImageSlider';
-// import SearchBar from '../components/SearchBar';
-// import { fetchExercisesByBodypart } from '../api/exerciseDB';
+import StepCounterPage from '../app/StepCounterPage'; // Import StepCounterPage component
 
 export default function Home() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const route = useRoute();
-  // const [filteredExercises, setFilteredExercises] = useState([]);
-
-  const { name } = route.params || { name: 'Guest' };
+  const { displayName } = route.params || { displayName: 'Guest' };
 
   const handleAvatarClick = () => {
-    navigation.navigate('Profile');
+    navigation.navigate('TabProfile', { screen: ' Profile' });
   };
 
-  // const handleSearch = async (query) => {
-  //   try {
-  //     const exercises = await fetchExercisesByBodypart(query);
-  //     // Check if exercises array is defined and not empty
-  //     if (exercises && exercises.length > 0) {
-  //       // Filter exercises based on the search query
-  //       const filteredExercises = exercises.filter((exercise) =>
-  //         exercise.name.toLowerCase().includes(query.toLowerCase())
-  //       );
-  //       console.log('Search results:', filteredExercises);
-  //       // Update state to reflect the filtered exercises
-  //       setFilteredExercises(filteredExercises);
-  //     } else {
-  //       // Handle case where no exercises were found
-  //       console.log('No exercises found for the given body part');
-  //       setFilteredExercises([]);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error searching exercises:', error);
-  //     // Handle error condition
-  //   }
-  // };
-
-  const handleRedirect = () => {
+  const handleCameraRedirect = () => {
     navigation.navigate('TabCamera', { screen: 'MachineDetection' });
+  };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [stepCount, setStepCount] = useState(0);
+
+  useEffect(() => {
+    const getStepCount = async () => {
+      const { status } = await Permissions.askAsync(Permissions.PEDOMETER);
+      if (status === 'granted') {
+        const start = new Date();
+        start.setHours(0, 0, 0, 0);
+        const end = new Date();
+        const result = await Pedometer.getStepCountAsync(start, end);
+        setStepCount(result.steps);
+        // Watch for step count changes
+        const subscription = Pedometer.watchStepCount(result => {
+          setStepCount(result.steps);
+        });
+        return () => subscription.remove(); // Cleanup subscription
+      } else {
+        console.log('Permission to access the step counter was denied');
+        // Handle permission denied
+      }
+    };
+
+    getStepCount();
+  }, []);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const handleStepCounterPress = () => {
+    toggleModal();
   };
 
   return (
@@ -59,20 +68,53 @@ export default function Home() {
         backgroundColor: theme.mainBackgroundColor,
       }}>
       <StatusBar style="dark" />
+      <Header displayName={displayName} onPressAvatar={handleAvatarClick} />
 
-      <Header name={name} onPressAvatar={handleAvatarClick} />
+      <View style={styles.rowContainer}>
+        <View style={styles.column}>
+          <TouchableOpacity>
+            <Image
+              source={require('../assets/images/camera/camera.gif')}
+              style={styles.smallCardImage}
+            />
+          </TouchableOpacity>
+          <Button
+            title="Click camera"
+            onPress={handleCameraRedirect}
+            color={theme.logOutButton}
+          />
+        </View>
 
-      {/* <SearchBar onSearch={handleSearch} /> */}
+        <View style={styles.column}>
+          <TouchableOpacity>
+            <Image
+              source={require('../assets/gif/steps.gif')}
+              style={styles.smallCardImage}
+            />
+          </TouchableOpacity>
+          <Button
+            title="STEPS COUNTER"
+            onPress={handleStepCounterPress}
+            color={theme.logOutButton}
+          />
+        </View>
+      </View>
 
-      <TouchableOpacity onPress={handleRedirect}>
-        <Image
-          source={require('../assets/images/camera/camera.gif')}
-          style={styles.smallCardImage}
-        />
-      </TouchableOpacity>
-      <Text style={[styles.clickText, { color: theme.textColor }]}>
-        Click camera to begin detection
-      </Text>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <StepCounterPage />
+            <Button title="Close" onPress={toggleModal} />
+          </View>
+        </View>
+      </Modal>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -156,6 +198,39 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     fontWeight: '900',
-    marginBottom: 10,
+    marginLeft: 10,
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  column: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    padding: 0,
+  },
+  stepCountContainer: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  stepCountText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  rightButtonContainer: {
+    backgroundColor: 'black',
+    flex: 1,
+    alignItems: 'flex-end',
+    marginTop: 0, // Add margin-top to move the button down
   },
 });

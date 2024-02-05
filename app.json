@@ -14,14 +14,18 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSMotionUsageDescription": "We need access to motion and fitness data to track your steps."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.falak097.FitnessApp"
+      "package": "com.falak097.FitnessApp",
+      "permissions": ["ACTIVITY_RECOGNITION"]
     },
     "web": {
       "bundler": "metro",

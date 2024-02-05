@@ -21,6 +21,7 @@ import ActivityLevel from '../components/Diet/ActivityLevel';
 import GoalSelection from '../components/Diet/GoalSelection';
 import DietShow from '../components/Diet/DietShow';
 import ChatBot from '../app/ChatBot';
+import StepCounterPage from '../app/StepCounterPage';
 
 const Stack = createStackNavigator();
 
@@ -61,6 +62,7 @@ export const AppStack = () => {
       <Stack.Screen name="GoalSelection" component={GoalSelection}/>
       <Stack.Screen name="DietShow" component={DietShow}/>
       <Stack.Screen name="ChatBot" component={ChatBot}/>
+      <Stack.Screen name="StepCounterPage" component={StepCounterPage}/>
       <Stack.Screen
         name="MachineDetection"
         component={MachineDetection}
