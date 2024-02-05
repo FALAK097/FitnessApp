@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, Button, Modal } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Button,
+  Modal,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -10,11 +18,8 @@ import * as Permissions from 'expo-permissions';
 import { Pedometer } from 'expo-sensors';
 
 import Header from '../components/Header';
-import StepCounterPage from '../app/StepCounterPage'; 
+import StepCounterPage from '../app/StepCounterPage';
 import FloatingButton from '../components/FloatingButton';
-// import ImageSlider from '../components/ImageSlider';
-// import SearchBar from '../components/SearchBar';
-// import { fetchExercisesByBodypart } from '../api/exerciseDB';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -44,7 +49,7 @@ export default function Home() {
         const result = await Pedometer.getStepCountAsync(start, end);
         setStepCount(result.steps);
         // Watch for step count changes
-        const subscription = Pedometer.watchStepCount(result => {
+        const subscription = Pedometer.watchStepCount((result) => {
           setStepCount(result.steps);
         });
         return () => subscription.remove(); // Cleanup subscription
@@ -111,8 +116,7 @@ export default function Home() {
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
-        }}
-      >
+        }}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <StepCounterPage />
