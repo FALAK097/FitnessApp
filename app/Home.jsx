@@ -8,6 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useTheme } from '../context/ThemeContext';
 
 import Header from '../components/Header';
+import FloatingButton from '../components/FloatingButton';
 // import ImageSlider from '../components/ImageSlider';
 // import SearchBar from '../components/SearchBar';
 // import { fetchExercisesByBodypart } from '../api/exerciseDB';
@@ -109,6 +110,7 @@ export default function Home() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <FloatingButton />
     </SafeAreaView>
   );
 }

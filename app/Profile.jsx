@@ -162,7 +162,7 @@ export default function Profile() {
           onPress={pickAvatarFromGallery}>
           <Image style={styles.profileImage} source={avatar} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={pickAvatarFromGallery}>
           <Text
             style={[styles.changeAvatarText, { color: theme.logOutButton }]}>
             Tap to change avatar
