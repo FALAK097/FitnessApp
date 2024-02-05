@@ -4,12 +4,7 @@ import {
   createDrawerNavigator,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {
-  Ionicons,
-  FontAwesome5,
-  MaterialIcons,
-  FontAwesome,
-} from '@expo/vector-icons';
+import { Ionicons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,6 +16,7 @@ import DietScreen from '../app/DietScreen';
 import { TabNavigation } from './tabNavigation';
 import { useTheme } from '../context/ThemeContext';
 import { useAvatar } from '../context/AvatarContext';
+import ChatBot from '../app/ChatBot';
 
 const Drawer = createDrawerNavigator();
 
@@ -50,7 +46,7 @@ const DrawerNavigation = () => {
       drawerContent={(props) => {
         return (
           <SafeAreaView
-            style={{ backgroundColor: theme.drawerBackgroundColor }}>
+            style={{ flex: 1, backgroundColor: theme.drawerBackgroundColor }}>
             <View
               style={{
                 height: 200,
@@ -60,7 +56,9 @@ const DrawerNavigation = () => {
               }}>
               <TouchableOpacity
                 activeOpacity={0.6}
-                onPress={() => navigation.navigate('Profile')}>
+                onPress={() =>
+                  navigation.navigate('TabProfile', { screen: 'Profile' })
+                }>
                 <Image
                   source={avatar}
                   style={{
@@ -86,8 +84,7 @@ const DrawerNavigation = () => {
       }}
       screenOptions={{
         drawerStyle: {
-          backgroundColor: 'black',
-          width: 250,
+          width: 270,
         },
         headerStyle: {
           backgroundColor: theme.drawerBackgroundColor,
@@ -99,11 +96,16 @@ const DrawerNavigation = () => {
           fontSize: 14,
           marginLeft: -10,
         },
+        drawerItemStyle: {
+          marginLeft: 0,
+          paddingLeft: 10,
+        },
         gestureEnabled: true,
         gestureDistanceThreshold: 500,
       }}>
       <Drawer.Screen
         name="DrawHome"
+        component={TabNavigation}
         options={{
           drawerLabel: 'Home',
           title: 'Home',
@@ -112,21 +114,10 @@ const DrawerNavigation = () => {
             <Ionicons name="home" size={24} color={theme.drawerIconColor} />
           ),
         }}
-        component={TabNavigation}
-      />
-      <Drawer.Screen
-        name="DrawChatBot"
-        options={{
-          drawerLabel: 'ChatBot',
-          title: 'ChatBot',
-          headerShadowVisible: false,
-          drawerIcon: () => (
-          <FontAwesome5 name="rocketchat" size={24} color="black" />),
-        }}
-        component={TabNavigation}
       />
       <Drawer.Screen
         name="DrawExercise"
+        component={BodyParts}
         options={{
           drawerLabel: 'Exercise',
           title: 'Exercise',
@@ -139,12 +130,12 @@ const DrawerNavigation = () => {
             />
           ),
         }}
-        component={BodyParts}
       />
       <Drawer.Screen
         name="DrawCamera"
+        component={MachineDetection}
         options={{
-          drawerLabel: 'Camera',
+          drawerLabel: 'Detect',
           title: 'DrawCamera',
           headerShadowVisible: false,
           drawerIcon: () => (
@@ -155,26 +146,26 @@ const DrawerNavigation = () => {
             />
           ),
         }}
-        component={MachineDetection}
       />
       <Drawer.Screen
         name="DrawDiet"
+        component={DietScreen}
         options={{
           drawerLabel: 'Diet',
           title: 'Diet',
           headerShadowVisible: false,
           drawerIcon: () => (
-            <MaterialIcons
-              name="food-bank"
+            <Ionicons
+              name="fast-food"
               size={30}
               color={theme.drawerIconColor}
             />
           ),
         }}
-        component={DietScreen}
       />
       <Drawer.Screen
         name="DrawProfile"
+        component={Profile}
         options={{
           drawerLabel: 'Profile',
           title: 'Profile',
@@ -183,7 +174,6 @@ const DrawerNavigation = () => {
             <FontAwesome name="user" size={24} color={theme.drawerIconColor} />
           ),
         }}
-        component={Profile}
       />
     </Drawer.Navigator>
   );

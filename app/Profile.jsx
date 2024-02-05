@@ -22,7 +22,6 @@ import { FIREBASE_APP } from '../FirebaseConfig';
 import { useTheme } from '../context/ThemeContext';
 import DarkModeSwitch from '../components/DarkModeSwitch';
 import CommonHeader from '../components/CommonHeader';
-import ChatBot from './ChatBot';
 import { useAvatar } from '../context/AvatarContext';
 
 export default function Profile() {
@@ -45,45 +44,6 @@ export default function Profile() {
     } catch (error) {
       console.error('Error fetching avatar:', error);
     }
-  };
-
-  const handleLogout = () => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Yes',
-          onPress: () => {
-            auth
-              .signOut()
-              .then(() => {
-                navigation.navigate('SignInScreen');
-              })
-              .catch((error) => {
-                console.error('Sign out error:', error);
-              });
-          },
-        },
-      ],
-      { cancelable: false }
-    );
-  };
-
-  const navigateToHelp = () => {
-    navigation.navigate('AboutUsScreen');
-  };
-
-  const navigateToFAQ = () => {
-    navigation.navigate('Faq');
-  };
-
-  const navigateToChatBot = () => {
-    navigation.navigate('ChatBot');
   };
 
   const getAvatarFromStorage = async () => {
@@ -140,6 +100,106 @@ export default function Profile() {
 
     return unsubscribe;
   }, [navigation]);
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: () => {
+            auth
+              .signOut()
+              .then(() => {
+                navigation.navigate('SignInScreen');
+              })
+              .catch((error) => {
+                console.error('Sign out error:', error);
+              });
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const navigateToHelp = () => {
+    navigation.navigate('AboutUsScreen');
+  };
+
+  const navigateToFAQ = () => {
+    navigation.navigate('Faq');
+  };
+
+  const navigateToChatBot = () => {
+    navigation.navigate('ChatBot');
+  };
+
+  const handleForgotPassword = () => {
+    Alert.alert(
+      'Reset',
+      'Are you sure you want to reset password?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: () => {
+            auth
+              .signOut()
+              .then(() => {
+                navigation.navigate('ForgotPassword');
+                Alert.alert('Success', 'Enter you email to reset password');
+              })
+              .catch((error) => {
+                console.error('Failed to reset error:', error);
+              });
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const handleDeleteAccount = () => {
+    Alert.alert(
+      'Delete Account',
+      'Are you sure you want to delete your account?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: () => {
+            deleteAccount();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const deleteAccount = () => {
+    auth.currentUser
+      .delete()
+      .then(() => {
+        navigation.navigate('SignInScreen');
+        Alert.alert('Success', 'Account deleted successfully');
+      })
+      .catch((error) => {
+        console.error('Error deleting account:', error);
+        // Handle error if account deletion fails
+      });
+  };
 
   return (
     <ScrollView
@@ -244,6 +304,22 @@ export default function Profile() {
             LOGOUT
           </Text>
         </TouchableOpacity>
+        <View style={styles.bottomTextContainer}>
+          <TouchableOpacity
+            onPress={handleForgotPassword}
+            style={styles.leftTextContainer}>
+            <Text style={[styles.bottomText, { color: theme.logOutButton }]}>
+              Reset Password
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleDeleteAccount}
+            style={styles.rightTextContainer}>
+            <Text style={[styles.bottomText, { color: theme.logOutButton }]}>
+              Delete Account?
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
@@ -256,13 +332,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(4),
   },
   profileContainer: {
-    marginTop: hp(4),
+    marginTop: hp(1),
     alignItems: 'center',
   },
   avatarContainer: {
     borderRadius: wp(10),
     overflow: 'hidden',
-    marginBottom: hp(2),
+    marginBottom: hp(1),
   },
   profileImage: {
     height: hp(20),
@@ -275,7 +351,7 @@ const styles = StyleSheet.create({
   card: {
     width: '100%',
     alignItems: 'center',
-    marginTop: hp(3),
+    marginTop: hp(2),
   },
   button: {
     borderRadius: hp(2),
@@ -292,8 +368,8 @@ const styles = StyleSheet.create({
     marginBottom: hp(2),
     width: '100%',
     alignItems: 'center',
-    flexDirection: 'row', // Align icon and text horizontally
-    justifyContent: 'space-between', // Add space between icon and text
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   logoutButton: {
     flexDirection: 'row',
@@ -310,5 +386,25 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 5,
+  },
+  bottomText: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  bottomTextContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  leftTextContainer: {
+    flex: 1,
+    marginRight: 'auto',
+    alignItems: 'flex-start',
+  },
+  rightTextContainer: {
+    flex: 1,
+    marginLeft: 'auto',
+    alignItems: 'flex-end',
   },
 });
