@@ -82,6 +82,10 @@ export default function Profile() {
     navigation.navigate('Faq');
   };
 
+  const navigateToChatBot = () => {
+    navigation.navigate('ChatBot');
+  };
+
   const getAvatarFromStorage = async () => {
     try {
       const userId = auth.currentUser.uid;
@@ -137,42 +141,6 @@ export default function Profile() {
     return unsubscribe;
   }, [navigation]);
 
-  // const saveAvatarToStorage = async (uri) => {
-  //   try {
-  //     const userId = auth.currentUser.uid;
-  //     const avatarStorageKey = `avatarURI_${userId}`;
-  //     await AsyncStorage.setItem(avatarStorageKey, uri);
-  //     updateAvatar({ uri }); // Update the avatar in the component state
-
-  //     // Emit a navigation event to notify DrawerNavigation about the avatar change
-  //     if (navigation && navigation.emit) {
-  //       navigation.emit('avatarChanged', uri);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error saving avatar URI:', error);
-  //   }
-  // };
-
-  // const pickAvatarFromGallery = async () => {
-  //   let permissionResult =
-  //     await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-  //   if (permissionResult.granted === false) {
-  //     Alert.alert('Permission to access camera roll is required!');
-  //     return;
-  //   }
-
-  //   let pickerResult = await ImagePicker.launchImageLibraryAsync({
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //   });
-
-  //   if (!pickerResult.canceled) {
-  //     updateAvatar({ uri: pickerResult.uri });
-  //     saveAvatarToStorage(pickerResult.uri);
-  //   }
-  // };
-
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -214,12 +182,16 @@ export default function Profile() {
 
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={() => navigation.navigate('ChatBot')}
+          onPress={navigateToChatBot}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
             AI ChatBot
           </Text>
-          <FontAwesome5 name="rocketchat" size={hp(4)} color={theme.textColor} />
+          <FontAwesome5
+            name="rocketchat"
+            size={hp(4)}
+            color={theme.textColor}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
