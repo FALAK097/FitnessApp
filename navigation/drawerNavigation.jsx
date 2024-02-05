@@ -116,6 +116,17 @@ const DrawerNavigation = () => {
         }}
       />
       <Drawer.Screen
+        name="DrawChatBot"
+        options={{
+          drawerLabel: 'ChatBot',
+          title: 'ChatBot',
+          headerShadowVisible: false,
+          drawerIcon: () => (
+          <FontAwesome5 name="rocketchat" size={24} color={theme.drawerIconColor} />),
+        }}
+        component={TabNavigation}
+      />
+      <Drawer.Screen
         name="DrawExercise"
         component={BodyParts}
         options={{
