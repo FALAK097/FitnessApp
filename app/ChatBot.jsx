@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { View, TouchableOpacity, Text, TextInput, ScrollView, StyleSheet, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { SafeAreaView, View, TouchableOpacity, Text, TextInput, ScrollView, StyleSheet, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
+import CommonHeader from '../components/CommonHeader';
 
 const ChatBot = () => {
     const [text, setText] = useState("");
@@ -66,10 +67,12 @@ const ChatBot = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={redirectToProfile} style={styles.backButton}>
-                <Text style={styles.backButtonText}>Go to Profile</Text>
-            </TouchableOpacity>
+        <SafeAreaView style={styles.container}>
+            <CommonHeader
+        title="Chatbot"
+        navigation={navigation}
+        style={{ marginRight: 20 }}
+      />
             <View style={styles.chatContainer}>
                 <ScrollView ref={scrollViewRef} style={styles.scrollView} contentContainerStyle={[styles.contentContainer, { backgroundColor: theme.mainBackgroundColor }]}>
                     {messages.map((message, index) => (
@@ -102,15 +105,14 @@ const ChatBot = () => {
                     </View>
                 </KeyboardAvoidingView>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f0f0f0',
-        paddingTop: 60, 
+        backgroundColor: '#f0f0f0', 
     },
     backButton: {
         position: 'absolute',
