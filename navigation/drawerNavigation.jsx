@@ -46,7 +46,7 @@ const DrawerNavigation = () => {
       drawerContent={(props) => {
         return (
           <SafeAreaView
-            style={{ flex: 1, backgroundColor: theme.drawerBackgroundColor }}>
+            style={{ backgroundColor: theme.drawerBackgroundColor, flex:1 }}>
             <View
               style={{
                 height: 200,
