@@ -22,7 +22,7 @@ export default function Home() {
   const { name } = route.params || { name: 'Guest' };
 
   const handleAvatarClick = () => {
-    navigation.navigate('Profile');
+    navigation.navigate('TabProfile', { screen: ' Profile' });
   };
 
   // const handleSearch = async (query) => {
