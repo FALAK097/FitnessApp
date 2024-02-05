@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAvatar } from '../context/AvatarContext';
 import { useTheme } from '../context/ThemeContext';
 
-export default function Header({ name, onPressAvatar }) {
+export default function Header({ displayName, onPressAvatar }) {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const { avatar, updateAvatar } = useAvatar();
@@ -36,7 +36,7 @@ export default function Header({ name, onPressAvatar }) {
         <Octicons name="three-bars" size={24} color={theme.textColor} />
       </TouchableOpacity>
       <Text style={[styles.usernameText, { color: theme.textColor }]}>
-        Welcome, <Text style={styles.highlightedText}>{name}</Text>
+        Welcome, <Text style={styles.highlightedText}>{displayName}</Text>
       </Text>
       <TouchableOpacity activeOpacity={0.6} onPress={onPressAvatar}>
         <Image source={avatar} style={styles.avatar} />

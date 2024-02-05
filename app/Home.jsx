@@ -10,12 +10,17 @@ import * as Permissions from 'expo-permissions';
 import { Pedometer } from 'expo-sensors';
 
 import Header from '../components/Header';
-import StepCounterPage from '../app/StepCounterPage'; // Import StepCounterPage component
+import StepCounterPage from '../app/StepCounterPage'; 
+import FloatingButton from '../components/FloatingButton';
+// import ImageSlider from '../components/ImageSlider';
+// import SearchBar from '../components/SearchBar';
+// import { fetchExercisesByBodypart } from '../api/exerciseDB';
 
 export default function Home() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const route = useRoute();
+  // const [filteredExercises, setFilteredExercises] = useState([]);
   const { displayName } = route.params || { displayName: 'Guest' };
 
   const handleAvatarClick = () => {
@@ -151,6 +156,7 @@ export default function Home() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <FloatingButton />
     </SafeAreaView>
   );
 }
