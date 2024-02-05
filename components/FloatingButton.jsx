@@ -1,124 +1,149 @@
-import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native'
-  import { React, useRef, useState } from 'react';
-import { AntDesign, Entypo, FontAwesome5, MaterialCommunityIcons, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Animated,
+} from 'react-native';
+import { React, useRef, useState } from 'react';
+import {
+  AntDesign,
+  Entypo,
+  FontAwesome5,
+  MaterialCommunityIcons,
+  Ionicons,
+  MaterialIcons,
+} from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
-
 
 export default function FloatingButton() {
   const navigation = useNavigation();
   const { theme } = useTheme();
   const animation = useRef(new Animated.Value(0)).current;
   const [open, setOpen] = useState(false);
-  
+
   const toggleMenu = () => {
     const toValue = open ? 0 : 1;
     Animated.spring(animation, {
       toValue,
       friction: 5,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start();
 
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   const rotation = {
-    transform : [
+    transform: [
       {
         rotate: animation.interpolate({
-          inputRange: [0,1],
-          outputRange: ["0deg","135deg"]
-        })
-      }
-    ]
-  }
-  
-  const getAnimatedStyle = (index)=>{
-    const angle = (index * (120/2) + 75);
+          inputRange: [0, 1],
+          outputRange: ['0deg', '135deg'],
+        }),
+      },
+    ],
+  };
+
+  const getAnimatedStyle = (index) => {
+    const angle = index * (120 / 2) + 75;
     const radius = 90;
 
     const translateY = animation.interpolate({
-      inputRange: [0,100],
-      outputRange: [0, -radius * Math.sin((angle * Math.PI)/180)]
+      inputRange: [0, 100],
+      outputRange: [0, -radius * Math.sin((angle * Math.PI) / 180)],
     });
     const translateX = animation.interpolate({
-      inputRange: [0,1000],
-      outputRange: [0, radius * Math.cos((angle * Math.PI)/180)]
+      inputRange: [0, 1000],
+      outputRange: [0, radius * Math.cos((angle * Math.PI) / 180)],
     });
     return {
-      transform: [
-        {scale: animation},
-        {translateX}, {translateY}
-      ]
-    }
-  }
+      transform: [{ scale: animation }, { translateX }, { translateY }],
+    };
+  };
 
   return (
-    <View style = {styles.container}>
-      {
-        open &&
+    <View style={styles.container}>
+      {open &&
         [...Array(3)].map((_, index) => (
           <TouchableOpacity key={index}>
-            <Animated.View style={[styles.button, styles.secondary, getAnimatedStyle(index), { backgroundColor: theme.logOutButton }]}>
-              {
-                index === 0 ? (
-                  <MaterialIcons name="food-bank" size={30} color="#fff" onPress={() =>
-                    navigation.navigate('DietScreen')}/>
-                ) : index === 1 ? (
-                  <FontAwesome5 name="dumbbell" size={24} color="#fff" 
-                  onPress={() =>
-                    navigation.navigate('BodyParts')}/>
-                ) : (
-                  <Entypo name="chat" size={24} color="#fff" 
-                  onPress={() =>
-                    navigation.navigate('ChatBot')}/>
-                )
-              }
-              
+            <Animated.View
+              style={[
+                styles.button,
+                styles.secondary,
+                getAnimatedStyle(index),
+                { backgroundColor: theme.logOutButton },
+              ]}>
+              {index === 0 ? (
+                <MaterialIcons
+                  name="food-bank"
+                  size={30}
+                  color="#fff"
+                  onPress={() => navigation.navigate('DietScreen')}
+                />
+              ) : index === 1 ? (
+                <FontAwesome5
+                  name="dumbbell"
+                  size={24}
+                  color="#fff"
+                  onPress={() => navigation.navigate('BodyParts')}
+                />
+              ) : (
+                <Entypo
+                  name="chat"
+                  size={24}
+                  color="#fff"
+                  onPress={() => navigation.navigate('ChatBot')}
+                />
+              )}
             </Animated.View>
           </TouchableOpacity>
-        ))
-      }
+        ))}
       <TouchableOpacity onPress={toggleMenu}>
-        <Animated.View style = {[styles.button, styles.menu, rotation, { backgroundColor: theme.logOutButton }]}>
-            <AntDesign name="plus" size={24} color="#fff" />
+        <Animated.View
+          style={[
+            styles.button,
+            styles.menu,
+            rotation,
+            { backgroundColor: theme.logOutButton },
+          ]}>
+          <AntDesign name="plus" size={24} color="#fff" />
         </Animated.View>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: 0,
-    right: 0
+    right: 0,
   },
   button: {
-    // position: 'absolute',
-    bottom: 70,
-    right:36,
+    bottom: 80,
+    right: 15,
     width: 60,
-    height:60,
+    height: 60,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
     shadowRadius: 10,
-    shadowColor: "#f02a4b",
+    shadowColor: '#f02a4b',
     shadowOpacity: 0.5,
     shadowOffset: {
       width: 0,
-      height: 10
+      height: 10,
     },
-    elevation: 5
+    elevation: 5,
   },
   menu: {
-    backgroundColor: "#f02a4b",
+    backgroundColor: '#f02a4b',
   },
   secondary: {
-    backgroundColor: "#f02a4b"
-  }
-})
+    backgroundColor: '#f02a4b',
+  },
+});
 
 // import React, { useState} from "react";
 // import { View, TouchableOpacity, StyleSheet, Animated } from "react-native";
@@ -217,7 +242,6 @@ const styles = StyleSheet.create({
 //      alignItems: 'center',
 //   }
 // })
-
 
 // import { Image, StyleSheet, Text, View } from 'react-native'
 // import React from 'react'

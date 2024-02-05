@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import CommonHeader from '../components/CommonHeader';
 
 export default function DietScreen() {
   const [selectedGender, setSelectedGender] = useState('Male');
@@ -17,11 +16,6 @@ export default function DietScreen() {
 
   return (
     <View style={styles.container}>
-      <CommonHeader
-        title="DietScreen"
-        navigation={navigation}
-        style={{ marginRight: 20 }}
-      />
       <Text style={styles.title}>Choose Your Gender</Text>
       <View style={styles.genderButtons}>
         <TouchableOpacity
