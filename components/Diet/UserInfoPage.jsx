@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function UserInfoPage() {
   const route = useRoute();
+  const navigation = useNavigation();
+  const { theme } = useTheme();
+
   const { selectedGender } = route.params;
   const [age, setAge] = useState('');
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
-
-  const navigation = useNavigation();
 
   const goToActivityLevel = () => {
     if (age && height && weight) {
@@ -25,24 +33,40 @@ export default function UserInfoPage() {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.mainBackgroundColor },
+      ]}>
       <TextInput
-        style={styles.inputField}
+        style={[
+          styles.inputField,
+          { color: theme.textColor, borderColor: theme.textColor },
+        ]}
         placeholder="Age"
+        placeholderTextColor={theme.textColor}
         keyboardType="numeric"
         value={age}
         onChangeText={setAge}
       />
       <TextInput
-        style={styles.inputField}
+        style={[
+          styles.inputField,
+          { color: theme.textColor, borderColor: theme.textColor },
+        ]}
         placeholder="Height (cm)"
+        placeholderTextColor={theme.textColor}
         keyboardType="numeric"
         value={height}
         onChangeText={setHeight}
       />
       <TextInput
-        style={styles.inputField}
+        style={[
+          styles.inputField,
+          { color: theme.textColor, borderColor: theme.textColor },
+        ]}
         placeholder="Weight (kilograms)"
+        placeholderTextColor={theme.textColor}
         keyboardType="numeric"
         value={weight}
         onChangeText={setWeight}
@@ -69,7 +93,6 @@ const styles = StyleSheet.create({
   inputField: {
     paddingVertical: 10,
     borderBottomWidth: 2,
-    borderColor: 'black',
     width: '80%',
     fontStyle: 'italic',
     fontWeight: 'bold',

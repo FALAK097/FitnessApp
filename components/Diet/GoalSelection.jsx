@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function GoalSelection() {
   const route = useRoute();
+  const navigation = useNavigation();
+  const { theme } = useTheme();
+
   const { selectedGender, age, height, weight, activityLvl } = route.params;
   const [goal, setGoal] = useState(null);
-
-  const navigation = useNavigation();
 
   const goToDietShow = () => {
     if (age && height && weight && selectedGender && activityLvl && goal) {
@@ -25,8 +27,14 @@ export default function GoalSelection() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>What is your goal?</Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.mainBackgroundColor },
+      ]}>
+      <Text style={[styles.header, { color: theme.textColor }]}>
+        What is your goal?
+      </Text>
       <TouchableOpacity
         style={[styles.btn, goal === 'lose' && styles.selectedBtn]}
         onPress={() => setGoal('lose')}>

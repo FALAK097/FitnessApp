@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { useTheme } from '../../context/ThemeContext';
 
-const ActivityLevel = () => {
+export default function ActivityLevel() {
   const route = useRoute();
-  const { selectedGender, age, height, weight } = route.params;
-
   const navigation = useNavigation();
+  const { theme } = useTheme();
+
+  const { selectedGender, age, height, weight } = route.params;
   const [activityLvl, setActivityLvl] = useState(null);
 
   const goToGoalSelection = () => {
@@ -28,8 +30,14 @@ const ActivityLevel = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Select Activity Level</Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.mainBackgroundColor },
+      ]}>
+      <Text style={[styles.header, { color: theme.textColor }]}>
+        Select Activity Level
+      </Text>
 
       <TouchableOpacity
         style={[styles.btn, activityLvl === 'sedentary' && styles.selectedBtn]}
@@ -71,9 +79,7 @@ const ActivityLevel = () => {
       </TouchableOpacity>
     </View>
   );
-};
-
-export default ActivityLevel;
+}
 
 const styles = StyleSheet.create({
   container: {
