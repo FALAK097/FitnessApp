@@ -13,15 +13,19 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
+import {
+  FontAwesome5,
+  MaterialCommunityIcons,
+  Ionicons,
+} from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getAuth } from 'firebase/auth';
 import { FIREBASE_APP } from '../FirebaseConfig';
 import { useTheme } from '../context/ThemeContext';
-import DarkModeSwitch from '../components/DarkModeSwitch';
 import CommonHeader from '../components/CommonHeader';
+import DarkModeSwitch from '../components/DarkModeSwitch';
 import { useAvatar } from '../context/AvatarContext';
 
 export default function Profile() {
@@ -140,65 +144,8 @@ export default function Profile() {
     navigation.navigate('ChatBot');
   };
 
-  const handleForgotPassword = () => {
-    Alert.alert(
-      'Reset',
-      'Are you sure you want to reset password?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Yes',
-          onPress: () => {
-            auth
-              .signOut()
-              .then(() => {
-                navigation.navigate('ForgotPassword');
-                Alert.alert('Success', 'Enter you email to reset password');
-              })
-              .catch((error) => {
-                console.error('Failed to reset error:', error);
-              });
-          },
-        },
-      ],
-      { cancelable: false }
-    );
-  };
-
-  const handleDeleteAccount = () => {
-    Alert.alert(
-      'Delete Account',
-      'Are you sure you want to delete your account?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Yes',
-          onPress: () => {
-            deleteAccount();
-          },
-        },
-      ],
-      { cancelable: false }
-    );
-  };
-
-  const deleteAccount = () => {
-    auth.currentUser
-      .delete()
-      .then(() => {
-        navigation.navigate('SignInScreen');
-        Alert.alert('Success', 'Account deleted successfully');
-      })
-      .catch((error) => {
-        console.error('Error deleting account:', error);
-        // Handle error if account deletion fails
-      });
+  const navigateToSettings = () => {
+    navigation.navigate('Settings');
   };
 
   return (
@@ -233,15 +180,6 @@ export default function Profile() {
       <View style={styles.card}>
         <TouchableOpacity
           activeOpacity={0.6}
-          style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
-          <Text style={[styles.buttonText, { color: theme.textColor }]}>
-            Edit Profile
-          </Text>
-          <FontAwesome5 name="user-edit" size={hp(4)} color={theme.textColor} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          activeOpacity={0.6}
           onPress={navigateToChatBot}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
@@ -264,20 +202,6 @@ export default function Profile() {
 
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={navigateToHelp}
-          style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
-          <Text style={[styles.buttonText, { color: theme.textColor }]}>
-            About us
-          </Text>
-          <FontAwesome5
-            name="info-circle"
-            size={hp(4)}
-            color={theme.textColor}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          activeOpacity={0.6}
           onPress={navigateToFAQ}
           style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
           <Text style={[styles.buttonText, { color: theme.textColor }]}>
@@ -285,6 +209,34 @@ export default function Profile() {
           </Text>
           <MaterialCommunityIcons
             name="comment-text-multiple"
+            size={hp(4)}
+            color={theme.textColor}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={navigateToHelp}
+          style={[styles.button, { backgroundColor: theme.backgroundColor }]}>
+          <Text style={[styles.buttonText, { color: theme.textColor }]}>
+            About us
+          </Text>
+          <Ionicons
+            name="information-circle-outline"
+            size={hp(5)}
+            color={theme.textColor}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={[styles.button, { backgroundColor: theme.backgroundColor }]}
+          onPress={navigateToSettings}>
+          <Text style={[styles.buttonText, { color: theme.textColor }]}>
+            Settings
+          </Text>
+          <Ionicons
+            name="settings-outline"
             size={hp(4)}
             color={theme.textColor}
           />
@@ -304,22 +256,6 @@ export default function Profile() {
             LOGOUT
           </Text>
         </TouchableOpacity>
-        <View style={styles.bottomTextContainer}>
-          <TouchableOpacity
-            onPress={handleForgotPassword}
-            style={styles.leftTextContainer}>
-            <Text style={[styles.bottomText, { color: theme.logOutButton }]}>
-              Reset Password
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={handleDeleteAccount}
-            style={styles.rightTextContainer}>
-            <Text style={[styles.bottomText, { color: theme.logOutButton }]}>
-              Delete Account?
-            </Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </ScrollView>
   );
@@ -328,7 +264,7 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: hp(4),
+    paddingTop: hp(2.5),
     paddingHorizontal: wp(4),
   },
   profileContainer: {
@@ -386,25 +322,5 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 5,
-  },
-  bottomText: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  bottomTextContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  leftTextContainer: {
-    flex: 1,
-    marginRight: 'auto',
-    alignItems: 'flex-start',
-  },
-  rightTextContainer: {
-    flex: 1,
-    marginLeft: 'auto',
-    alignItems: 'flex-end',
   },
 });
