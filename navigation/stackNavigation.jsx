@@ -7,21 +7,22 @@ import SignUpScreen from '../auth/SignUpScreen';
 import ForgotPassword from '../auth/ForgotPassword';
 import VerifyEmailScreen from '../auth/VerifyEmailScreen';
 
+import DrawerNavigation from './drawerNavigation';
+import BodyParts from '../app/BodyParts';
 import Exercises from '../app/Exercises';
 import ExerciseDetails from '../app/ExerciseDetails';
-import Profile from '../app/Profile';
 import MachineDetection from '../app/MachineDetection';
-import AboutUsScreen from '../app/AboutUsScreen';
-import BodyParts from '../app/BodyParts';
+import StepCounterPage from '../app/StepCounterPage';
 import DietScreen from '../app/DietScreen';
-import Faq from '../app/Faq';
-import DrawerNavigation from './drawerNavigation';
 import UserInfoPage from '../components/Diet/UserInfoPage';
 import ActivityLevel from '../components/Diet/ActivityLevel';
 import GoalSelection from '../components/Diet/GoalSelection';
 import DietShow from '../components/Diet/DietShow';
+import Profile from '../app/Profile';
+import AboutUsScreen from '../app/AboutUsScreen';
+import Faq from '../app/Faq';
 import ChatBot from '../app/ChatBot';
-import StepCounterPage from '../app/StepCounterPage';
+import Settings from '../app/Settings';
 
 const Stack = createStackNavigator();
 
@@ -50,19 +51,11 @@ export const AppStack = () => {
       initialRouteName="Home"
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={DrawerNavigation} />
+
+      <Stack.Screen name="BodyParts" component={BodyParts} />
       <Stack.Screen name="Exercises" component={Exercises} />
       <Stack.Screen name="ExerciseDetails" component={ExerciseDetails} />
-      <Stack.Screen name="BodyParts" component={BodyParts} />
-      <Stack.Screen name="DietScreen" component={DietScreen} />
-      <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} />
-      <Stack.Screen name="Faq" component={Faq} />
-      <Stack.Screen name="UserInfoPage" component={UserInfoPage} />
-      <Stack.Screen name="ActivityLevel" component={ActivityLevel}/>
-      <Stack.Screen name="GoalSelection" component={GoalSelection}/>
-      <Stack.Screen name="DietShow" component={DietShow}/>
-      <Stack.Screen name="ChatBot" component={ChatBot}/>
-      <Stack.Screen name="StepCounterPage" component={StepCounterPage}/>
+
       <Stack.Screen
         name="MachineDetection"
         component={MachineDetection}
@@ -70,6 +63,20 @@ export const AppStack = () => {
           presentation: 'modal',
         }}
       />
+
+      <Stack.Screen name="StepCounterPage" component={StepCounterPage} />
+
+      <Stack.Screen name="DietScreen" component={DietScreen} />
+      <Stack.Screen name="ActivityLevel" component={ActivityLevel} />
+      <Stack.Screen name="UserInfoPage" component={UserInfoPage} />
+      <Stack.Screen name="GoalSelection" component={GoalSelection} />
+      <Stack.Screen name="DietShow" component={DietShow} />
+
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} />
+      <Stack.Screen name="Faq" component={Faq} />
+      <Stack.Screen name="ChatBot" component={ChatBot} />
+      <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );
 };
