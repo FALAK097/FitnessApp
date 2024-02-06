@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../context/ThemeContext';
 
 export default function DietScreen() {
   const [selectedGender, setSelectedGender] = useState('Male');
   const navigation = useNavigation();
+  const { theme } = useTheme();
 
   const goToUserInfo = () => {
     navigation.navigate('UserInfoPage', { selectedGender });
@@ -15,11 +17,21 @@ export default function DietScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Choose Your Gender</Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.mainBackgroundColor },
+      ]}>
+      <Text style={[styles.title, { color: theme.textColor }]}>
+        Choose Your Gender
+      </Text>
       <View style={styles.genderButtons}>
         <TouchableOpacity
-          style={selectedGender === 'Male' ? styles.selectedBtn : styles.btn}
+          style={
+            selectedGender === 'Male'
+              ? [styles.selectedBtn, { borderColor: theme.textColor }]
+              : styles.btn
+          }
           onPress={() => handleGenderSelection('Male')}>
           <Image
             source={require('../assets/images/diet/Male.png')}
@@ -31,7 +43,11 @@ export default function DietScreen() {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={selectedGender === 'Female' ? styles.selectedBtn : styles.btn}
+          style={
+            selectedGender === 'Female'
+              ? [styles.selectedBtn, { borderColor: theme.textColor }]
+              : styles.btn
+          }
           onPress={() => handleGenderSelection('Female')}>
           <Image
             source={require('../assets/images/diet/Female.png')}
@@ -68,14 +84,12 @@ const styles = StyleSheet.create({
   },
   btn: {
     paddingHorizontal: 20,
-    backgroundColor: '#777',
     margin: 10,
     paddingVertical: 10,
     borderRadius: 10,
   },
   selectedBtn: {
     paddingHorizontal: 20,
-    backgroundColor: '#555',
     margin: 10,
     paddingVertical: 10,
     borderRadius: 10,

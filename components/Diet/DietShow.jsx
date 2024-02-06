@@ -8,9 +8,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function DietShow() {
   const route = useRoute();
+  const { theme } = useTheme();
   const { selectedGender, age, height, weight, activityLvl, goal } =
     route.params;
   const [apiData, setApiData] = useState(null);
@@ -19,9 +21,8 @@ export default function DietShow() {
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        const apiUrl = 'http://192.168.31.155:5000/generate_meals'; // Replace with your API URL
-
-//         const apiUrl = process.env.EXPO_PUBLIC_DIET_API + '/generate_meals';
+        const apiUrl = 'http://192.168.1.103:5000/generate_meals'; // Replace with your API URL
+        // const apiUrl = process.env.EXPO_PUBLIC_DIET_API + '/generate_meals';
 
         const requestOptions = {
           method: 'POST',
@@ -51,10 +52,19 @@ export default function DietShow() {
   }, [age, weight, height, selectedGender, activityLvl, goal]);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.mainBackgroundColor,
+        },
+      ]}>
       {/* Add Veg/Non-Veg Switch */}
       <View style={styles.switchContainer}>
-        <Text style={styles.switchLabel}>Non-Veg</Text>
+        <Text style={[styles.switchLabel, { color: theme.textColor }]}>
+          Non-Veg
+        </Text>
         <Switch
           trackColor={{ false: '#767577', true: '#81b0ff' }}
           thumbColor={isVeg ? '#f5dd4b' : '#f4f3f4'}
@@ -62,50 +72,59 @@ export default function DietShow() {
           onValueChange={() => setIsVeg((prev) => !prev)}
           value={isVeg}
         />
-        <Text style={styles.switchLabel}>Veg</Text>
+        <Text style={[styles.switchLabel, { color: theme.textColor }]}>
+          Veg
+        </Text>
       </View>
 
       {/* Display API data */}
       {apiData && (
         <View>
-          <Text style={styles.sectionHeader}>Calories Information:</Text>
-          <Text>
+          <Text style={[styles.sectionHeader, { color: theme.textColor }]}>
+            Calories Information:
+          </Text>
+          <Text style={{ color: theme.textColor }}>
             Total Calories per Day: {apiData.calories['calories-per-day']}
           </Text>
-          <Text>
+          <Text style={{ color: theme.textColor }}>
             Breakfast Calories: {apiData.calories['breakfast-calories-per-day']}
           </Text>
-          <Text>
+          <Text style={{ color: theme.textColor }}>
             Lunch Calories: {apiData.calories['lunch-calories-per-day']}
           </Text>
-          <Text>
+          <Text style={{ color: theme.textColor }}>
             Dinner Calories: {apiData.calories['dinner-calories-per-day']}
           </Text>
 
-          <Text style={styles.sectionHeader}>
+          <Text style={[styles.sectionHeader, { color: theme.textColor }]}>
             {isVeg ? 'Veg Meal Options:' : 'Non-Veg Meal Options:'}
           </Text>
-          <MealOptions options={isVeg ? apiData.veg : apiData.non_veg} />
+          <MealOptions
+            options={isVeg ? apiData.veg : apiData.non_veg}
+            theme={theme}
+          />
         </View>
       )}
     </ScrollView>
   );
 }
 
-const MealOptions = ({ options }) => (
+const MealOptions = ({ options, theme }) => (
   <View>
-    <Text style={styles.mealType}>Breakfast:</Text>
-    <Text>options to choose from:</Text>
+    <Text style={[styles.mealType, { color: theme.textColor }]}>
+      Breakfast:
+    </Text>
+    <Text style={{ color: theme.textColor }}>Options to choose from:</Text>
 
     {renderOptions(options.breakfast)}
 
-    <Text style={styles.mealType}>Lunch:</Text>
-    <Text>options to choose from:</Text>
+    <Text style={[styles.mealType, { color: theme.textColor }]}>Lunch:</Text>
+    <Text style={{ color: theme.textColor }}>Options to choose from:</Text>
 
     {renderOptions(options.lunch)}
 
-    <Text style={styles.mealType}>Dinner:</Text>
-    <Text>options to choose from:</Text>
+    <Text style={[styles.mealType, { color: theme.textColor }]}>Dinner:</Text>
+    <Text style={{ color: theme.textColor }}>Options to choose from:</Text>
 
     {renderOptions(options.dinner)}
   </View>
@@ -124,7 +143,8 @@ const renderOptions = (options) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingBottom: 40,
+    paddingHorizontal: 20,
   },
   sectionHeader: {
     fontSize: 18,

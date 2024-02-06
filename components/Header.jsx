@@ -65,17 +65,16 @@ const styles = StyleSheet.create({
   avatar: {
     height: 50,
     width: 50,
-    borderRadius: 25, // Make the avatar circular
-    borderWidth: 2, // Add a border
-    borderColor: '#fff', // Border color
-    shadowColor: '#000', // Shadow color
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: '#fff',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
   },
   usernameText: {
     fontSize: 22,

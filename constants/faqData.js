@@ -2,7 +2,7 @@ export const frequentlyAskedQuestions = [
   {
     question: 'How to access Smart Camera?',
     answer:
-      'To access the Smart Camera feature, navigate to the home screen and locate the camera icon on the top right corner, next to your avatar. Tap on the camera icon to access the Smart Camera.',
+      'To access the Smart Camera feature, navigate to the home screen and locate the camera icon on the tab bar at the bottom. Tap on the camera icon to access the Smart Camera.',
   },
   {
     question: 'How to use Smart Camera - Step 1?',

@@ -7,59 +7,63 @@ import {
   Image,
   Button,
   Modal,
+  PermissionsAndroid,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useTheme } from '../context/ThemeContext';
-import * as Permissions from 'expo-permissions';
-import { Pedometer } from 'expo-sensors';
 
+import { useTheme } from '../context/ThemeContext';
 import Header from '../components/Header';
 import StepCounterPage from '../app/StepCounterPage';
 import FloatingButton from '../components/FloatingButton';
 
 export default function Home() {
+  const route = useRoute();
   const navigation = useNavigation();
   const { theme } = useTheme();
-  const route = useRoute();
-  // const [filteredExercises, setFilteredExercises] = useState([]);
+
   const { displayName } = route.params || { displayName: 'Guest' };
 
-  const handleAvatarClick = () => {
-    navigation.navigate('TabProfile', { screen: ' Profile' });
-  };
-
-  const handleCameraRedirect = () => {
-    navigation.navigate('TabCamera', { screen: 'MachineDetection' });
-  };
-
   const [modalVisible, setModalVisible] = useState(false);
+  const [isPermissionGranted, setIsPermissionGranted] = useState(false);
   const [stepCount, setStepCount] = useState(0);
 
   useEffect(() => {
-    const getStepCount = async () => {
-      const { status } = await Permissions.askAsync(Permissions.PEDOMETER);
-      if (status === 'granted') {
-        const start = new Date();
-        start.setHours(0, 0, 0, 0);
-        const end = new Date();
-        const result = await Pedometer.getStepCountAsync(start, end);
-        setStepCount(result.steps);
-        // Watch for step count changes
-        const subscription = Pedometer.watchStepCount((result) => {
-          setStepCount(result.steps);
-        });
-        return () => subscription.remove(); // Cleanup subscription
-      } else {
-        console.log('Permission to access the step counter was denied');
-        // Handle permission denied
+    const checkPermission = async () => {
+      try {
+        const granted = await PermissionsAndroid.check(
+          PermissionsAndroid.PERMISSIONS.ACTIVITY_RECOGNITION
+        );
+
+        if (!granted) {
+          const result = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACTIVITY_RECOGNITION,
+            {
+              title: 'Pedometer Permission',
+              message: 'This app requires permission to count your steps.',
+              buttonNegative: 'Cancel',
+              buttonPositive: 'OK',
+            }
+          );
+
+          if (result === PermissionsAndroid.RESULTS.GRANTED) {
+            setIsPermissionGranted(true);
+          } else {
+            // Handle the case where the user cancels the permission request
+            console.log('Permission request cancelled');
+          }
+        } else {
+          setIsPermissionGranted(true);
+        }
+      } catch (error) {
+        console.error('Error checking or requesting permission:', error);
       }
     };
 
-    getStepCount();
+    checkPermission();
   }, []);
 
   const toggleModal = () => {
@@ -68,6 +72,14 @@ export default function Home() {
 
   const handleStepCounterPress = () => {
     toggleModal();
+  };
+
+  const handleAvatarClick = () => {
+    navigation.navigate('TabProfile', { screen: ' Profile' });
+  };
+
+  const handleCameraRedirect = () => {
+    navigation.navigate('TabCamera', { screen: 'MachineDetection' });
   };
 
   return (
@@ -120,7 +132,6 @@ export default function Home() {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <StepCounterPage />
-            <Button title="Close" onPress={toggleModal} />
           </View>
         </View>
       </Modal>
@@ -241,6 +252,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     flex: 1,
     alignItems: 'flex-end',
-    marginTop: 0, // Add margin-top to move the button down
+    marginTop: 0,
   },
 });
