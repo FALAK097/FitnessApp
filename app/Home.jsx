@@ -92,49 +92,37 @@ export default function Home() {
       <StatusBar style="dark" />
       <Header displayName={displayName} onPressAvatar={handleAvatarClick} />
 
-      <View style={styles.rowContainer}>
-        <View style={styles.column}>
-          <TouchableOpacity>
-            <Image
-              source={require('../assets/images/camera/camera.gif')}
-              style={styles.smallCardImage}
+      <View style={styles.upperContainer}>
+        <View style={styles.rowContainer}>
+          <View style={[styles.column, styles.buttonContainer]}>
+            <TouchableOpacity>
+              <Image
+                source={require('../assets/images/camera/camera.gif')}
+                style={styles.smallCardImage}
+              />
+            </TouchableOpacity>
+            <Button
+              title="Click camera"
+              onPress={handleCameraRedirect}
+              color="black" // Set color to black
             />
-          </TouchableOpacity>
-          <Button
-            title="Click camera"
-            onPress={handleCameraRedirect}
-            color={theme.logOutButton}
-          />
-        </View>
+          </View>
 
-        <View style={styles.column}>
-          <TouchableOpacity>
-            <Image
-              source={require('../assets/gif/steps.gif')}
-              style={styles.smallCardImage}
+          <View style={[styles.column, styles.buttonContainer]}>
+            <TouchableOpacity>
+              <Image
+                source={require('../assets/gif/steps2.gif')}
+                style={styles.smallCardImage}
+              />
+            </TouchableOpacity>
+            <Button
+              title="STEPS COUNTER"
+              onPress={handleStepCounterPress}
+              color="black" // Set color to black
             />
-          </TouchableOpacity>
-          <Button
-            title="STEPS COUNTER"
-            onPress={handleStepCounterPress}
-            color={theme.logOutButton}
-          />
-        </View>
-      </View>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <StepCounterPage />
           </View>
         </View>
-      </Modal>
+      </View>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -172,6 +160,21 @@ export default function Home() {
         </View>
       </ScrollView>
       <FloatingButton />
+
+      {/* Modal Section */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <StepCounterPage />
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -180,7 +183,8 @@ const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
+    marginTop: 10,
   },
   card: {
     width: '100%',
@@ -189,6 +193,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginBottom: 10,
     marginTop: 20,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   cardImage: {
     width: '100%',
@@ -225,7 +231,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 100,
   },
   column: {
     flex: 1,
@@ -253,5 +259,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
     marginTop: 0,
+  },
+  upperContainer: {
+    backgroundColor: '#F1BE48',
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    marginBottom: 10,
+  },
+  buttonContainer: {
+    borderRadius: 50,
+    overflow: 'hidden',
   },
 });
