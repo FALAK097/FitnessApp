@@ -25,7 +25,10 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.falak097.FitnessApp",
-      "permissions": ["ACTIVITY_RECOGNITION"]
+      "permissions": [
+        "android.permission.ACTIVITY_RECOGNITION",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",

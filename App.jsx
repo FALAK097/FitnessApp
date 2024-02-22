@@ -5,8 +5,6 @@ import { ActivityIndicator } from 'react-native';
 import { AvatarProvider } from './context/AvatarContext';
 import { AppNavigation } from './navigation/appNavigation';
 
-//const AppNavigation = lazy(() => import('./navigation/appNavigation'));
-
 LogBox.ignoreLogs(['Warning: ViewPropTypes', 'Warning: Failed prop type']);
 
 export default function App() {
