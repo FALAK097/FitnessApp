@@ -3,8 +3,7 @@ import { Suspense } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { ActivityIndicator } from 'react-native';
 import { AvatarProvider } from './context/AvatarContext';
-
-const AppNavigation = lazy(() => import('./navigation/appNavigation'));
+import { AppNavigation } from '../navigation/appNavigation';
 
 LogBox.ignoreLogs(['Warning: ViewPropTypes', 'Warning: Failed prop type']);
 
