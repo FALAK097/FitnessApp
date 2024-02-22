@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -25,20 +27,29 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.falak097.FitnessApp",
-      "permissions": ["ACTIVITY_RECOGNITION"]
+      "permissions": [
+        "android.permission.ACTIVITY_RECOGNITION",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/icons/icon.png"
     },
-    "plugins": ["expo-router", "expo-image-picker"],
+    "plugins": [
+      "expo-router",
+      "expo-image-picker"
+    ],
     "experiments": {
       "typedRoutes": true
     },
     "extra": {
       "router": {
         "origin": false
+      },
+      "eas": {
+        "projectId": "309c5145-d50e-43d6-80b4-2982bc8aa041"
       }
     }
   }

@@ -1,4 +1,4 @@
-export const rapidApiKey = process.env.RAPID_API_KEY;
+export const rapidApiKey = process.env.EXPO_RAPID_API_KEY;
 
 export const sliderImages = [
   require('../assets/images/diet/diet1.jpg'),

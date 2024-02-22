@@ -18,7 +18,6 @@ import { useNavigation } from '@react-navigation/native';
 import { bodyParts } from '../constants';
 import { useTheme } from '../context/ThemeContext';
 import CommonHeader from '../components/CommonHeader';
-import { ScrollView } from 'react-native-gesture-handler';
 
 export default function BodyParts() {
   const navigation = useNavigation();
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 12,
-    // paddingBottom: 60, --> dont' change this bcz on drawer it doesn't look good
+    paddingBottom: 60, // for bottom tab
   },
   columnWrapper: {
     justifyContent: 'space-between',

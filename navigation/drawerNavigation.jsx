@@ -13,10 +13,11 @@ import BodyParts from '../app/BodyParts';
 import Profile from '../app/Profile';
 import MachineDetection from '../app/MachineDetection';
 import DietScreen from '../app/DietScreen';
+import ChatBot from '../app/ChatBot';
+
 import { TabNavigation } from './tabNavigation';
 import { useTheme } from '../context/ThemeContext';
 import { useAvatar } from '../context/AvatarContext';
-import ChatBot from '../app/ChatBot';
 
 const Drawer = createDrawerNavigator();
 
@@ -46,7 +47,7 @@ const DrawerNavigation = () => {
       drawerContent={(props) => {
         return (
           <SafeAreaView
-            style={{ backgroundColor: theme.drawerBackgroundColor, flex:1 }}>
+            style={{ backgroundColor: theme.drawerBackgroundColor, flex: 1 }}>
             <View
               style={{
                 height: 200,
@@ -122,9 +123,14 @@ const DrawerNavigation = () => {
           title: 'ChatBot',
           headerShadowVisible: false,
           drawerIcon: () => (
-          <FontAwesome5 name="rocketchat" size={24} color={theme.drawerIconColor} />),
+            <FontAwesome5
+              name="rocketchat"
+              size={24}
+              color={theme.drawerIconColor}
+            />
+          ),
         }}
-        component={TabNavigation}
+        component={ChatBot}
       />
       <Drawer.Screen
         name="DrawExercise"
